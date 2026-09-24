@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.parse import quote
 R=Path(__file__).parent;OUT=R/'site'
 def cfg():
- c={'providers':[],'discovery':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://lumafare.com'};sec=''
+ c={'providers':[],'discovery':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://vps-deals-promo-radar.pages.dev'};sec=''
  for raw in (R/'.ilang/site.ilang').read_text(encoding='utf8').splitlines():
   s=raw.strip()
   if s.startswith('::STATE'):c.update({k:v.strip() for k,v in re.findall(r'(brand|niche|domain|locale):([^,}]+)',s)})
