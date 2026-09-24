@@ -1,0 +1,25 @@
+ILANG
+TYPE:config PROJECT:vps-deals LANG:zh
+::STATE{@SITE, brand:vps-deals, niche:VPS hosting deals, domain:https://vps-deals-promo-radar.pages.dev, locale:en-US}
+::MODULE{PROVIDERS|title:Official public sources; edit here to change the site}
+  Hostinger | https://www.hostinger.com/ | https://www.hostinger.com/vps-hosting |
+  Hetzner | https://www.hetzner.com/ | https://www.hetzner.com/hosting/ |
+  DigitalOcean | https://www.digitalocean.com/ | https://www.digitalocean.com/pricing/droplets |
+  Vultr | https://www.vultr.com/ | https://www.vultr.com/products/cloud-compute/ |
+  Linode (Akamai) | https://www.linode.com/ | https://www.linode.com/pricing/ |
+::MODULE{DISCOVERY|title:Fallback candidates used when PROVIDERS has no entries}
+  Hostinger | https://www.hostinger.com/ | https://www.hostinger.com/vps-hosting |
+  Hetzner | https://www.hetzner.com/ | https://www.hetzner.com/hosting/ |
+  DigitalOcean | https://www.digitalocean.com/ | https://www.digitalocean.com/pricing/droplets |
+  Vultr | https://www.vultr.com/ | https://www.vultr.com/products/cloud-compute/ |
+  Linode (Akamai) | https://www.linode.com/ | https://www.linode.com/pricing/ |
+::MODULE{FIELDS|title:Offer fields}
+  title price currency offer_url valid_until source_url fetched_at
+::MODULE{RENDER|title:Generated pages and indexing}
+  templates/index.html templates/provider.html templates/deal.html templates/compare.html
+  site/sitemap.xml site/robots.txt
+::RULE{updates_every:6h}
+::RULE{if PROVIDERS is empty, scan only the public official candidates listed in DISCOVERY}
+::RULE{only publish prices and expiry dates explicitly present on official source pages}
+::RULE{check robots.txt; no login, bypass, or anti-bot evasion; expired offers are not active}
+::BOUNDARY{never:invent offers prices discounts expiration dates or commissions|scope:permanent}

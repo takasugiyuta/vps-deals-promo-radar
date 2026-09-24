@@ -1,0 +1,40 @@
+{
+  "fetched_at": "2026-09-24T15:38:11+00:00",
+  "offers": [
+    {
+      "provider": "Hostinger",
+      "title": "Student discount",
+      "offer_url": "https://www.hostinger.com/student-discount",
+      "source_url": "https://www.hostinger.com/vps-hosting",
+      "fetched_at": "2026-09-24T15:38:11+00:00"
+    },
+    {
+      "provider": "Hostinger",
+      "title": "70% off — Hostinger VPS page",
+      "offer_url": "https://www.hostinger.com/vps-hosting",
+      "source_url": "https://www.hostinger.com/vps-hosting",
+      "fetched_at": "2026-09-24T15:38:11+00:00"
+    },
+    {
+      "provider": "Hostinger",
+      "title": "67% off — Hostinger VPS page",
+      "offer_url": "https://www.hostinger.com/vps-hosting",
+      "source_url": "https://www.hostinger.com/vps-hosting",
+      "fetched_at": "2026-09-24T15:38:11+00:00"
+    },
+    {
+      "provider": "Hostinger",
+      "title": "63% off — Hostinger VPS page",
+      "offer_url": "https://www.hostinger.com/vps-hosting",
+      "source_url": "https://www.hostinger.com/vps-hosting",
+      "fetched_at": "2026-09-24T15:38:11+00:00"
+    },
+    {
+      "provider": "Hostinger",
+      "title": "65% off — Hostinger VPS page",
+      "offer_url": "https://www.hostinger.com/vps-hosting",
+      "source_url": "https://www.hostinger.com/vps-hosting",
+      "fetched_at": "2026-09-24T15:38:11+00:00"
+    }
+  ]
+}
