@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.parse import quote
 R=Path(__file__).parent;OUT=R/'site'
 def cfg():
- c={'providers':[],'discovery':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://vps-deals-promo-radar.pages.dev'};sec=''
+ c={'providers':[],'discovery':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://lumafare.com'};sec=''
  for raw in (R/'.ilang/site.ilang').read_text(encoding='utf8').splitlines():
   s=raw.strip()
   if s.startswith('::STATE'):c.update({k:v.strip() for k,v in re.findall(r'(brand|niche|domain|locale):([^,}]+)',s)})
@@ -51,7 +51,7 @@ def main():
  for p in c['providers']:
   s=slug(p['name']);path='/providers/'+s+'.html';urls.append(path);(OUT/'providers').mkdir(exist_ok=True)
   b=f'<main><p><a href="/">Home</a></p><h1>{e(p["name"])} VPS</h1><p>See current plans and promotions on the official provider page.</p><p><a href="{e(p["source_url"])}">Official source ↗</a></p><h2>Promotion links</h2><section class="grid">'+''.join(card(o) for o in offers if o.get('provider')==p['name'])+'</section></main>'
-  provider_ld={'@context':'https://schema.org','@type':'Product','name':p['name']+' VPS hosting','brand':{'@type':'Brand','name':p['name']},'url':p['url']}
+  provider_ld={'@context':'https://schema.org','@graph':[{'@type':'Product','name':p['name']+' VPS hosting','brand':{'@type':'Brand','name':p['name']},'url':p['url']},{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base+'/'},{'@type':'ListItem','position':2,'name':p['name'],'item':base+path}]}]}
   (OUT/'providers'/f'{s}.html').write_text(page(p['name']+' VPS offers | '+c['brand']+' · '+datetime.now(timezone.utc).strftime('%B %Y'),'Official source links for '+p['name']+'.',path,b,provider_ld),encoding='utf8')
  for o in offers:
   if o.get('status')=='unverified':continue
@@ -59,11 +59,11 @@ def main():
   provider=next((x for x in c['providers'] if x['name']==o.get('provider')), {})
   target=provider.get('affiliate_url') or o.get('offer_url','#'); label='Continue to provider ↗' if provider.get('affiliate_url') else 'Open official provider source ↗'
   b=f'<main><p><a href="/">Home</a></p><h1>{e(o.get("title","Official offer"))}</h1><p>Confirm price, availability and terms on the original provider page.</p><p><a href="{e(target)}" rel="{'sponsored nofollow' if provider.get('affiliate_url') else 'nofollow'}">{label}</a></p></main>'
-  ld=None
-  if o.get('price') and o.get('currency'):
-   ld={'@context':'https://schema.org','@type':'Offer','name':o.get('title'),'url':o.get('offer_url'),'price':o['price'],'priceCurrency':o['currency'],'availability':'https://schema.org/InStock'}
-   if o.get('valid_until'):ld['priceValidUntil']=o['valid_until']
-  (OUT/'deals'/f'{s}.html').write_text(page(o.get('title','Offer')+' | '+c['brand'],'Official '+o.get('provider','provider')+' offer source.',path,b,ld),encoding='utf8')
+  offer={'@type':'Offer','name':o.get('title'),'url':o.get('offer_url'),'seller':{'@type':'Organization','name':o.get('provider')}}
+  if o.get('price') and o.get('currency'):offer.update({'price':o['price'],'priceCurrency':o['currency']})
+  if o.get('valid_until'):offer['priceValidUntil']=o['valid_until']
+  ld={'@context':'https://schema.org','@graph':[offer,{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base+'/'},{'@type':'ListItem','position':2,'name':o.get('provider'),'item':base+'/providers/'+slug(o.get('provider',''))+'.html'},{'@type':'ListItem','position':3,'name':o.get('title'),'item':base+path}]}]}
+  (OUT/'deals'/f'{s}.html').write_text(page(o.get('title','Offer')+' | '+c['brand']+' · '+datetime.now(timezone.utc).strftime('%B %Y'),'Official '+o.get('provider','provider')+' offer source, checked '+datetime.now(timezone.utc).strftime('%B %Y')+'.',path,b,ld),encoding='utf8')
  stamp=(d.get('fetched_at') or datetime.now(timezone.utc).date().isoformat())[:10]
  (OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{e(base+x)}</loc><lastmod>{stamp}</lastmod></url>\n' for x in urls)+'</urlset>\n',encoding='utf8')
  (OUT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n',encoding='utf8');print(f'Built {len(urls)} pages with {len(offers)} offer links')
