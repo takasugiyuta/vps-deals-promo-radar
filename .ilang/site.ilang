@@ -1,6 +1,6 @@
 ILANG
 TYPE:config PROJECT:vps-deals LANG:zh
-::STATE{@SITE, brand:vps-deals, niche:VPS hosting deals, domain:https://lumafare.com, locale:en-US}
+::STATE{@SITE, brand:vps-deals, niche:VPS hosting deals, domain:https://lumafare.com, locale:en-US, contact_email:contact@lumafare.com}
 ::MODULE{PROVIDERS|title:Official public sources; edit here to change the site}
   Hostinger | https://www.hostinger.com/ | https://www.hostinger.com/vps-hosting |
   Hetzner | https://www.hetzner.com/ | https://www.hetzner.com/hosting/ |
@@ -13,6 +13,8 @@ TYPE:config PROJECT:vps-deals LANG:zh
   DigitalOcean | https://www.digitalocean.com/ | https://www.digitalocean.com/pricing/droplets |
   Vultr | https://www.vultr.com/ | https://www.vultr.com/products/cloud-compute/ |
   Linode (Akamai) | https://www.linode.com/ | https://www.linode.com/pricing/ |
+::MODULE{COUPON_GUIDES|title:Source links for editorial coupon-check pages}
+  contabo-coupon-code | Contabo | 2026-10-04 | https://contabo.com/en/ | https://contabo.com/en/server-outlet/ | https://contabo.com/en-us/pricing/
 ::MODULE{FIELDS|title:Offer fields}
   title price currency offer_url valid_until source_url fetched_at
 ::MODULE{RENDER|title:Generated pages and indexing}

@@ -1,40 +1,57 @@
 {
-  "fetched_at": "2026-10-03T22:22:21+00:00",
+  "fetched_at": "2026-10-01T06:08:25+00:00",
   "offers": [
     {
       "provider": "Hostinger",
-      "title": "Student discount",
-      "offer_url": "https://www.hostinger.com/student-discount",
+      "title": "KVM 1 VPS — 67% off",
+      "page_slug": "hostinger-67-off-hostinger-vps-page",
+      "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-03T22:22:21+00:00"
+      "price": "6.49",
+      "currency": "USD",
+      "price_period": "mo",
+      "discount": "67%",
+      "specs": {"vCPU": "1 core", "RAM": "4 GB", "Storage": "50 GB NVMe", "Bandwidth": "4 TB"},
+      "fetched_at": "2026-10-01T06:08:25+00:00"
     },
     {
       "provider": "Hostinger",
-      "title": "70% off — Hostinger VPS page",
+      "title": "KVM 2 VPS — 63% off",
+      "page_slug": "hostinger-63-off-hostinger-vps-page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-03T22:22:21+00:00"
+      "price": "8.99",
+      "currency": "USD",
+      "price_period": "mo",
+      "discount": "63%",
+      "specs": {"vCPU": "2 cores", "RAM": "8 GB", "Storage": "100 GB NVMe", "Bandwidth": "8 TB"},
+      "fetched_at": "2026-10-01T06:08:25+00:00"
     },
     {
       "provider": "Hostinger",
-      "title": "67% off — Hostinger VPS page",
+      "title": "KVM 4 VPS — 70% off",
+      "page_slug": "hostinger-70-off-hostinger-vps-page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-03T22:22:21+00:00"
+      "price": "12.99",
+      "currency": "USD",
+      "price_period": "mo",
+      "discount": "70%",
+      "specs": {"vCPU": "4 cores", "RAM": "16 GB", "Storage": "200 GB NVMe", "Bandwidth": "16 TB"},
+      "fetched_at": "2026-10-01T06:08:25+00:00"
     },
     {
       "provider": "Hostinger",
-      "title": "63% off — Hostinger VPS page",
+      "title": "KVM 8 VPS — 65% off",
+      "page_slug": "hostinger-65-off-hostinger-vps-page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-03T22:22:21+00:00"
-    },
-    {
-      "provider": "Hostinger",
-      "title": "65% off — Hostinger VPS page",
-      "offer_url": "https://www.hostinger.com/vps-hosting",
-      "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-03T22:22:21+00:00"
+      "price": "25.99",
+      "currency": "USD",
+      "price_period": "mo",
+      "discount": "65%",
+      "specs": {"vCPU": "8 cores", "RAM": "32 GB", "Storage": "400 GB NVMe", "Bandwidth": "32 TB"},
+      "fetched_at": "2026-10-01T06:08:25+00:00"
     }
   ]
 }
