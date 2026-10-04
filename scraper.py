@@ -84,7 +84,7 @@ def main():
    for href,label in parser.links:
     target=urljoin(page_url,href)
     if label and re.search(r'\b(deal|offer|promo|discount|save|coupon|special)\b',label,re.I) and urlparse(target).netloc==urlparse(p['url']).netloc:
-     key=(label,target)
+      key=(label,target)
       if key not in seen: offers.append({'provider':p['name'],'title':label[:240],'offer_url':target,'source_url':page_url,'fetched_at':observed_at});seen.add(key)
    # Only emit a discount headline when that exact discount is visible on the provider page.
    visible=' '.join(' '.join(parser.visible).split())

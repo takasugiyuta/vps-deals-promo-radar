@@ -201,7 +201,8 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  info_page('contact','Contact','Contact Lumafare about directory accuracy or privacy.','<h1>Contact</h1><p>For corrections to a provider listing, questions about a source link, or privacy inquiries, email the site owner:</p><p><a href="mailto:'+e(c['contact_email'])+'">'+e(c['contact_email'])+'</a></p><p>Please identify the page and include the official provider URL that supports a correction.</p>')
  (OUT/'404.html').write_text(page('Page not found | '+c['brand'],'This page does not exist on Lumafare.','/404.html','<main><h1>Page not found</h1><p>The address does not match a page in this directory.</p><p><a href="/">Return to Lumafare home</a></p>'+details()+'</main>'),encoding='utf8')
  urls.extend(['/about.html','/privacy.html','/contact.html'])
- stamp=scan_date
+ # Sitemap lastmod uses the exact same source scan instant shown on every page.
+ stamp=scan_time.isoformat(timespec='seconds').replace('+00:00','Z')
  (OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{e(base+x.removesuffix(".html"))}</loc><lastmod>{stamp}</lastmod></url>\n' for x in urls)+'</urlset>\n',encoding='utf8')
  redirects=[]
  for o in all_offers:
