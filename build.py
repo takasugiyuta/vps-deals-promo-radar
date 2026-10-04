@@ -81,6 +81,12 @@ main:has(>p:first-child a){max-width:880px;padding-top:36px}
 main>p:first-child a{transition:background .15s ease,border-color .15s ease}
 main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
 a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
 main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
 footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
 footer p{margin:0}
@@ -139,7 +145,7 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  coupon_guides_section=f'<h2>Coupon code checks</h2><section class="grid">{coupon_guides_html}</section>' if coupon_guides_html else ''
  body=f'<main><section class="hero"><p>Independent VPS directory · {datetime.now(timezone.utc):%B %Y}</p><h1>VPS deals, checked at the source.</h1><p>Official provider promotion links. No invented prices or expired claims.</p></section><h2>Providers</h2><section class="grid">{providers_html}</section>{coupon_guides_section}{details(source_links=home_sources)}</main>'
  urls=['/','/compare.html'];item={'@context':'https://schema.org','@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'url':base+'/providers/'+slug(p['name'])} for i,p in enumerate(c['providers'])]}
- (OUT/'index.html').write_text(page(f'{c["brand"]} — VPS deals {datetime.now(timezone.utc):%B %Y}','Official VPS provider promotion links.','/',body,item),encoding='utf8')
+ (OUT/'index.html').write_text(page(f'{c["brand"]} — VPS deals directory','Official VPS provider promotion links.','/',body,item),encoding='utf8')
  body='<main><h1>Compare VPS providers</h1><p>This directory compares providers using the same dimensions where their official pages publish them: plan price and billing terms, vCPU, RAM, storage, bandwidth, and included features. Details can vary by region and checkout term, so each card links to the provider’s official plans for current terms.</p><section class="grid">'+''.join(f'<article class="card"><h2>{e(p["name"])}</h2><p>Compare published pricing, billing terms, compute, memory, storage, bandwidth, and included features.</p><a href="/providers/{slug(p["name"])}">View our {e(p["name"])} page ↗</a><a href="{e(p["source_url"])}">Verify on official plans ↗</a></article>' for p in c['providers'])+'</section>'+details(source_links=[p['source_url'] for p in c['providers']])+'</main>'
  ld={'@context':'https://schema.org','@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'url':base+'/providers/'+slug(p['name'])+'.html'} for i,p in enumerate(c['providers'])]}
  (OUT/'compare.html').write_text(page('Compare VPS providers | '+c['brand']+' · '+datetime.now(timezone.utc).strftime('%B %Y'),'Compare VPS providers at official plan pages.','/compare.html',body,ld),encoding='utf8')
@@ -159,7 +165,8 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
    plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(plans)+'</section>'
   else:
    plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(card(o) for o in provider_offers)+'</section>'
-  b=f'<main><p><a href="/">Home</a></p><h1>{e(p["name"])} VPS</h1><p>See current plans and promotions on the official provider page.</p><p><a href="{e(p["source_url"])}">Official source ↗</a></p>{plan_content}{details(provider_offers, [p["source_url"]])}</main>'
+  siblings=''.join(f'<a href="/providers/{slug(q["name"])}">{e(q["name"])}</a>' for q in c['providers'] if q['name']!=p['name'])
+  b=f'<main><nav class="crumbs"><a href="/">Home</a> › <span>{e(p["name"])} VPS</span></nav><h1>{e(p["name"])} VPS</h1><p>See current plans and promotions on the official provider page.</p><p><a href="{e(p["source_url"])}">Official source ↗</a></p>{plan_content}<h2>Other providers in this directory</h2><nav class="siblings">{siblings}<a href="/compare">Compare all providers</a></nav>{details(provider_offers, [p["source_url"]])}</main>'
   provider_ld={'@context':'https://schema.org','@graph':[{'@type':'Product','name':p['name']+' VPS hosting','brand':{'@type':'Brand','name':p['name']},'url':p['url']},{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base+'/'},{'@type':'ListItem','position':2,'name':p['name'],'item':base+path.replace('.html','')}]}]}
   (OUT/'providers'/f'{s}.html').write_text(page(p['name']+' VPS offers | '+c['brand']+' · '+datetime.now(timezone.utc).strftime('%B %Y'),'Official source links for '+p['name']+'.',path,b,provider_ld),encoding='utf8')
  for guide in c['coupon_guides']:
@@ -168,7 +175,7 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   help_source='https://help.contabo.com/en/support/solutions/articles/103000327514-how-can-i-get-a-refund-'
   coupon_answer='No Contabo-issued coupon code could be verified during this review, so no code is listed. This means only that this review did not verify a public code; it is not a claim that no code exists.'
   refund_answer='Contabo Support says a private account may request revocation within 14 days of purchase; domains are excluded. A renewal payment made within the last 72 hours may also be eligible. Contact Contabo Support for eligibility and instructions.'
-  body=(f'<main><p><a href="/">Home</a></p><section class="hero"><p>Official-source check · {e(checked)}</p><h1>Contabo Coupon Code</h1><p><strong>Looking for a Contabo coupon code?</strong> {e(coupon_answer)}</p><p><a href="https://contabo.com/en/" rel="nofollow">Check Contabo official offers ↗</a></p></section>'
+  body=(f'<main><nav class="crumbs"><a href="/">Home</a> › <span>Contabo Coupon Code</span></nav><section class="hero"><p>Official-source check · {e(checked)}</p><h1>Contabo Coupon Code</h1><p><strong>Looking for a Contabo coupon code?</strong> {e(coupon_answer)}</p><p><a href="https://contabo.com/en/" rel="nofollow">Check Contabo official offers ↗</a></p></section>'
         '<h2>Official offer check</h2><div class="table-wrap"><table class="verification-table"><thead><tr><th>Offer or term</th><th>How to get it</th><th>Official source</th><th>Checked</th></tr></thead><tbody>'
         f'<tr><td>Public coupon code</td><td>No code was verified in this review; no code is supplied here. Check Contabo directly for any current offer.</td><td>{source_links}</td><td>{e(checked)}</td></tr>'
         f'<tr><td>Refund and withdrawal terms</td><td>{e(refund_answer)}</td><td><a href="{e(help_source)}">Contabo Support: refund eligibility ↗</a></td><td>{e(checked)}</td></tr>'
@@ -185,7 +192,7 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   (OUT/f'{guide["slug"]}.html').write_text(page('Contabo Coupon Code: Official Offers Check | '+c['brand'], 'Check whether an official Contabo coupon code could be verified, and read Contabo’s official refund guidance.',path,body,guide_ld),encoding='utf8')
  # The four legacy deal URLs are preserved as redirects into their corresponding Hostinger plan sections.
  def info_page(path,title,description,content):
-  body='<main><p><a href="/">Home</a></p>'+content+details()+'</main>'
+  body='<main><nav class="crumbs"><a href="/">Home</a> › <span>'+e(title)+'</span></nav>'+content+details()+'</main>'
   (OUT/f'{path}.html').write_text(page(title+' | '+c['brand'],description,'/'+path+'.html',body),encoding='utf8')
  info_page('about','About Lumafare','How Lumafare gathers and presents VPS provider information.','<h1>About Lumafare</h1><p>Lumafare is an independent directory of VPS providers and publicly available offers. It links to providers’ own plan and promotion pages so readers can check current terms at the source.</p><h2>How listings are made</h2><p>The site configuration names each provider and its public official source. The refresh script reads public pages, respects the source site’s robots.txt, and records source URLs and retrieval times for information it can verify. It does not sign in, bypass access controls, or infer an offer when a source cannot be read.</p><p>Provider terms and availability can vary by region and checkout term. Verify them on the provider page before purchasing. Lumafare does not sell or operate the listed VPS services.</p>')
  contact_link=f'<a href="mailto:{e(c["contact_email"])}">{e(c["contact_email"])}</a>'
@@ -201,6 +208,10 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   target='/providers/'+slug(o.get('provider',''))+'#plan-'+(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
   redirects.append(f'{old}.html {old} 308')
   redirects.append(f'{old} {base}{target} 301')
+ # Legacy deal URL that no longer has a matching offer: keep the address alive with a 301 instead of letting it 404.
+ for legacy,legacy_target in [('/deals/hostinger-student-discount','/providers/hostinger')]:
+  redirects.append(f'{legacy}.html {legacy} 308')
+  redirects.append(f'{legacy} {base}{legacy_target} 301')
  (OUT/'_redirects').write_text('\n'.join(redirects)+'\n',encoding='utf8')
  (OUT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n',encoding='utf8');print(f'Built {len(urls)} canonical pages; consolidated {len(redirects)} offer sections')
 if __name__=='__main__':main()
