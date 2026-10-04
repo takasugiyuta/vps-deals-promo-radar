@@ -17,6 +17,7 @@ jobs:
         with:
           python-version: '3.x'
       - run: python scraper.py
+      - run: python freshness_guard.py
       - run: python build.py
       - name: Commit refreshed site when changed
         run: |

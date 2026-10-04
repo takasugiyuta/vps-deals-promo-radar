@@ -10,17 +10,19 @@ from xml.etree import ElementTree as ET
 ROOT=Path(__file__).parent
 
 def config():
- c={'providers':[],'discovery':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://vps-deals-promo-radar.pages.dev','locale':'en-US'}; section=''
+ c={'providers':[],'discovery':[],'coupon_guides':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://vps-deals-promo-radar.pages.dev','locale':'en-US'}; section=''
  for line in (ROOT/'.ilang/site.ilang').read_text(encoding='utf8').splitlines():
   s=line.strip()
   if s.startswith('::STATE'):
    c.update({k:v.strip() for k,v in re.findall(r'(brand|niche|domain|locale):([^,}]+)',s)})
   elif s.startswith('::MODULE{PROVIDERS'): section='providers'
   elif s.startswith('::MODULE{DISCOVERY'): section='discovery'
+  elif s.startswith('::MODULE{COUPON_GUIDES'): section='coupon_guides'
   elif s.startswith('::MODULE{'): section=''
   elif section and '|' in s and not s.startswith('::'):
    p=[x.strip() for x in s.split('|')]
-   if len(p)>=3:c[section].append({'name':p[0],'url':p[1],'source_url':p[2],'affiliate_url':p[3] if len(p)>3 else ''})
+   if section=='coupon_guides' and len(p)>=3:c[section].append({'slug':p[0],'name':p[1],'sources':p[2:]})
+   elif section!='coupon_guides' and len(p)>=3:c[section].append({'name':p[0],'url':p[1],'source_url':p[2],'affiliate_url':p[3] if len(p)>3 else ''})
  if not c['providers']:c['providers']=c['discovery']
  return c
 class Links(HTMLParser):
@@ -64,30 +66,42 @@ def source_pages(source,provider):
  return pages
 
 def main():
- c=config();now=datetime.now(timezone.utc).isoformat(timespec='seconds');offers=[]
+ c=config();offers=[];source_checks=[]
  old_path=ROOT/'data/offers.json'
- try: previous=json.loads(old_path.read_text(encoding='utf8')).get('offers',[])
- except Exception: previous=[]
+ try: previous_data=json.loads(old_path.read_text(encoding='utf8'))
+ except Exception: previous_data={}
+ previous=previous_data.get('offers',[])
  failed=set()
  for p in c['providers']:
   pages=source_pages(p['source_url'],p)
+  source_checks.append({'provider':p['name'],'url':p['source_url'],'readable':bool(pages)})
   if not pages:
    failed.add(p['name']);continue
   seen=set()
   for page_url,html in pages:
    parser=Links();parser.feed(html)
+   observed_at=datetime.now(timezone.utc).isoformat(timespec='seconds')
    for href,label in parser.links:
     target=urljoin(page_url,href)
     if label and re.search(r'\b(deal|offer|promo|discount|save|coupon|special)\b',label,re.I) and urlparse(target).netloc==urlparse(p['url']).netloc:
      key=(label,target)
-     if key not in seen: offers.append({'provider':p['name'],'title':label[:240],'offer_url':target,'source_url':page_url,'fetched_at':now});seen.add(key)
+      if key not in seen: offers.append({'provider':p['name'],'title':label[:240],'offer_url':target,'source_url':page_url,'fetched_at':observed_at});seen.add(key)
    # Only emit a discount headline when that exact discount is visible on the provider page.
    visible=' '.join(' '.join(parser.visible).split())
    for match in re.finditer(r'(?i)(?:up to\s+)?(\d{1,2}\s*%\s*(?:off|discount|reduction|sale))',visible):
     percent=' '.join(match.group(1).split()); title=f'{percent} — {p["name"]} VPS page'
     key=(title,page_url)
-    if key not in seen: offers.append({'provider':p['name'],'title':title,'offer_url':page_url,'source_url':page_url,'fetched_at':now});seen.add(key)
+    if key not in seen: offers.append({'provider':p['name'],'title':title,'offer_url':page_url,'source_url':page_url,'fetched_at':observed_at});seen.add(key)
+ for guide in c['coupon_guides']:
+  for source_url in guide['sources']:
+   source_checks.append({'url':source_url,'readable':bool(fetch(source_url))})
  for item in previous:
   if item.get('provider') in failed:item['status']='unverified';offers.append(item)
- out=ROOT/'data/offers.json';out.parent.mkdir(exist_ok=True);out.write_text(json.dumps({'fetched_at':now,'offers':offers},indent=2,ensure_ascii=False)+'\n',encoding='utf8');print(f'Saved {len(offers)} official offer records; {len(failed)} providers could not be verified')
+ checked_at=datetime.now(timezone.utc).isoformat(timespec='seconds')
+ previous_times=[previous_data.get('source_scan_at') or previous_data.get('fetched_at')]
+ previous_times.extend(item.get('fetched_at') for item in previous)
+ previous_times=[datetime.fromisoformat(value.replace('Z','+00:00')) for value in previous_times if value]
+ if previous_times and datetime.fromisoformat(checked_at) < max(previous_times):
+  raise RuntimeError(f'Refusing to write source scan {checked_at}: existing offer data is newer ({max(previous_times).isoformat()})')
+ out=ROOT/'data/offers.json';out.parent.mkdir(exist_ok=True);out.write_text(json.dumps({'source_scan_at':checked_at,'source_checks':source_checks,'offers':offers},indent=2,ensure_ascii=False)+'\n',encoding='utf8');print(f'Saved {len(offers)} official offer records; {len(failed)} providers could not be verified; checked {len(source_checks)} official source URLs')
 if __name__=='__main__':main()

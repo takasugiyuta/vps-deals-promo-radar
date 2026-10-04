@@ -20,7 +20,7 @@ def cfg():
   elif sec and '|' in s and not s.startswith('::'):
    p=[x.strip() for x in s.split('|')]
    if len(p)>=3:
-    if sec=='coupon_guides':c[sec].append({'slug':p[0],'name':p[1],'checked_at':p[2],'sources':p[3:]})
+    if sec=='coupon_guides':c[sec].append({'slug':p[0],'name':p[1],'sources':p[2:]})
     else:c[sec].append({'name':p[0],'url':p[1],'source_url':p[2],'affiliate_url':p[3] if len(p)>3 else ''})
  if not c['providers']:c['providers']=c['discovery']
  return c
@@ -32,7 +32,12 @@ def main():
   raise RuntimeError('Contact page requires the owner-provided, working @lumafare.com email address; no address was guessed.')
  if OUT.resolve().parent!=R.resolve():raise RuntimeError('Refusing to clean output outside project root')
  if OUT.exists():shutil.rmtree(OUT)
- d=json.loads((R/'data/offers.json').read_text(encoding='utf8')) if (R/'data/offers.json').exists() else {'offers':[]};today=datetime.now(timezone.utc).date().isoformat();all_offers=d.get('offers',[]);offers=[o for o in all_offers if o.get('status','active')=='active' and (not o.get('valid_until') or o['valid_until']>=today)];base=c['domain'].rstrip('/');OUT.mkdir(exist_ok=True)
+ d=json.loads((R/'data/offers.json').read_text(encoding='utf8')) if (R/'data/offers.json').exists() else {'offers':[]}
+ if not d.get('source_scan_at'):raise RuntimeError('A completed scraper run is required; data/offers.json has no source_scan_at.')
+ try:scan_time=datetime.fromisoformat(d['source_scan_at'].replace('Z','+00:00')).astimezone(timezone.utc)
+ except ValueError as exc:raise RuntimeError('Invalid source_scan_at in data/offers.json.') from exc
+ site_check_at=scan_time.isoformat(timespec='seconds');scan_date=scan_time.date().isoformat()
+ today=datetime.now(timezone.utc).date().isoformat();all_offers=d.get('offers',[]);offers=[o for o in all_offers if o.get('status','active')=='active' and (not o.get('valid_until') or o['valid_until']>=today)];base=c['domain'].rstrip('/');OUT.mkdir(exist_ok=True)
  css=r"""*{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
@@ -130,15 +135,11 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   link_label='Visit provider ↗' if provider.get('affiliate_url') else 'Official offer page ↗'
   price=f'<p>{e(o["currency"])} {e(o["price"])}{e("/"+o["price_period"]) if o.get("price_period") else ""}</p>' if o.get('price') and o.get('currency') else '<p>Currently no verified price available.</p>'
   return f'<article class="card"><small>{e(o.get("provider","Provider"))}</small><h3><a href="{path}">{e(o.get("title","Official offer"))}</a></h3>{price}<a href="{e(destination)}" rel="{'sponsored nofollow' if provider.get('affiliate_url') else 'nofollow'}">{link_label}</a></article>'
- def checked_date(items=()):
-  stamps=[o.get('fetched_at') for o in items if o.get('fetched_at')]
-  return max(stamps) if stamps else (d.get('fetched_at') or datetime.now(timezone.utc).isoformat())
  def details(items=(),source_links=()):
   sources=source_links or sorted({o.get('source_url') for o in items if o.get('source_url')})
   source_html=', '.join(f'<a href="{e(u)}">{e(u)}</a>' for u in sources) if sources else 'First-party site information.'
   uncertain='No additional plan terms are verified here; confirm current terms on the linked official page.' if items else 'No additional details are asserted on this page.'
-  checked=datetime.now(timezone.utc).date().isoformat() if not items and not source_links else checked_date(items)
-  return f'<section class="page-details"><h2>Verification details</h2><p><strong>Checked:</strong> {e(checked)}</p><p><strong>Source page:</strong> {source_html}</p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> {uncertain}</p></section>'
+  return f'<section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> {e(site_check_at)}</p><p><strong>Source page:</strong> {source_html}</p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> {uncertain}</p></section>'
  providers_html=''.join(f'<article class="card"><h3><a href="/providers/{slug(p["name"])}">{e(p["name"])}</a></h3><a href="{e(p["source_url"])}">Official source ↗</a></article>' for p in c['providers'])
  home_sources=[p['source_url'] for p in c['providers']]
  coupon_guides_html=''.join(f'<article class="card"><h3><a href="/{e(g["slug"])}">{e(g["name"])} coupon code</a></h3><p>Check what could be confirmed from official sources.</p><a href="/{e(g["slug"])}">Read the source check ↗</a></article>' for g in c['coupon_guides'])
@@ -159,9 +160,9 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
     specs=''.join(f'<li>{e(k)}: {e(v)}</li>' for k,v in o.get('specs',{}).items())
     price=f'<p>{e(o["currency"])} {e(o["price"])}{e("/"+o["price_period"]) if o.get("price_period") else ""}</p>' if o.get('price') and o.get('currency') else '<p>Currently no verified price available.</p>'
     discount=f'<p>Officially displayed discount: {e(o["discount"])} off.</p>' if o.get('discount') else ''
-    checked=o.get('fetched_at') or checked_date([o])
+    checked=site_check_at
     price_note='<p>The provider states that plans are paid upfront; the monthly rate is the total plan price divided by the number of months.</p>' if o.get('price_period') else ''
-    plans.append(f'<article class="card plan" id="{e(plan_id)}"><h3>{e(o.get("title","Official offer"))}</h3>{discount}{price_note}{price}<p>Plan specifications published on the official page:</p><ul>{specs}</ul><p>Prices and availability can change. Confirm the total and current terms with the provider before purchasing.</p><p><a href="{e(o.get("offer_url",p["source_url"]))}" rel="nofollow">Open official provider source ↗</a></p><section class="plan-details"><h4>Verification details</h4><p><strong>Checked:</strong> {e(checked)}</p><p><strong>Source page:</strong> <a href="{e(o.get("source_url",p["source_url"]))}">{e(o.get("source_url",p["source_url"]))}</a></p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> No additional plan terms are verified here; confirm current terms on the linked official page.</p></section></article>')
+    plans.append(f'<article class="card plan" id="{e(plan_id)}"><h3>{e(o.get("title","Official offer"))}</h3>{discount}{price_note}{price}<p>Plan specifications published on the official page:</p><ul>{specs}</ul><p>Prices and availability can change. Confirm the total and current terms with the provider before purchasing.</p><p><a href="{e(o.get("offer_url",p["source_url"]))}" rel="nofollow">Open official provider source ↗</a></p><section class="plan-details"><h4>Verification details</h4><p><strong>Source scan run:</strong> {e(checked)}</p><p><strong>Source page:</strong> <a href="{e(o.get("source_url",p["source_url"]))}">{e(o.get("source_url",p["source_url"]))}</a></p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> No additional plan terms are verified here; confirm current terms on the linked official page.</p></section></article>')
    plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(plans)+'</section>'
   else:
    plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(card(o) for o in provider_offers)+'</section>'
@@ -170,20 +171,20 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   provider_ld={'@context':'https://schema.org','@graph':[{'@type':'Product','name':p['name']+' VPS hosting','brand':{'@type':'Brand','name':p['name']},'url':p['url']},{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base+'/'},{'@type':'ListItem','position':2,'name':p['name'],'item':base+path.replace('.html','')}]}]}
   (OUT/'providers'/f'{s}.html').write_text(page(p['name']+' VPS offers | '+c['brand']+' · '+datetime.now(timezone.utc).strftime('%B %Y'),'Official source links for '+p['name']+'.',path,b,provider_ld),encoding='utf8')
  for guide in c['coupon_guides']:
-  path='/'+guide['slug']+'.html';urls.append(path);checked=guide.get('checked_at','not verified')
+  path='/'+guide['slug']+'.html';urls.append(path);checked=site_check_at
   sources=guide['sources'];source_links=' · '.join(f'<a href="{e(u)}">Official source ↗</a>' for u in sources)
   help_source='https://help.contabo.com/en/support/solutions/articles/103000327514-how-can-i-get-a-refund-'
   coupon_answer='No Contabo-issued coupon code could be verified during this review, so no code is listed. This means only that this review did not verify a public code; it is not a claim that no code exists.'
   refund_answer='Contabo Support says a private account may request revocation within 14 days of purchase; domains are excluded. A renewal payment made within the last 72 hours may also be eligible. Contact Contabo Support for eligibility and instructions.'
   body=(f'<main><nav class="crumbs"><a href="/">Home</a> › <span>Contabo Coupon Code</span></nav><section class="hero"><p>Official-source check · {e(checked)}</p><h1>Contabo Coupon Code</h1><p><strong>Looking for a Contabo coupon code?</strong> {e(coupon_answer)}</p><p><a href="https://contabo.com/en/" rel="nofollow">Check Contabo official offers ↗</a></p></section>'
-        '<h2>Official offer check</h2><div class="table-wrap"><table class="verification-table"><thead><tr><th>Offer or term</th><th>How to get it</th><th>Official source</th><th>Checked</th></tr></thead><tbody>'
+        '<h2>Official offer check</h2><div class="table-wrap"><table class="verification-table"><thead><tr><th>Offer or term</th><th>How to get it</th><th>Official source</th><th>Source scan run</th></tr></thead><tbody>'
         f'<tr><td>Public coupon code</td><td>No code was verified in this review; no code is supplied here. Check Contabo directly for any current offer.</td><td>{source_links}</td><td>{e(checked)}</td></tr>'
         f'<tr><td>Refund and withdrawal terms</td><td>{e(refund_answer)}</td><td><a href="{e(help_source)}">Contabo Support: refund eligibility ↗</a></td><td>{e(checked)}</td></tr>'
         '</tbody></table></div><h2>What remains unconfirmed</h2><p>Contabo’s official product and pricing pages returned a security check or 403 during this review. Current coupon-code availability, shipping terms, membership discounts, and subscription discounts could not be confirmed; none are claimed here. Check the linked official pages before ordering.</p>'
         '<h2>Frequently asked questions</h2><h3>Does Contabo have a coupon code?</h3><p>'+e(coupon_answer)+'</p>'
         '<h3>How can I check or redeem a current offer?</h3><p>Use Contabo’s official website and verify the offer terms in the order flow. This page does not provide third-party codes.</p>'
         '<h3>What does Contabo say about refunds?</h3><p>'+e(refund_answer)+' <a href="'+e(help_source)+'">Read Contabo’s official refund guidance ↗</a></p>'
-        f'<section class="page-details"><h2>Verification details</h2><p><strong>Checked:</strong> {e(checked)}</p><p><strong>Official pages checked:</strong> {source_links} · <a href="{e(help_source)}">Refund guidance ↗</a></p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> Current code-only campaigns, shipping terms, and account-specific subscription offers.</p></section></main>')
+        f'<section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> {e(checked)}</p><p><strong>Official pages checked:</strong> {source_links} · <a href="{e(help_source)}">Refund guidance ↗</a></p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> Current code-only campaigns, shipping terms, and account-specific subscription offers.</p></section></main>')
   guide_ld={'@context':'https://schema.org','@type':'FAQPage','mainEntity':[
    {'@type':'Question','name':'Does Contabo have a coupon code?','acceptedAnswer':{'@type':'Answer','text':coupon_answer}},
    {'@type':'Question','name':'How can I check or redeem a current offer?','acceptedAnswer':{'@type':'Answer','text':'Use Contabo’s official website and verify the offer terms in the order flow. This page does not provide third-party codes.'}},
@@ -198,12 +199,12 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  contact_link=f'<a href="mailto:{e(c["contact_email"])}">{e(c["contact_email"])}</a>'
  info_page('privacy','Privacy','What information this static VPS directory processes.','<h1>Privacy</h1><p>Lumafare is a static information site. It has no visitor accounts, checkout, contact form, analytics, or advertising scripts.</p><p>Site hosting and delivery providers process ordinary request and connection data needed to deliver pages and protect the service under their own policies. Following a provider link takes you to that provider, which handles your visit under its own privacy policy.</p><p>The automated refresh process retrieves public provider pages and stores listing details, source URLs, and retrieval times in the project repository. It does not collect information from visitors through this site.</p><p>For a privacy question, email '+contact_link+'.</p>')
  info_page('contact','Contact','Contact Lumafare about directory accuracy or privacy.','<h1>Contact</h1><p>For corrections to a provider listing, questions about a source link, or privacy inquiries, email the site owner:</p><p><a href="mailto:'+e(c['contact_email'])+'">'+e(c['contact_email'])+'</a></p><p>Please identify the page and include the official provider URL that supports a correction.</p>')
- (OUT/'404.html').write_text(page('Page not found | '+c['brand'],'This page does not exist on Lumafare.','/404.html','<main><h1>Page not found</h1><p>The address does not match a page in this directory.</p><p><a href="/">Return to Lumafare home</a></p></main>'),encoding='utf8')
+ (OUT/'404.html').write_text(page('Page not found | '+c['brand'],'This page does not exist on Lumafare.','/404.html','<main><h1>Page not found</h1><p>The address does not match a page in this directory.</p><p><a href="/">Return to Lumafare home</a></p>'+details()+'</main>'),encoding='utf8')
  urls.extend(['/about.html','/privacy.html','/contact.html'])
- stamp=datetime.now(timezone.utc).date().isoformat()
+ stamp=scan_date
  (OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{e(base+x.removesuffix(".html"))}</loc><lastmod>{stamp}</lastmod></url>\n' for x in urls)+'</urlset>\n',encoding='utf8')
  redirects=[]
- for o in offers:
+ for o in all_offers:
   old='/deals/'+quote(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
   target='/providers/'+slug(o.get('provider',''))+'#plan-'+(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
   redirects.append(f'{old}.html {old} 308')
