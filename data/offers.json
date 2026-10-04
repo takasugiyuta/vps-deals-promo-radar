@@ -1,40 +1,79 @@
 {
-  "fetched_at": "2026-10-04T21:14:31+00:00",
+  "source_scan_at": "2026-10-04T23:49:08+00:00",
+  "source_checks": [
+    {
+      "provider": "Hostinger",
+      "url": "https://www.hostinger.com/vps-hosting",
+      "readable": true
+    },
+    {
+      "provider": "Hetzner",
+      "url": "https://www.hetzner.com/hosting/",
+      "readable": true
+    },
+    {
+      "provider": "DigitalOcean",
+      "url": "https://www.digitalocean.com/pricing/droplets",
+      "readable": true
+    },
+    {
+      "provider": "Vultr",
+      "url": "https://www.vultr.com/products/cloud-compute/",
+      "readable": false
+    },
+    {
+      "provider": "Linode (Akamai)",
+      "url": "https://www.linode.com/pricing/",
+      "readable": false
+    },
+    {
+      "url": "https://contabo.com/en/",
+      "readable": false
+    },
+    {
+      "url": "https://contabo.com/en/server-outlet/",
+      "readable": false
+    },
+    {
+      "url": "https://contabo.com/en-us/pricing/",
+      "readable": false
+    }
+  ],
   "offers": [
     {
       "provider": "Hostinger",
       "title": "Student discount",
       "offer_url": "https://www.hostinger.com/student-discount",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-04T21:14:31+00:00"
+      "fetched_at": "2026-10-04T23:49:00+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "70% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-04T21:14:31+00:00"
+      "fetched_at": "2026-10-04T23:49:00+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "67% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-04T21:14:31+00:00"
+      "fetched_at": "2026-10-04T23:49:00+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "63% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-04T21:14:31+00:00"
+      "fetched_at": "2026-10-04T23:49:00+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "65% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-04T21:14:31+00:00"
+      "fetched_at": "2026-10-04T23:49:00+00:00"
     }
   ]
 }
