@@ -30,7 +30,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: refresh
     steps:
+      # Check out the branch tip, not the SHA the run was dispatched with, so the freshly
+      # committed build from the refresh job is what actually gets published.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
