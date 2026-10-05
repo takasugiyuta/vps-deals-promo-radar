@@ -158,7 +158,7 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  (OUT/'index.html').write_text(page(f'{c["brand"]} — VPS deals directory','Official VPS provider promotion links.','/',body,item),encoding='utf8')
  body='<main><h1>Compare VPS providers</h1><p>This directory compares providers using the same dimensions where their official pages publish them: plan price and billing terms, vCPU, RAM, storage, bandwidth, and included features. Details can vary by region and checkout term, so each card links to the provider’s official plans for current terms.</p><section class="grid">'+''.join(f'<article class="card"><h2>{e(p["name"])}</h2><p>Compare published pricing, billing terms, compute, memory, storage, bandwidth, and included features.</p><a href="/providers/{slug(p["name"])}">View our {e(p["name"])} page ↗</a><a href="{e(p["source_url"])}">Verify on official plans ↗</a></article>' for p in c['providers'])+'</section>'+details(source_links=[p['source_url'] for p in c['providers']])+'</main>'
  ld={'@context':'https://schema.org','@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'url':base+'/providers/'+slug(p['name'])+'.html'} for i,p in enumerate(c['providers'])]}
- (OUT/'compare.html').write_text(page('Compare VPS providers | '+c['brand']+' · '+datetime.now(timezone.utc).strftime('%B %Y'),'Compare VPS providers at official plan pages.','/compare.html',body,ld),encoding='utf8')
+ (OUT/'compare.html').write_text(page('Compare VPS providers | '+c['brand']+' · '+f'{scan_time:%B %Y}','Compare VPS providers at official plan pages.','/compare.html',body,ld),encoding='utf8')
  for p in c['providers']:
   s=slug(p['name']);path='/providers/'+s+'.html';urls.append(path);(OUT/'providers').mkdir(exist_ok=True)
   provider_offers=[o for o in offers if o.get('provider')==p['name']]
@@ -178,7 +178,7 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   siblings=''.join(f'<a href="/providers/{slug(q["name"])}">{e(q["name"])}</a>' for q in c['providers'] if q['name']!=p['name'])
   b=f'<main><nav class="crumbs"><a href="/">Home</a> › <span>{e(p["name"])} VPS</span></nav><h1>{e(p["name"])} VPS</h1><p>See current plans and promotions on the official provider page.</p><p><a href="{e(p["source_url"])}">Official source ↗</a></p>{plan_content}<h2>Other providers in this directory</h2><nav class="siblings">{siblings}<a href="/compare">Compare all providers</a></nav>{details(provider_offers, [p["source_url"]])}</main>'
   provider_ld={'@context':'https://schema.org','@graph':[{'@type':'Product','name':p['name']+' VPS hosting','brand':{'@type':'Brand','name':p['name']},'url':p['url']},{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base+'/'},{'@type':'ListItem','position':2,'name':p['name'],'item':base+path.replace('.html','')}]}]}
-  (OUT/'providers'/f'{s}.html').write_text(page(p['name']+' VPS offers | '+c['brand']+' · '+datetime.now(timezone.utc).strftime('%B %Y'),'Official source links for '+p['name']+'.',path,b,provider_ld),encoding='utf8')
+  (OUT/'providers'/f'{s}.html').write_text(page(p['name']+' VPS offers | '+c['brand']+' · '+f'{scan_time:%B %Y}','Official source links for '+p['name']+'.',path,b,provider_ld),encoding='utf8')
  for guide in c['coupon_guides']:
   path='/'+guide['slug']+'.html';urls.append(path);checked=site_check_at
   sources=guide['sources'];source_links=' · '.join(f'<a href="{e(u)}">Official source ↗</a>' for u in sources)
