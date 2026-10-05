@@ -5,6 +5,13 @@ from datetime import datetime,timezone
 from pathlib import Path
 from urllib.parse import quote
 R=Path(__file__).parent;OUT=R/'site'
+# Published /deals/ addresses that must survive a scraper rewrite. The scraper never writes
+# page_slug, so a changed offer title would otherwise rename the address and 404 the old one.
+STATIC_LEGACY=[('/deals/hostinger-student-discount','/providers/hostinger#plan-hostinger-student-discount'),
+ ('/deals/hostinger-70-off-hostinger-vps-page','/providers/hostinger#plan-hostinger-70-off-hostinger-vps-page'),
+ ('/deals/hostinger-67-off-hostinger-vps-page','/providers/hostinger#plan-hostinger-67-off-hostinger-vps-page'),
+ ('/deals/hostinger-63-off-hostinger-vps-page','/providers/hostinger#plan-hostinger-63-off-hostinger-vps-page'),
+ ('/deals/hostinger-65-off-hostinger-vps-page','/providers/hostinger#plan-hostinger-65-off-hostinger-vps-page')]
 def cfg():
  c={'providers':[],'discovery':[],'coupon_guides':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://vps-deals-promo-radar.pages.dev','contact_email':'','updates_every':'not specified'};sec=''
  for raw in (R/'.ilang/site.ilang').read_text(encoding='utf8').splitlines():
@@ -31,13 +38,15 @@ def main():
  if not c.get('contact_email') or '@' not in c['contact_email'] or not c['contact_email'].lower().endswith('@lumafare.com'):
   raise RuntimeError('Contact page requires the owner-provided, working @lumafare.com email address; no address was guessed.')
  if OUT.resolve().parent!=R.resolve():raise RuntimeError('Refusing to clean output outside project root')
- if OUT.exists():shutil.rmtree(OUT)
+ # Validate every required input first: a failed build must never leave the previous site deleted.
  d=json.loads((R/'data/offers.json').read_text(encoding='utf8')) if (R/'data/offers.json').exists() else {'offers':[]}
  if not d.get('source_scan_at'):raise RuntimeError('A completed scraper run is required; data/offers.json has no source_scan_at.')
  try:scan_time=datetime.fromisoformat(d['source_scan_at'].replace('Z','+00:00')).astimezone(timezone.utc)
  except ValueError as exc:raise RuntimeError('Invalid source_scan_at in data/offers.json.') from exc
  site_check_at=scan_time.isoformat(timespec='seconds');scan_date=scan_time.date().isoformat()
- today=datetime.now(timezone.utc).date().isoformat();all_offers=d.get('offers',[]);offers=[o for o in all_offers if o.get('status','active')=='active' and (not o.get('valid_until') or o['valid_until']>=today)];base=c['domain'].rstrip('/');OUT.mkdir(exist_ok=True)
+ today=datetime.now(timezone.utc).date().isoformat();all_offers=d.get('offers',[]);offers=[o for o in all_offers if o.get('status','active')=='active' and (not o.get('valid_until') or o['valid_until']>=today)];base=c['domain'].rstrip('/')
+ if OUT.exists():shutil.rmtree(OUT)
+ OUT.mkdir(exist_ok=True)
  css=r"""*{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
@@ -204,16 +213,20 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  # Sitemap lastmod uses the exact same source scan instant shown on every page.
  stamp=scan_time.isoformat(timespec='seconds').replace('+00:00','Z')
  (OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{e(base+x.removesuffix(".html"))}</loc><lastmod>{stamp}</lastmod></url>\n' for x in urls)+'</urlset>\n',encoding='utf8')
- redirects=[]
+ redirects=[];emitted=set()
+ def add_redirect(old,target):
+  # One rule per legacy address: first writer wins, so pinned legacy targets are never shadowed.
+  if old in emitted:return
+  emitted.add(old)
+  redirects.append(f'{old}.html {old} 308')
+  redirects.append(f'{old} {base}{target} 301')
+ # The scraper does not write page_slug, so generated deal slugs drift when offer titles change.
+ # These five addresses are already published and indexed; they stay pinned to their plan anchors.
+ for legacy,legacy_target in STATIC_LEGACY:add_redirect(legacy,legacy_target)
  for o in all_offers:
   old='/deals/'+quote(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
   target='/providers/'+slug(o.get('provider',''))+'#plan-'+(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
-  redirects.append(f'{old}.html {old} 308')
-  redirects.append(f'{old} {base}{target} 301')
- # Legacy deal URL that no longer has a matching offer: keep the address alive with a 301 instead of letting it 404.
- for legacy,legacy_target in [('/deals/hostinger-student-discount','/providers/hostinger')]:
-  redirects.append(f'{legacy}.html {legacy} 308')
-  redirects.append(f'{legacy} {base}{legacy_target} 301')
+  add_redirect(old,target)
  (OUT/'_redirects').write_text('\n'.join(redirects)+'\n',encoding='utf8')
  (OUT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n',encoding='utf8');print(f'Built {len(urls)} canonical pages; consolidated {len(redirects)} offer sections')
 if __name__=='__main__':main()
