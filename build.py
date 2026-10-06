@@ -1,7 +1,7 @@
 # ILANG: static builder; reads brand and providers from .ilang/site.ilang.
 # ILANG: omit unknown offer prices and dates from page content and structured data.
 import html,json,re,shutil
-from datetime import datetime,timezone
+from datetime import date,datetime,timezone
 from pathlib import Path
 from urllib.parse import quote
 R=Path(__file__).parent;OUT=R/'site'
@@ -33,6 +33,83 @@ def cfg():
  return c
 def e(x):return html.escape(str(x),quote=True)
 def slug(s):return re.sub(r'[^a-z0-9]+','-',s.lower()).strip('-')[:90] or 'offer'
+def parse_article(path):
+ raw=path.read_text(encoding='utf8')
+ match=re.match(r'\A---\s*\n(.*?)\n---\s*\n?(.*)\Z',raw,re.S)
+ if not match:raise ValueError(f'{path}: expected YAML frontmatter delimited by ---')
+ meta={};key=None
+ for line in match.group(1).splitlines():
+  if not line.strip() or line.lstrip().startswith('#'):continue
+  item=re.match(r'^([a-z_]+):\s*(.*)$',line)
+  if item:
+   key=item.group(1);value=item.group(2).strip()
+   if value.startswith('[') and value.endswith(']'):
+    meta[key]=[v.strip().strip('"\'') for v in value[1:-1].split(',') if v.strip()]
+   elif value:meta[key]=value.strip('"\'')
+   else:meta[key]=[] if key=='sources' else ''
+  elif line.startswith(('  - ','- ')) and key=='sources':meta[key].append(line.split('-',1)[1].strip().strip('"\''))
+  else:raise ValueError(f'{path}: invalid frontmatter line: {line}')
+ unknown=set(meta)-{'title','slug','date','description','question','sources'}
+ if unknown:raise ValueError(f'{path}: unsupported frontmatter fields: {", ".join(sorted(unknown))}')
+ for required in ('title','slug','date','description'):
+  if not isinstance(meta.get(required),str) or not meta[required].strip():raise ValueError(f'{path}: frontmatter requires {required}')
+ if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',meta['slug']):raise ValueError(f'{path}: slug must contain lowercase letters, digits, and single hyphens')
+ try:date.fromisoformat(meta['date'])
+ except ValueError as exc:raise ValueError(f'{path}: date must be an ISO calendar date') from exc
+ if not isinstance(meta.get('sources',[]),list):raise ValueError(f'{path}: sources must be a URL list')
+ for source in meta.get('sources',[]):
+  if not re.match(r'^https?://',source):raise ValueError(f'{path}: source URL must use http or https')
+ meta['sources']=meta.get('sources',[])
+ meta['body']=match.group(2).strip()
+ return meta
+def inline_markdown(value):
+ parts=[];tokens=[]
+ def hold(rendered):
+  token=f'\x00{len(tokens)}\x00';tokens.append(rendered);return token
+ value=re.sub(r'!\[([^\]]*)\]\(([^)]+)\)',lambda m:hold(f'<img src="{e(m.group(2))}" alt="{e(m.group(1))}" loading="lazy">'),value)
+ value=re.sub(r'\[([^\]]+)\]\(([^)]+)\)',lambda m:hold(f'<a href="{e(m.group(2))}">{html.escape(m.group(1))}</a>') if re.match(r'^(https?://|mailto:|/|#)',m.group(2)) else hold(html.escape(m.group(0))),value)
+ value=html.escape(value)
+ value=re.sub(r'`([^`]+)`',r'<code>\1</code>',value)
+ value=re.sub(r'\*\*(.+?)\*\*',r'<strong>\1</strong>',value)
+ for i,rendered in enumerate(tokens):value=value.replace(f'\x00{i}\x00',rendered)
+ return value
+def render_markdown(source):
+ out=[];paragraph=[];listing=None;code=[];in_code=False
+ def flush_paragraph():
+  if paragraph:out.append('<p>'+inline_markdown(' '.join(paragraph))+'</p>');paragraph.clear()
+ def close_list():
+  nonlocal listing
+  if listing:out.append(f'</{listing}>');listing=None
+ for line in source.splitlines():
+  if line.startswith('```'):
+   flush_paragraph();close_list()
+   if in_code:
+    out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>');code=[];in_code=False
+   else:in_code=True
+   continue
+  if in_code:
+   code.append(line);continue
+  if not line.strip():flush_paragraph();close_list();continue
+  heading=re.match(r'^(#{1,6})\s+(.+?)\s*#*$',line)
+  if heading:
+   flush_paragraph();close_list();level=len(heading.group(1));out.append(f'<h{level}>{inline_markdown(heading.group(2))}</h{level}>');continue
+  item=re.match(r'^\s*([-*]|\d+\.)\s+(.+)$',line)
+  if item:
+   flush_paragraph();kind='ol' if item.group(1)[0].isdigit() else 'ul'
+   if listing!=kind:close_list();out.append(f'<{kind}>');listing=kind
+   out.append('<li>'+inline_markdown(item.group(2))+'</li>');continue
+  paragraph.append(line.strip())
+ if in_code:out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>')
+ flush_paragraph();close_list()
+ return '\n'.join(out)
+def article_records():
+ folder=R/'content/articles'
+ records=[parse_article(path) for path in sorted(folder.glob('*.md'))] if folder.exists() else []
+ seen=set()
+ for record in records:
+  if record['slug'] in seen:raise ValueError(f'duplicate article slug: {record["slug"]}')
+  seen.add(record['slug'])
+ return records
 def main():
  c=cfg();
  if not c.get('contact_email') or '@' not in c['contact_email'] or not c['contact_email'].lower().endswith('@lumafare.com'):
@@ -47,6 +124,8 @@ def main():
  today=datetime.now(timezone.utc).date().isoformat();all_offers=d.get('offers',[]);offers=[o for o in all_offers if o.get('status','active')=='active' and (not o.get('valid_until') or o['valid_until']>=today)];base=c['domain'].rstrip('/')
  if OUT.exists():shutil.rmtree(OUT)
  OUT.mkdir(exist_ok=True)
+ assets=R/'assets'
+ if assets.is_dir():shutil.copytree(assets,OUT/'assets',dirs_exist_ok=True)
  css=r"""*{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
@@ -127,8 +206,8 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  header>a:last-child{align-self:flex-start}
  .hero{padding:25px 19px}
 }"""
- def page(title,desc,path,body,ld=None):
-  template_name='index' if path=='/' else 'compare' if path=='/compare.html' else 'provider' if path.startswith('/providers/') else 'coupon' if path=='/contabo-coupon-code.html' else 'deal'
+ def page(title,desc,path,body,ld=None,template_name=None):
+  template_name=template_name or ('index' if path=='/' else 'compare' if path=='/compare.html' else 'provider' if path.startswith('/providers/') else 'coupon' if path=='/contabo-coupon-code.html' else 'deal')
   template=(R/'templates'/f'{template_name}.html').read_text(encoding='utf8')
   schema='<script type="application/ld+json">'+json.dumps(ld,ensure_ascii=False).replace('<','\\u003c')+'</script>' if ld else ''
   values={'TITLE':title,'DESCRIPTION':desc,'CANONICAL':base+path,'STYLE':css,'JSONLD':schema,'BRAND':c['brand'],'BODY':body}
@@ -153,7 +232,9 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  home_sources=[p['source_url'] for p in c['providers']]
  coupon_guides_html=''.join(f'<article class="card"><h3><a href="/{e(g["slug"])}">{e(g["name"])} coupon code</a></h3><p>Check what could be confirmed from official sources.</p><a href="/{e(g["slug"])}">Read the source check ↗</a></article>' for g in c['coupon_guides'])
  coupon_guides_section=f'<h2>Coupon code checks</h2><section class="grid">{coupon_guides_html}</section>' if coupon_guides_html else ''
- body=f'<main><section class="hero"><p>Independent VPS directory · {scan_time:%B %Y}</p><h1>VPS deals, checked at the source.</h1><p>Official provider promotion links. No invented prices or expired claims.</p></section><h2>Providers</h2><section class="grid">{providers_html}</section>{coupon_guides_section}{details(source_links=home_sources)}</main>'
+ articles=article_records()
+ articles_section=('''<h2>Latest articles</h2><section class="grid">'''+''.join(f'<article class="card"><small>{e(a["date"])}</small><h3><a href="/articles/{e(a["slug"])}/">{e(a["title"])}</a></h3><p>{e(a["description"])}</p></article>' for a in articles)+'''</section>''') if articles else ''
+ body=f'<main><section class="hero"><p>Independent VPS directory · {scan_time:%B %Y}</p><h1>VPS deals, checked at the source.</h1><p>Official provider promotion links. No invented prices or expired claims.</p></section><h2>Providers</h2><section class="grid">{providers_html}</section>{coupon_guides_section}{articles_section}{details(source_links=home_sources)}</main>'
  urls=['/','/compare.html'];item={'@context':'https://schema.org','@type':'ItemList','itemListElement':[{'@type':'ListItem','position':i+1,'url':base+'/providers/'+slug(p['name'])} for i,p in enumerate(c['providers'])]}
  (OUT/'index.html').write_text(page(f'{c["brand"]} — VPS deals directory','Official VPS provider promotion links.','/',body,item),encoding='utf8')
  body='<main><h1>Compare VPS providers</h1><p>This directory compares providers using the same dimensions where their official pages publish them: plan price and billing terms, vCPU, RAM, storage, bandwidth, and included features. Details can vary by region and checkout term, so each card links to the provider’s official plans for current terms.</p><section class="grid">'+''.join(f'<article class="card"><h2>{e(p["name"])}</h2><p>Compare published pricing, billing terms, compute, memory, storage, bandwidth, and included features.</p><a href="/providers/{slug(p["name"])}">View our {e(p["name"])} page ↗</a><a href="{e(p["source_url"])}">Verify on official plans ↗</a></article>' for p in c['providers'])+'</section>'+details(source_links=[p['source_url'] for p in c['providers']])+'</main>'
@@ -210,6 +291,15 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  info_page('contact','Contact','Contact Lumafare about directory accuracy or privacy.','<h1>Contact</h1><p>For corrections to a provider listing, questions about a source link, or privacy inquiries, email the site owner:</p><p><a href="mailto:'+e(c['contact_email'])+'">'+e(c['contact_email'])+'</a></p><p>Please identify the page and include the official provider URL that supports a correction.</p>')
  (OUT/'404.html').write_text(page('Page not found | '+c['brand'],'This page does not exist on Lumafare.','/404.html','<main><h1>Page not found</h1><p>The address does not match a page in this directory.</p><p><a href="/">Return to Lumafare home</a></p>'+details()+'</main>'),encoding='utf8')
  urls.extend(['/about.html','/privacy.html','/contact.html'])
+ for article in articles:
+  article_path='/articles/'+article['slug']+'/'
+  article_dir=OUT/'articles'/article['slug'];article_dir.mkdir(parents=True,exist_ok=True)
+  question=f'<p><strong>Question:</strong> {e(article["question"])}</p>' if article.get('question') else ''
+  source_list=''.join(f'<li><a href="{e(source)}">{e(source)}</a></li>' for source in article['sources'])
+  sources_html=f'<section><h2>Sources</h2><ul>{source_list}</ul></section>' if source_list else ''
+  article_body=(f'<main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>{e(article["title"])}</h1><p>{e(article["description"])}</p><p><small>Published: {e(article["date"])}</small></p>{question}{render_markdown(article["body"])}{sources_html}<section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> {e(site_check_at)}</p></section></article></main>')
+  (article_dir/'index.html').write_text(page(article['title']+' | '+c['brand'],article['description'],article_path,article_body,template_name='article'),encoding='utf8')
+  urls.append(article_path)
  # Sitemap lastmod uses the exact same source scan instant shown on every page.
  stamp=scan_time.isoformat(timespec='seconds').replace('+00:00','Z')
  (OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{e(base+x.removesuffix(".html"))}</loc><lastmod>{stamp}</lastmod></url>\n' for x in urls)+'</urlset>\n',encoding='utf8')
