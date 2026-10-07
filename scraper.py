@@ -10,7 +10,7 @@ from xml.etree import ElementTree as ET
 ROOT=Path(__file__).parent
 
 def config():
- c={'providers':[],'discovery':[],'coupon_guides':[],'brand':'vps-deals','niche':'VPS hosting deals','domain':'https://vps-deals-promo-radar.pages.dev','locale':'en-US'}; section=''
+ c={'providers':[],'discovery':[],'coupon_guides':[],'brand':'Lumafare','niche':'VPS hosting deals','domain':'https://lumafare.com','locale':'en-US'}; section=''
  for line in (ROOT/'.ilang/site.ilang').read_text(encoding='utf8').splitlines():
   s=line.strip()
   if s.startswith('::STATE'):

@@ -1,4 +1,4 @@
-# vps-deals
+# Lumafare
 
 English-language static VPS promotion directory using only official provider sources. No offers or prices are fabricated. If `.ilang/site.ilang` has no provider rows, the scraper falls back to the official discovery candidates in that same file. An empty first run is valid when no explicit promotion links are found.
 

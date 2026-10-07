@@ -1,5 +1,5 @@
 ILANG
-TYPE:project-guidance PROJECT:vps-deals-radar LANG:zh
+TYPE:project-guidance PROJECT:Lumafare LANG:zh
 ::STATE{@PROJECT, purpose:Static VPS deal directory fed by official public provider pages}
 ::RULE{scraper.py and build.py read .ilang/site.ilang as sole brand and provider configuration}
 ::RULE{preserve source_url and fetched_at; omit unknown prices and expiry dates}

@@ -1,6 +1,6 @@
 ILANG
-TYPE:config PROJECT:vps-deals LANG:zh
-::STATE{@SITE, brand:vps-deals, niche:VPS hosting deals, domain:https://lumafare.com, locale:en-US, contact_email:contact@lumafare.com}
+TYPE:config PROJECT:Lumafare LANG:zh
+::STATE{@SITE, brand:Lumafare, niche:VPS hosting deals, domain:https://lumafare.com, locale:en-US, contact_email:contact@lumafare.com}
 ::MODULE{PROVIDERS|title:Official public sources; edit here to change the site}
   Hostinger | https://www.hostinger.com/ | https://www.hostinger.com/vps-hosting |
   Hetzner | https://www.hetzner.com/ | https://www.hetzner.com/hosting/ |
