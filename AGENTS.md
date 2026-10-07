@@ -7,5 +7,8 @@ TYPE:project-guidance PROJECT:Lumafare LANG:zh
 ::BOUNDARY{never:bypass robots.txt login walls rate limits or anti-bot controls|scope:permanent}
 ::BOUNDARY{never:add runtime inference APIs keys paid services or server components|scope:permanent}
 ::BOUNDARY{lock:article URL prefix /articles/<slug>/ and source directory content/articles/; changing either requires the owner's written approval and a 301 redirect for every published address|scope:permanent}
+::BOUNDARY{never:publish with the local wrangler CLI; every release must run through the GitHub Actions deploy job so it has a commit and a run record|scope:permanent}
+::RULE{the local wrangler CLI is an emergency rollback tool only; after using it, report it and follow up with a normal CI deploy}
+::RULE{a release is complete only with a commit, a green workflow run, and a live check of the new URL}
 ::RULE{affiliate links require owner-supplied approved URLs and program terms}
 ::ALLOW{edit parsers templates styles workflow and .ilang config within these constraints}
