@@ -13,14 +13,13 @@
 
 ## 可用（按顺序取，取完一条划一条）
 
+> 这三条的写法：**人工逐家读官方页面，每条数字挂真实可访问的官方链接**。不许抄对标站的说法，不许从 `data/offers.json` 推——库里没有价格字段，推出来就是编。
+
 | # | 缺口 | 依据（30 篇扫描） | 独家料来源 | 状态 | slug | 线上 URL | 日期 | commit |
 |---|---|---|---|---|---|---|---|---|
-| 1 | **优惠码存废带日期**：哪个码还在、哪个已经烂了、什么时候开始烂的 | LowEndBox 评论区出现 "The promotional code that you have entered is invalid or has expired"；Liquid Web 优惠券页标题停在 June 2026（现在 10 月） | `data/offers.json` 的 git 历史（60 次提交 / 13 个日期，每 6 小时刷一次）：同一 offer 链接在第 N 次扫描消失，就是一个带日期的失效事实 | 未写 | | | | |
-| 2 | **退款天数**：每家到底几天包退，不是"各家不同" | Liquid Web 只写 "Money-back guarantee varies based on product"，没给任何一家具体天数 | 逐家读官方条款页，挂真实链接，不抄对标站的说法 | 未写 | | | | |
-| 3 | **VAT/GST 谁代收**：付款方式决定税由谁收 | 三站正文零覆盖；只有 RackNerd 的人在 LowEndBox 评论区答过一次：信用卡付款不代收，PayPal 由支付方代收代缴 | 逐家核官方结算/条款页 + 已抓到的评论区原话作旁证 | 未写 | | | | |
-| 4 | **Windows 授权费含不含**：Windows VPS 到底比 Linux 贵多少，贵的是许可还是配置 | LowEndBox 和 Liquid Web 都写了 Windows VPS，都不说 Windows Server 许可是否另计 | 抓官方同配置 Windows / Linux 两个定价页，算差 | 未写 | | | | |
-| 5 | **自管 vs 托管溢价**：多花的钱买到了什么 | Liquid Web 托管页 $36–$178/mo，只讲好处，不量化溢价 | 同厂商同配置两档价差，算溢价率 | 未写 | | | | |
-| 6 | **按小时计费折月**：$0.007/hr 到底等于多少钱一个月 | Liquid Web 产品页给小时费率 $0.007–$0.245，不折算 | 小时费率 × 730 折月，并对比包月价 | 未写 | | | | |
+| 1 | **退款天数**：每家到底几天包退，不是"各家不同" | Liquid Web 只写 "Money-back guarantee varies based on product"，没给任何一家具体天数 | 逐家读官方退款/条款页，挂真实链接 | 未写 | | | | |
+| 2 | **VAT/GST 谁代收**：付款方式决定税由谁收 | 三站正文零覆盖；只有 RackNerd 的人在 LowEndBox 评论区答过一次：信用卡付款不代收，PayPal 由支付方代收代缴 | 逐家核官方结算/条款页 + 已抓到的评论区原话作旁证 | 未写 | | | | |
+| 3 | **按小时计费折月**：$0.007/hr 到底等于多少钱一个月 | Liquid Web 产品页给小时费率 $0.007–$0.245，不折算，也不和包月比 | 拿官方页上写明的小时费率 × 730 折月，和同页包月价对比，算式写在文里 | 未写 | | | | |
 
 ---
 
@@ -28,12 +27,26 @@
 
 | # | 缺口 | 卡在哪 | 解锁条件 |
 |---|---|---|---|
-| A | **单位价格**：$/GB 内存、$/vCPU、$/TB 流量 | `scraper.py` 只抓链接和可见的 % off，不解析配置与价格（源码注释明写 `no invented deal or price fields`），库里没有结构化配置字段 | 先给每个 provider 写独立解析器，抓到的配置必须能在官方页原文里核到；字段落地后才能算 |
-| B | **续费价**：促销价到期后到底付多少 | 同上，库里只有 offer 链接，没有「常规价」这一列 | 同上。参照：Liquid Web 自己有一节 "Introductory price vs. renewal price"，但通篇只劝读者"签约前查一下"，一家数字都没给；LowEndBox 评论区有人问 "Does it renew at deal price?"（2025-08-18）没人答 |
-| C | **带日期的价格涨跌时间线** | `data/offers.json` 有 60 次提交的时间线，但每次只记链接存废，不记价格，所以只能出「存废」不能出「涨跌」 | 同 A。等常规价字段落地，这条是三家都没有的独家角度，价值最高，建议优先解锁 |
+| A | **单位价格**：$/GB 内存、$/vCPU、$/TB 流量 | `scraper.py` 只抓链接和可见的 % off，不解析配置与价格（源码注释明写 `no invented deal or price fields`），库里没有结构化配置字段 | 先给每个 provider 写独立解析器，抓到的配置必须能在官方页原文里核到 |
+| B | **续费价**：促销价到期后到底付多少 | 同上，库里只有 offer 链接，没有「常规价」这一列 | 同上。参照：Liquid Web 自己有一节 "Introductory price vs. renewal price"，通篇只劝读者"签约前查一下"，一家数字都没给；LowEndBox 评论区有人问 "Does it renew at deal price?"（2025-08-18）没人答 |
+| C | **带日期的价格涨跌时间线** | `data/offers.json` 有 60 次提交的时间线，但每次只记链接存废，不记价格 | 同 A。这条是三家都没有的独家角度，价值最高，建议优先解锁 |
+| D | **优惠码存废带日期**（原列在可用里，已撤下） | **实测证伪**：git 历史里唯一的"消失"事件是 2026-10-04 一次异常采集——4 条 `KVM 1/2/4/8 VPS — 67%/63%/70%/65% off` 出现一次后不见，但相邻两天的 `70%/67%/63%/65% off — Hostinger VPS page` **百分比完全相同**，是标题写法变了，不是码死了；同一天 `Student discount` 也短暂消失又回来，同一原因。**至今零个真实失效事件** | 要么等真的出现失效事件，要么先把 C 解锁（有价格才有得比） |
+| E | **Windows 授权费含不含** / **自管 vs 托管溢价** | 样本不够：5 个 provider 里只有 Hostinger、Hetzner 抓得到（见下），DigitalOcean 能读但产出 0 条；Vultr / Linode / Contabo 全部抓不到 | 先把 provider 可读性修好（见下），至少要有 4–5 家同配置可比 |
+
+---
+
+## 数据底座现状（2026-10-09 实测，这条决定了上面能写什么）
+
+- `data/offers.json` 最新一次扫描（2026-10-08T13:05:21Z）的 source_checks：
+  - ✅ Hostinger、Hetzner、DigitalOcean（但 DO 产出 0 条 offer）
+  - ❌ Vultr、Linode (Akamai)、Contabo（3 个 URL 全失败）
+- 实际产出：**5–6 条 offer，全部来自 Hostinger，加 1 条 Hetzner（10-08 起）**。09-24 → 10-08 数量一直是 5，稳定得可疑。
+- 本机实测原因：Linode 和 Contabo 的 robots.txt **允许**抓取，但页面返回 **403**——是服务端拦 bot（`VPSDealsRadarBot/1.0` 这个 UA 或机房 IP）。CI 上同样失败，不是本机个例。Vultr 在我这是 SSL 证书链问题（本机有拦截代理），CI 上也失败，原因待查。
+- **修不修、怎么修，要你拍板**：换成浏览器 UA 有可能通，但 `.ilang/site.ilang` 里写着 `::RULE{check robots.txt; no login, bypass, or anti-bot evasion}`，伪装 UA 绕 403 算不算 evasion 是边界问题，我不替你决定。
 
 ---
 
 ## 变更记录
 
-- 2026-10-09 建表。六个可用缺口来自 BENCH 30 篇实读扫描；三条缺数据条目单列，明确不许取。
+- 2026-10-09 建表。可用缺口来自 BENCH 30 篇实读扫描；缺数据条目单列，明确不许取。
+- 2026-10-09 修订：#1 优惠码存废经实测证伪，从「可用」撤到「缺数据 D」；Windows 授权费、自管溢价两条因 provider 样本不足撤到「缺数据 E」。可用条目从 6 条减到 3 条。
