@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What &quot;Renews at $X&quot; Means on a VPS Deal Page | Lumafare</title><meta name="description" content="A VPS deal&#x27;s discount badge never equals your renewal increase. Here is the one-line formula, tested against eight real plan cards, to get next year&#x27;s price before you buy."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-renews-at-x/">
+<meta property="og:title" content="What &quot;Renews at $X&quot; Means on a VPS Deal Page | Lumafare"><meta property="og:description" content="A VPS deal&#x27;s discount badge never equals your renewal increase. Here is the one-line formula, tested against eight real plan cards, to get next year&#x27;s price before you buy."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-renews-at-x/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>What &quot;Renews at $X&quot; Means on a VPS Deal Page</h1><p>A VPS deal&#x27;s discount badge never equals your renewal increase. Here is the one-line formula, tested against eight real plan cards, to get next year&#x27;s price before you buy.</p><p><small>Published: 2026-10-08</small></p><p><strong>Question:</strong> When a VPS deal page says &quot;renews at $X&quot;, what will I actually pay next year, and how do I calculate it before I buy?</p><p>“Renews at $X” means the price on the card is introductory and your next term bills at $X. On the eight VPS plan cards we read on two official provider pages today, renewal cost between <strong>11% and 72% more</strong> than the introductory payments for the same length of service — and in all eight cases the increase was *larger* than the discount percentage printed on the badge. That is not accidental. It is arithmetic, and it runs in one direction only.</p>
+<h2>The one-line answer: your renewal increase is bigger than the discount</h2>
+<p>If a card advertises a discount of <strong>d</strong> (as a fraction, so 42% off means d = 0.42), and renewal happens at the undiscounted rate:</p>
+<pre><code>renewal increase = d / (1 - d)
+
+year-two price = year-one price x 1/(1 - d)</code></pre>
+<p>The reason is simple. The introductory rate is the list rate minus the discount: <code>intro = list x (1 - d)</code>. Renewal goes back to the list rate. So <code>renewal / intro = 1/(1 - d)</code>, and the increase is <code>d/(1 - d)</code>.</p>
+<p>A 50% off badge is therefore not “half price, then a bit more”. It is <strong>+100%</strong> — year two costs twice year one. Nobody prints that sentence on the card.</p>
+<h2>Eight plan cards, two vendors, one pattern</h2>
+<p>We read two official VPS pages on 2026-10-08 and applied the formula to every card that printed a renewal figure.</p>
+<p><strong>Namecheap VPS plans</strong> — each card prints both numbers in one sentence, in the form *“You pay $X — renews at $Y/year”*:</p>
+<ul>
+<li><strong>Spark</strong> — pay $46.56, renews at $58.56/year. Real increase <strong>+25.8%</strong>. Badge said 20% off → formula predicts +25%.</li>
+<li><strong>Pulsar</strong> — pay $82.56, renews at $106.56/year. Real increase <strong>+29.1%</strong>. Badge said 23% off → formula predicts +30%.</li>
+<li><strong>Quasar</strong> — pay $154.56, renews at $190.56/year. Real increase <strong>+23.3%</strong>. Badge said 19% off → formula predicts +23%.</li>
+<li><strong>Magnetar</strong> — pay $298.56, renews at $346.56/year. Real increase <strong>+16.1%</strong>. Badge said 14% off → formula predicts +16%.</li>
+<li><strong>Hypernova</strong> — pay $562.56, renews at $634.56/year. Real increase <strong>+12.8%</strong>. Badge said 11% off → formula predicts +12%.</li>
+</ul>
+<p><strong>Liquid Web VPS packages</strong> — each card prints *“Introductory price. Renews at $X /year after the initial 1-year term.”*:</p>
+<ul>
+<li><strong>8 GB</strong> — $150.30/mo (year one = $1,803.60), renews at <strong>$2,004/year</strong>. Real increase <strong>+11.1%</strong>. Badge said 10% off → formula predicts +11%.</li>
+<li><strong>16 GB</strong> — $175.50/mo (year one = $2,106.00), renews at <strong>$2,676/year</strong>. Real increase <strong>+27.1%</strong>. Badge said 21% off → formula predicts +27%.</li>
+<li><strong>32 GB</strong> — $256.50/mo (year one = $3,078.00), renews at <strong>$5,280/year</strong>. Real increase <strong>+71.5%</strong>. Badge said 42% off → formula predicts +72%.</li>
+</ul>
+<p>Eight out of eight. On seven of them the formula lands within about one percentage point of the printed numbers; the widest gap is Pulsar (+30% predicted vs +29.1% actual), because the badge percentage itself is rounded. Read the <a href="https://www.namecheap.com/hosting/vps/">Namecheap VPS plans</a> and the <a href="https://www.liquidweb.com/vps-hosting/packages/">Liquid Web VPS packages</a> pages yourself and run the division — the arithmetic is visible on the page.</p>
+<h2>Why the badge understates it</h2>
+<p>Two things do the work.</p>
+<p><strong>Different denominators.</strong> The badge measures the discount against the *undiscounted monthly rate*. Your increase is measured against *what you actually paid*. Those are different bases, so the two percentages can never be equal — the increase is always the larger one.</p>
+<p><strong>Different units.</strong> Liquid Web&#x27;s cards put the promo per month and the renewal per year: “$150.30/mo” against “$2,004/year”. Converted to one unit, that is $150.30/mo now versus $167.00/mo after renewal. Namecheap&#x27;s cards are easier to read because both figures land in the same sentence and the same unit.</p>
+<p>So when you see a monthly promo next to an annual renewal, convert before you compare. That single step is the whole trick.</p>
+<h2>The conversion table you can copy</h2>
+<p>Badge → the increase you actually get at renewal, assuming renewal occurs at the undiscounted rate (which is exactly what all eight cards above state):</p>
+<pre><code>10% off  -&gt;   +11%
+20% off  -&gt;   +25%
+25% off  -&gt;   +33%
+30% off  -&gt;   +43%
+40% off  -&gt;   +67%
+42% off  -&gt;   +72%
+50% off  -&gt;  +100%
+60% off  -&gt;  +150%
+65% off  -&gt;  +186%
+67% off  -&gt;  +203%
+70% off  -&gt;  +233%</code></pre>
+<p>Read it backwards as well: a “70% off” VPS deal, stated honestly, is “year two costs about 3.3× year one”. Both sentences describe the same offer. Only one of them appears on the card.</p>
+<h2>Read the verb, not just the number</h2>
+<p>The wording around the figure carries its own meaning:</p>
+<ul>
+<li><strong>“renews at $X”</strong> — an exact figure. Used on both the Namecheap and Liquid Web cards above. This is the most useful field on a VPS page.</li>
+<li><strong>“renews from $X”</strong> — a floor, not a promise. The actual renewal can be higher. Namecheap uses this form on its promotional tiles for other products.</li>
+<li><strong>“renews for $X”</strong> — exact, equivalent to “at”.</li>
+<li><strong>“Was $X/mo”</strong> — the undiscounted monthly rate. Handy shortcut: the renewal monthly rate is close to this number. On Namecheap&#x27;s cards, “was $4.88/mo” matches the $58.56/year renewal exactly ($4.88 × 12).</li>
+<li><strong>“upon renewal $X”</strong> — the phrasing review sites and community deal posts use. It is their summary of the vendor&#x27;s terms, not the vendor&#x27;s own wording. Verify it on the vendor&#x27;s page.</li>
+<li><strong>“after the initial N-year term”</strong> — gives you the jump date. A 2-year initial term moves the increase to month 25, not month 13, which changes the answer if you only plan to keep the server 18 months.</li>
+</ul>
+<h2>What today&#x27;s scan could and could not verify</h2>
+<p>Our own scan run at <strong>2026-10-08T01:06:57Z</strong> attempted eight official pricing and promotion pages. Five returned readable content; the pricing pages for Vultr and Linode (Akamai) and three Contabo URLs did not, so this article prints <strong>no renewal figure for them</strong>. An unreadable official page is not a license to estimate one.</p>
+<p>The Hostinger VPS page was readable, and a single scan returned <strong>four separate discount entries from that one page: 70%, 67%, 65% and 63% off</strong>. Two things follow.</p>
+<p>First, four different discount percentages on one page tells you the percentage is a marketing field attached to particular plan and term combinations — not a property of the provider. Second, if those badges behaved like the eight verified cards above, they would imply year-two increases of roughly +233%, +203%, +186% and +170% respectively. <strong>We did not capture Hostinger&#x27;s renewal prices in this scan, so those four numbers are unknown, not confirmed.</strong> Use them as the question to take to the checkout page, not as Hostinger&#x27;s renewal price.</p>
+<h2>The other model: no promo to jump from</h2>
+<p>Not every provider plays this game. Hetzner&#x27;s billing FAQ describes servers with both a monthly price cap and an hourly rate, where the bill never exceeds the monthly cap, and where a server is billed for as long as it exists — including while powered off, because resources stay allocated to it. Prices move to current pricing on certain actions: rescaling a server, restoring a deleted one, or moving it to a project in a different currency.</p>
+<p>On that model there is no renewal jump to compute. There is a different failure mode: paying for a server you stopped using. The check changes accordingly — find the event that ends billing (deletion), not a renewal date.</p>
+<h2>A 60-second check before you pay</h2>
+<ol>
+<li><strong>Find the undiscounted rate on the same card</strong> — “was”, “regular”, or the renewal line. If none is present, mark renewal *unknown*.</li>
+<li><strong>Put both figures in the same unit and the same term</strong> — both monthly, or both annual.</li>
+<li><strong>Divide renewal by promo.</strong> That is your real multiplier. The badge is not.</li>
+<li><strong>Find the jump date</strong> — the end of the initial term — and price the whole horizon you intend to keep the server, not one year.</li>
+<li><strong>Confirm the same renewal figure appears at checkout.</strong> If the plan card and the checkout disagree, the checkout number is the one you will be charged. Keep a screenshot of both.</li>
+<li><strong>If no renewal figure exists anywhere, do not assume the promo continues.</strong> “Unknown” is a legitimate answer, and it usually means the deal is priced for people who forget to cancel.</li>
+</ol>
+<p>Worth knowing: <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/10567/21/hosting-packages-life-cycle/">Namecheap documents how hosting package renewal timing works</a> relative to the billing cycle, and <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9164/22/how-to-renew-your-hosting-account/">how to renew a hosting package</a>, including renewing before the renewal control appears. Renewal mechanics are provider-specific; never transfer one provider&#x27;s rule to another.</p>
+<h2>Bottom line</h2>
+<ul>
+<li>Convert the badge before you trust it: <strong>increase = d / (1 − d)</strong>. A 42% off VPS deal is a +72% renewal, verified on the <a href="https://www.liquidweb.com/vps-hosting/packages/">Liquid Web packages page</a>.</li>
+<li><strong>“Renews at $X” is the most honest field on a VPS page.</strong> When a card has it you can do the math in ten seconds; when it does not, you are guessing.</li>
+<li><strong>Compare on a 24- or 36-month horizon</strong>, not month one. The ranking of two VPS deals frequently flips once renewal is included.</li>
+<li><strong>Prefer pages that print renewal.</strong> Of the pages we checked today, both vendors that published a renewal figure did so on the plan card itself. That transparency is worth more than a slightly bigger headline discount.</li>
+</ul>
+<p>The cheapest VPS deal is not the one with the biggest badge. It is the one whose year-two price you already know.</p><section><h2>Sources</h2><ul><li><a href="https://www.liquidweb.com/vps-hosting/packages/">https://www.liquidweb.com/vps-hosting/packages/</a></li><li><a href="https://www.namecheap.com/hosting/vps/">https://www.namecheap.com/hosting/vps/</a></li><li><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/10567/21/hosting-packages-life-cycle/">https://www.namecheap.com/support/knowledgebase/article.aspx/10567/21/hosting-packages-life-cycle/</a></li><li><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9164/22/how-to-renew-your-hosting-account/">https://www.namecheap.com/support/knowledgebase/article.aspx/9164/22/how-to-renew-your-hosting-account/</a></li><li><a href="https://docs.hetzner.com/cloud/billing/faq/">https://docs.hetzner.com/cloud/billing/faq/</a></li><li><a href="https://www.hostinger.com/vps-hosting">https://www.hostinger.com/vps-hosting</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-08T12:37:03+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>
