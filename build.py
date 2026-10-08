@@ -1,6 +1,6 @@
 # ILANG: static builder; reads brand and providers from .ilang/site.ilang.
 # ILANG: omit unknown offer prices and dates from page content and structured data.
-import html,json,re,shutil
+import html,json,re,shutil,hashlib
 from datetime import date,datetime,timezone
 from pathlib import Path
 from urllib.parse import quote
@@ -122,7 +122,8 @@ def main():
  except ValueError as exc:raise RuntimeError('Invalid source_scan_at in data/offers.json.') from exc
  site_check_at=scan_time.isoformat(timespec='seconds');scan_date=scan_time.date().isoformat()
  today=datetime.now(timezone.utc).date().isoformat();all_offers=d.get('offers',[]);offers=[o for o in all_offers if o.get('status','active')=='active' and (not o.get('valid_until') or o['valid_until']>=today)];base=c['domain'].rstrip('/')
- if OUT.exists():shutil.rmtree(OUT)
+ # Keep the existing generated tree in place and overwrite deterministic outputs.
+ # This avoids a broad recursive delete before a build has completed successfully.
  OUT.mkdir(exist_ok=True)
  assets=R/'assets'
  if assets.is_dir():shutil.copytree(assets,OUT/'assets',dirs_exist_ok=True)
@@ -214,6 +215,8 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   for key,value in values.items():template=template.replace('{{'+key+'}}',e(value) if key in ('TITLE','DESCRIPTION','CANONICAL','BRAND') else value)
   template=re.sub(rf'({re.escape(base)})(/[^"\'<>\s?#]+)\.html(?=[?"\'<>\s#])',r'\1\2',template)
   template=re.sub(r'(?<![A-Za-z0-9:/])(/[^"\'<>\s?#]+)\.html(?=[?"\'<>\s#])',r'\1',template)
+  tool_script='''<script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script>'''
+  template=template.replace('</body>',tool_script+'</body>')
   return template
  def card(o):
   if o.get('status','active')!='active':return ''
@@ -318,5 +321,51 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   target='/providers/'+slug(o.get('provider',''))+'#plan-'+(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
   add_redirect(old,target)
  (OUT/'_redirects').write_text('\n'.join(redirects)+'\n',encoding='utf8')
- (OUT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n',encoding='utf8');print(f'Built {len(urls)} canonical pages; consolidated {len(redirects)} offer sections')
+ (OUT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n',encoding='utf8')
+ # Agent discovery is generated from the exact same article source as the visible article pages.
+ public_articles=[{'slug':a['slug'],'title':a['title'],'description':a['description'],'question':a.get('question') or None,'date':a['date'],'sources':a['sources'],'url':base+'/articles/'+a['slug']+'/','body':a['body']} for a in articles]
+ (OUT/'agent-articles.json').write_text(json.dumps({'articles':public_articles},ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf8')
+ (OUT/'ai').mkdir(exist_ok=True)
+ (OUT/'ai'/'index.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><title>Lumafare agent service</title><main><h1>Lumafare public article lookup</h1><p>This read-only service searches and reads published VPS deal and evaluation articles.</p><p>Use <a href="/openapi.json">the API contract</a>, <a href="/mcp">the MCP endpoint</a>, or <a href="/ai/skills/site-lookup/SKILL.md">the agent skill</a>. Search returns a bounded set. Read requires an exact published slug. Sources and publication dates are retained; unavailable facts remain unknown.</p></main></html>\n',encoding='utf8')
+ (OUT/'ai'/'index.ilang').write_text('::ILANG\n[TYPE:agent-instructions][LANG:en]\nUse the Lumafare public article search/read service only. Preserve article identifiers, publication dates, qualifiers and source URLs. Answer in the visitor language and cite the relevant article. Do not infer missing prices, discounts, expirations or provider terms. If no published article supports a fact, say it is unknown.\n',encoding='utf8')
+ skill='---\nname: site-lookup\ndescription: Search and read Lumafare public VPS deal and evaluation articles with source links.\n---\n# Lumafare site lookup\n\nUse the read-only search and read API for published articles. Keep identifiers, dates, qualifiers, and source URLs intact. Answer in the visitor language, cite the article URL, and state unknowns without filling gaps. Do not infer current prices, discounts, or expiry dates.\n\nSearch: `GET /api/agent/articles?q=<terms>&limit=<1..10>`\nRead: `GET /api/agent/articles?slug=<exact-slug>`\n'
+ skill_bytes=skill.encode('utf8');skill_path=OUT/'ai'/'skills'/'site-lookup'/'SKILL.md';skill_path.parent.mkdir(parents=True,exist_ok=True);skill_path.write_bytes(skill_bytes)
+ digest='sha256:'+hashlib.sha256(skill_bytes).hexdigest()
+ (OUT/'.well-known'/'agent-skills').mkdir(parents=True,exist_ok=True)
+ (OUT/'.well-known'/'agent-skills'/'index.json').write_text(json.dumps({'$schema':'https://schemas.agentskills.io/discovery/0.2.0/schema.json','skills':[{'name':'site-lookup','type':'skill-md','description':'Search and read public VPS articles with official sources.','url':base+'/ai/skills/site-lookup/SKILL.md','digest':digest}]},indent=2)+'\n',encoding='utf8')
+ article_schema={
+  'type':'object','required':['slug','title','description','date','sources','url','body'],
+  'properties':{'slug':{'type':'string'},'title':{'type':'string'},'description':{'type':'string'},'question':{'type':['string','null']},'date':{'type':'string','format':'date'},'sources':{'type':'array','items':{'type':'string','format':'uri'}},'url':{'type':'string','format':'uri'},'body':{'type':'string'}}}
+ search_schema={'type':'object','required':['query','count','results'],'properties':{
+  'query':{'type':'string'},'count':{'type':'integer'},'results':{'type':'array','items':{'type':'object','required':['slug','title','description','url','published'],
+   'properties':{'slug':{'type':'string'},'title':{'type':'string'},'description':{'type':'string'},'question':{'type':['string','null']},'url':{'type':'string','format':'uri'},'source_url':{'type':['string','null'],'format':'uri'},'published':{'type':'string','format':'date'}}}}}}
+ error_schema={'type':'object','required':['error'],'properties':{'error':{'type':'string'},'slug':{'type':'string'},'max_length':{'type':'integer'}}}
+ json_response=lambda schema:{'content':{'application/json':{'schema':schema}}}
+ openapi={
+  'openapi':'3.1.0','info':{'title':'Lumafare public article lookup','version':'1.0.0','description':'Read-only search and retrieval of published articles.'},'servers':[{'url':base}],
+  'paths':{'/api/agent/articles':{'get':{
+   'operationId':'searchOrReadArticles','summary':'Search published articles or read one by exact slug',
+   'parameters':[{'name':'q','in':'query','description':'Search text; omit or leave empty for no results.','schema':{'type':'string','maxLength':200}},{'name':'slug','in':'query','description':'Exact published article slug. Takes precedence over q.','schema':{'type':'string','pattern':'^[a-z0-9]+(?:-[a-z0-9]+)*$'}},{'name':'limit','in':'query','description':'Maximum number of search results.','schema':{'type':'integer','minimum':1,'maximum':10,'default':5}}],
+   'responses':{'200':{'description':'Search results or one article record.','content':{'application/json':{'schema':{'oneOf':[{'$ref':'#/components/schemas/SearchResponse'},{'$ref':'#/components/schemas/Article'}]}}}},'400':{'description':'Invalid slug or query length. **No article data is changed.**',**json_response({'$ref':'#/components/schemas/Error'})},'404':{'description':'Article slug not found.',**json_response({'$ref':'#/components/schemas/Error'})}}
+  }}},
+  'components':{'schemas':{'Article':article_schema,'SearchResponse':search_schema,'Error':error_schema}}
+ }
+ (OUT/'openapi.json').write_text(json.dumps(openapi,indent=2)+'\n',encoding='utf8')
+ (OUT/'.well-known'/'api-catalog').write_text(json.dumps({'linkset':[{'anchor':base+'/api/agent/articles','service-desc':[{'href':base+'/openapi.json','type':'application/vnd.oai.openapi+json;version=3.1'}],'service-doc':[{'href':base+'/ai/','type':'text/html'}]}]},indent=2)+'\n',encoding='utf8')
+ construction={'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','message':'Coming soon; authentication is not available. Public article lookup remains available without authentication.','launch_date':None,'issuer':base,'authorization_endpoint':base+'/agent-auth/authorize','token_endpoint':base+'/agent-auth/token','jwks_uri':base+'/.well-known/jwks.json','grant_types_supported':['authorization_code','urn:ietf:params:oauth:grant-type:jwt-bearer'],'response_types_supported':['code'],'code_challenge_methods_supported':['S256'],'scopes_supported':['site:read'],'agent_auth':{'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','skill':base+'/auth.md','register_uri':base+'/agent-auth/register','claim_uri':base+'/agent-auth/claim','identity_types_supported':['anonymous'],'anonymous':{'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','credential_types_supported':['access_token']}}}
+ (OUT/'.well-known'/'oauth-authorization-server').write_text(json.dumps(construction,indent=2)+'\n',encoding='utf8')
+ prm={'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','message':'Coming soon. Existing public lookup remains available without authentication.','launch_date':None,'resource':base,'planned_resource_endpoint':base+'/agent-auth/resource','authorization_servers':[base],'scopes_supported':['site:read'],'bearer_methods_supported':['header']}
+ (OUT/'.well-known'/'oauth-protected-resource').write_text(json.dumps(prm,indent=2)+'\n',encoding='utf8')
+ (OUT/'.well-known'/'jwks.json').write_text(json.dumps({'status':'under_construction','available':False,'keys':[]},indent=2)+'\n',encoding='utf8')
+ (OUT/'auth.md').write_text('# auth.md\n\nStatus: under construction. Authentication is unavailable; no registration or token exchange is active. Do not attempt login or token operations. The public read-only article lookup works without authentication: see [the API docs](/openapi.json) and [agent instructions](/ai/).\n',encoding='utf8')
+ (OUT/'.well-known'/'mcp').mkdir(parents=True,exist_ok=True)
+ mcp_card={'name':'com.lumafare/articles','title':'Lumafare public article lookup','description':'Read-only search and retrieval of published Lumafare VPS articles.','version':'1.0.0','serverInfo':{'name':'com.lumafare/articles','version':'1.0.0'},'supportedVersions':['2025-11-25'],'remotes':[{'type':'streamable-http','url':base+'/mcp'}],'capabilities':{'tools':{'listChanged':False}}}
+ (OUT/'.well-known'/'mcp'/'server-card.json').write_text(json.dumps(mcp_card,indent=2)+'\n',encoding='utf8')
+ (OUT/'mcp').mkdir(exist_ok=True)
+ (OUT/'mcp'/'server-card').write_text(json.dumps(mcp_card,indent=2)+'\n',encoding='utf8')
+ (OUT/'.well-known'/'agent-card.json').write_text(json.dumps({'name':'Lumafare public article lookup','description':'Read-only search and retrieval of published Lumafare VPS articles.','supportedInterfaces':[{'url':base+'/a2a','protocolBinding':'JSONRPC','protocolVersion':'1.0'}],'provider':{'url':base},'version':'1.0.0','capabilities':{'streaming':False,'pushNotifications':False,'stateTransitionHistory':False},'securitySchemes':{},'securityRequirements':[],'defaultInputModes':['text/plain'],'defaultOutputModes':['text/plain'],'skills':[{'id':'site-lookup','name':'Public article lookup','description':'Search or read published VPS articles and return source URLs.','tags':['articles','VPS'],'examples':['Find articles about comparing VPS plans','Read an article by exact slug']}],'signatures':[]},indent=2)+'\n',encoding='utf8')
+ ard={'specVersion':'1.0','host':{'displayName':'Lumafare','identifier':'did:web:lumafare.com'},'entries':[{'identifier':'urn:air:lumafare.com:api:articles','displayName':'Article lookup API','type':'application/vnd.oai.openapi+json;version=3.1','url':base+'/openapi.json','representativeQueries':['Find articles about VPS billing terms']},{'identifier':'urn:air:lumafare.com:mcp:articles','displayName':'Lumafare article lookup MCP server','type':'application/mcp-server-card+json','url':base+'/mcp/server-card','representativeQueries':['Search public VPS articles']},{'identifier':'urn:air:lumafare.com:a2a:articles','displayName':'Lumafare public article agent','type':'application/json','url':base+'/.well-known/agent-card.json','representativeQueries':['Read a public article by exact slug']},{'identifier':'urn:air:lumafare.com:skill:site-lookup','displayName':'Site lookup skill','type':'text/markdown','url':base+'/ai/skills/site-lookup/SKILL.md','representativeQueries':['Find and cite a public VPS article']}]}
+ (OUT/'.well-known'/'ai-catalog.json').write_text(json.dumps(ard,indent=2)+'\n',encoding='utf8')
+ (OUT/'_headers').write_text('''/\n  Link: <https://lumafare.com/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json", <https://lumafare.com/openapi.json>; rel="service-desc"; type="application/vnd.oai.openapi+json", <https://lumafare.com/ai/>; rel="service-doc"; type="text/html"\n\n/.well-known/*\n  Access-Control-Allow-Origin: *\n\n/.well-known/ai-catalog.json\n  Content-Type: application/ai-catalog+json; charset=utf-8\n\n/.well-known/api-catalog\n  Content-Type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"; charset=utf-8\n\n/.well-known/oauth-authorization-server\n  Content-Type: application/json; charset=utf-8\n\n/.well-known/oauth-protected-resource\n  Content-Type: application/json; charset=utf-8\n\n/.well-known/jwks.json\n  Content-Type: application/jwk-set+json; charset=utf-8\n\n/.well-known/agent-card.json\n  Content-Type: application/json; charset=utf-8\n\n/.well-known/agent-skills/index.json\n  Content-Type: application/json; charset=utf-8\n\n/.well-known/mcp/*\n  Content-Type: application/mcp-server-card+json; charset=utf-8\n\n/mcp/server-card\n  Access-Control-Allow-Origin: *\n  Content-Type: application/mcp-server-card+json; charset=utf-8\n\n/openapi.json\n  Access-Control-Allow-Origin: *\n  Content-Type: application/vnd.oai.openapi+json;version=3.1\n\n/auth.md\n  X-Robots-Tag: noindex\n\n/.well-known/oauth-authorization-server\n  X-Robots-Tag: noindex\n\n/.well-known/oauth-protected-resource\n  X-Robots-Tag: noindex\n\n/.well-known/jwks.json\n  X-Robots-Tag: noindex\n''',encoding='utf8')
+ print(f'Built {len(urls)} canonical pages; consolidated {len(redirects)} offer sections; agent article records: {len(public_articles)}')
 if __name__=='__main__':main()

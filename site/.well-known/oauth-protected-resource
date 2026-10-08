@@ -1,0 +1,18 @@
+{
+  "status": "under_construction",
+  "available": false,
+  "capabilities_status": "planned_contract_only",
+  "message": "Coming soon. Existing public lookup remains available without authentication.",
+  "launch_date": null,
+  "resource": "https://lumafare.com",
+  "planned_resource_endpoint": "https://lumafare.com/agent-auth/resource",
+  "authorization_servers": [
+    "https://lumafare.com"
+  ],
+  "scopes_supported": [
+    "site:read"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "Lumafare public article lookup",
+  "description": "Read-only search and retrieval of published Lumafare VPS articles.",
+  "supportedInterfaces": [
+    {
+      "url": "https://lumafare.com/a2a",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "provider": {
+    "url": "https://lumafare.com"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "securitySchemes": {},
+  "securityRequirements": [],
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "site-lookup",
+      "name": "Public article lookup",
+      "description": "Search or read published VPS articles and return source URLs.",
+      "tags": [
+        "articles",
+        "VPS"
+      ],
+      "examples": [
+        "Find articles about comparing VPS plans",
+        "Read an article by exact slug"
+      ]
+    }
+  ],
+  "signatures": []
+}

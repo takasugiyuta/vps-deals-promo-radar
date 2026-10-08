@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "scripts": {
+    "test:agent": "node --test tests/agent.test.js"
+  }
+}

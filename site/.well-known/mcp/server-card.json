@@ -1,0 +1,24 @@
+{
+  "name": "com.lumafare/articles",
+  "title": "Lumafare public article lookup",
+  "description": "Read-only search and retrieval of published Lumafare VPS articles.",
+  "version": "1.0.0",
+  "serverInfo": {
+    "name": "com.lumafare/articles",
+    "version": "1.0.0"
+  },
+  "supportedVersions": [
+    "2025-11-25"
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://lumafare.com/mcp"
+    }
+  ],
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    }
+  }
+}

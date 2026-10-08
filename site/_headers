@@ -1,0 +1,49 @@
+/
+  Link: <https://lumafare.com/.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json", <https://lumafare.com/openapi.json>; rel="service-desc"; type="application/vnd.oai.openapi+json", <https://lumafare.com/ai/>; rel="service-doc"; type="text/html"
+
+/.well-known/*
+  Access-Control-Allow-Origin: *
+
+/.well-known/ai-catalog.json
+  Content-Type: application/ai-catalog+json; charset=utf-8
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; profile="https://www.rfc-editor.org/info/rfc9727"; charset=utf-8
+
+/.well-known/oauth-authorization-server
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/oauth-protected-resource
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/jwks.json
+  Content-Type: application/jwk-set+json; charset=utf-8
+
+/.well-known/agent-card.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/agent-skills/index.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/mcp/*
+  Content-Type: application/mcp-server-card+json; charset=utf-8
+
+/mcp/server-card
+  Access-Control-Allow-Origin: *
+  Content-Type: application/mcp-server-card+json; charset=utf-8
+
+/openapi.json
+  Access-Control-Allow-Origin: *
+  Content-Type: application/vnd.oai.openapi+json;version=3.1
+
+/auth.md
+  X-Robots-Tag: noindex
+
+/.well-known/oauth-authorization-server
+  X-Robots-Tag: noindex
+
+/.well-known/oauth-protected-resource
+  X-Robots-Tag: noindex
+
+/.well-known/jwks.json
+  X-Robots-Tag: noindex

@@ -1,0 +1,45 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Lumafare",
+    "identifier": "did:web:lumafare.com"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:lumafare.com:api:articles",
+      "displayName": "Article lookup API",
+      "type": "application/vnd.oai.openapi+json;version=3.1",
+      "url": "https://lumafare.com/openapi.json",
+      "representativeQueries": [
+        "Find articles about VPS billing terms"
+      ]
+    },
+    {
+      "identifier": "urn:air:lumafare.com:mcp:articles",
+      "displayName": "Lumafare article lookup MCP server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://lumafare.com/mcp/server-card",
+      "representativeQueries": [
+        "Search public VPS articles"
+      ]
+    },
+    {
+      "identifier": "urn:air:lumafare.com:a2a:articles",
+      "displayName": "Lumafare public article agent",
+      "type": "application/json",
+      "url": "https://lumafare.com/.well-known/agent-card.json",
+      "representativeQueries": [
+        "Read a public article by exact slug"
+      ]
+    },
+    {
+      "identifier": "urn:air:lumafare.com:skill:site-lookup",
+      "displayName": "Site lookup skill",
+      "type": "text/markdown",
+      "url": "https://lumafare.com/ai/skills/site-lookup/SKILL.md",
+      "representativeQueries": [
+        "Find and cite a public VPS article"
+      ]
+    }
+  ]
+}

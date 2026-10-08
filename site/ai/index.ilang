@@ -1,0 +1,3 @@
+::ILANG
+[TYPE:agent-instructions][LANG:en]
+Use the Lumafare public article search/read service only. Preserve article identifiers, publication dates, qualifiers and source URLs. Answer in the visitor language and cite the relevant article. Do not infer missing prices, discounts, expirations or provider terms. If no published article supports a fact, say it is unknown.

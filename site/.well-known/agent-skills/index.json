@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "site-lookup",
+      "type": "skill-md",
+      "description": "Search and read public VPS articles with official sources.",
+      "url": "https://lumafare.com/ai/skills/site-lookup/SKILL.md",
+      "digest": "sha256:6abf8cec03c43b692c0c75cd054138af565f8e71653a84327590efd6992c1030"
+    }
+  ]
+}

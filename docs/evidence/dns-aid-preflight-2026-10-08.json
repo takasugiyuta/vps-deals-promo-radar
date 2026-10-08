@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-10-08",
+  "resolver": "https://cloudflare-dns.com/dns-query",
+  "queries": [
+    {
+      "name": "lumafare.com",
+      "type": "DS",
+      "http_status": 200,
+      "dns_status": 0,
+      "authenticated_data": true,
+      "answers": ["2371 13 2 4878d5a608472b72939e357348585e9f8a79cdd0dfd48b8a7ba62a76902feee9"]
+    },
+    {
+      "name": "lumafare.com",
+      "type": "DNSKEY",
+      "http_status": 200,
+      "dns_status": 0,
+      "authenticated_data": true,
+      "answer_count": 2
+    },
+    {
+      "name": "lumafare.com",
+      "type": "NS",
+      "http_status": 200,
+      "dns_status": 0,
+      "authenticated_data": true,
+      "answers": ["lola.ns.cloudflare.com.", "quincy.ns.cloudflare.com."]
+    },
+    {
+      "name": "_index._agents.lumafare.com",
+      "type": "SVCB",
+      "http_status": 200,
+      "dns_status": 0,
+      "authenticated_data": true,
+      "answers": []
+    }
+  ],
+  "cloudflare_api_zone_read": {
+    "http_status": 403,
+    "success": false,
+    "error_code": 9103,
+    "credential_values_redacted": true
+  },
+  "dns_changes_made": false
+}
