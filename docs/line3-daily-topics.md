@@ -114,3 +114,66 @@ Rules (locked):
 已用：`compare-vps-deals-total-cost`（总持有成本对比法，2026-10-07 已发布）；`vps-deals-renews-at-x`（renews at $X 换算公式，2026-10-08 已发布）
 
 剩余候选（未被消耗）：Unmetered Port, Metered Reality（B4 + C6/C13/C15）；"Lifetime Discount" vs "First Payment"（C3/C4/C5）
+
+---
+
+## 2026-10-09 (Day 3)
+
+### A. 原创内容邪修
+
+| # | 邪修点 | 为什么别人抄不走 |
+|---|---|---|
+| A1 | 公开自己的**抓取缺口地图**：本次 scan（`2026-10-08T18:33:22Z`）8 个官方 URL 里只有 3 个可读（Hostinger / Hetzner / DigitalOcean），Vultr、Linode (Akamai)、Contabo 三个全返回不可读。写成"这六家官方页我们今天抓到什么、没抓到什么、你自己怎么核"，并挂时间戳 | 商业站和榜单站永远不会公开自己拿不到哪几家的数据——那是自曝其短。只有每天真跑一遍抓取的站才有这张表 |
+| A2 | Hetzner 官方首页抓出来的**唯一一条 offer 是 Server Auction（`/sb` 二手服务器拍卖）**，不是折扣。反向写：官方把"清库存"排在"做促销"前面，而所有榜单站只抄它家的常规套餐价，没人看它首页推的第一件事是什么 | 观察来自我们自己抓取到的 offer 顺序和内容，抄走就必须复制我们的抓取结果 |
+| A3 | **"折扣条数 vs 套餐档位"数量不匹配检测**：Hostinger 一个官方页同时抓出 `70% / 67% / 65% / 63% off` 四条折扣 + 一条 `Student discount`，共 5 条 deal，但官方档位是 KVM 1/2/4/8 四个——必然有一条是叠加标注或重复计数。给读者一条可复制的核对动作（数 deal 条数、数档位数、不等就别信标签） | 是方法不是观点；需要同一时刻的多条目抓取快照，写手站只有单一时刻手抄的一个价 |
+| A4 | **双管道交叉验证**：机器抓到的是"折扣标签"（offers.json 的 6 条），人工读官方页算出来的是"每 GB 单价"（$1.62–$9.00）。把两列并排放，不一致的地方就是选题——标签说便宜、单价说贵，就是该写的那篇 | 需要同时拥有抓取管道和人工核价两条线，竞品只有一条 |
+| A5 | 反向写法：不写"今天有哪些 deal"，写"**这条 deal 在我们的时间线上活了几天**"。我们自 09-24 起每天 scan，`70%/67%/63%/65% off` 这组标签已连续出现多日；现在能诚实写的是"存活天数 + 方法"，不是"失效榜"——**至今零个真实失效事件**，这个事实本身就要写进正文 | 需要连续日期的抓取历史才敢说"活了几天"；单篇榜单文没有时间维度 |
+
+### B. 谷歌搜索查词（今天真跑过的）
+
+| query | SERP 上看到了什么 | 判断 |
+|---|---|---|
+| `vps deals` | **核心词**。前 5 条：vpsdeck.com 分类页（唯一英文）、spacevps.cc/deals、naibabiji、uvps.org/deals（23 小时前更新）、github 中文榜 topseo123/VPStuijian。4 条中文聚合 + 1 条英文分类页 | 核心词锁 28 天不动。连续两天同一格局：英文位仍只有分类页占位，说明是英文供给不足而非需求不足 |
+| `vps hourly billing rate per hour convert to monthly cost` | racira 计算器、affordablevpsserver 的 "Per-Hour vs Monthly VPS Billing"（英文，2026-09-11）、rafftechnologies 的 "VPS Pricing Models: Monthly vs Hourly Billing"（英文，2026-07-29），另两条中文（calculatorlib、lightnode） | 英文位有 2 篇但都停在"按小时还是按月"的选型对比，**没人把官方页上的小时费率 × 730 折成月费**。有缝，可做（对应缺口台账可用 #3） |
+| `lowendtalk provider went dark refund recourse` | lowendtalk 的 "RAVNIX offline?" 帖原文（"we should have found a way to notify you **before anything went dark**"）、LET Reviews 分类、services.lowendtalk.com 工单系统，加一条中文 PayPal 争议攻略（vps-craft） | 英文原生素材密集但散在论坛帖里，没人整理成"商家失联后的三步"。可做，注意写成流程不写成法律建议 |
+| `vps money back guarantee days provider comparison refund policy` | affordablevpsserver 的英文对比表已占位（InterServer 30 天 / RackNerd 30 天 / Hostwinds 72 小时月付-30 天年付 / Contabo 30 天 / Database Mart 7 天 / Vultr 与 DigitalOcean "No refund (hourly billing)"），其余全是中文站 | 英文位已被占且我们有 `vps-deals-refund-window` 已发——**不再写第二篇**，降级为素材来源 |
+| `cheap vps restock notification out of stock waitlist` | hosthum（中文）、vps-supermarket.vercel.app、stock.vpsknow.com、vpsdalao.com、github 的 vmiss-restock-guide——**5 条里 0 条英文** | 库存监控这个需求几乎全被中文站的工具吃掉，英文内容位空缺明显；而 `restock` 恰是 LET 高频词（见 C3）→ **可做，存候选** |
+| `"per GB of RAM" VPS price comparison value tier` | stackvaluelab.com "VPS Price per GB of RAM: Every Major Provider, 2026"、pikkly.dev（338 plans / 7 providers / 6 Oct 2026）、hostingsift.com "711 Plans, 39 Hosts"（英文），加 vps.fund、vpssos 两条中文 | 三个英文站在做，说明我们昨天那篇角度被验证；但也说明这个坑开始挤——**不再写第二篇**，要写就换带日期的时间线角度 |
+
+### C. 老外怎么说（真在用的说法）
+
+| phrase | 谁在用 / 什么意思 |
+|---|---|
+| "$49/year, **renews at** $49" | LowEndTalk 标题原文（D4 Networks）：续费价的标注句式，已是第三天仍在首页出现 |
+| "**Price Locked on Renewal**" | LET 标题原文（[WLX] Hong Kong Dedicated）：与 "renews at" 对立的信任信号，意思是续费不涨价 |
+| "**Regular VPS Restock**" / "VPS Restock" | LET 标题原文（DeluxHost.net，两帖）：补货。比 sold out / out of stock 更常用，是低价套餐的常态动作 |
+| "[**WTB**]" | LET 求购区标题前缀（"[WTB] ISP/RESI IPV6 /44 & Larger + Server"）= Want To Buy |
+| "[**Transfer**]" / "Service Transfers" | LET 板块与标题（"[Transfer] Letting go of my beloved KS-5-A - OVH CA"）：转让的是**合同**不是机器，和 WTS 不同 |
+| "**Exit Scam Alert / Scam Warning**" + `v4vm[dot]com` | LET 板块名与标题原文；社区故意把域名写成 `[dot]` 以免给骗子站送外链 |
+| "**stuck in AI support loop**" | LET 标题原文（"PulsedMedia Server Offline Since Sept 27th: Stuck in AI Support Loop"）：新兴行话，指自动化客服不升级到人工 |
+| "**suspended me for 'high utilization'**" | LET 标题原文：被以"高占用"为由停机，引号表示用户对这个理由有异议 |
+| "**brand is being retired** as of March 2027" | LET 帖（Prometeus）：品牌退场，常是改名或退出的前兆 |
+| "does not own the **ASN**" | LET 标题（"Reject provider tags when the provider does not own the ASN"）：社区判定"真厂商"的硬标准 |
+| "**Promo code: LET10**" / "25% off: **LET25**" | LET 侧栏标题原文：给论坛专属的码，写法是"折扣 + 冒号 + 码名" |
+| "KVM VPS from $5.99/mo \| 2-4GB **Unmetered**" | LET 标题原文（PrivateByte）：虚拟化类型 + 起价 + unmetered 三件套 |
+| "bonus vCPU, RAM, or **Double Transfer Data**" | LET 标题原文（"VPS Promo 10.10 50% OFF"）：加量不加价的三种说法 |
+| "**YABS** (**Yet Another Benchmark Script**)" | LowEndBox 正文原文："largest collection of YABS benchmarks on the planet, with over 10,000 user-submitted reports" |
+| "**IPv6-only**" / "**LXC** (Linux Container)" | LowEndBox 正文原文（SoftShellWeb）：低价套餐常见形态，IPv4 要加钱 |
+| "$16.99/**YR**" / "from $24.95/**mo**" / "UNDER $10/**YEAR**" | LEB/LET 标题：年付月付的写法，几乎不用 "annual" 这个词 |
+| "Full refund" / "**Exclusions**" / "Setup fees ... non-refundable" / "**No refund (hourly billing)**" / "pay as you go" | affordablevpsserver 英文评测站对比表原文：退款条的五个字段说法 |
+| "**excessive resources** — a vague term they can define retroactively" | 同上，英文评测站对退款除外条款的批评原话 |
+| "**monthly cap**" / "monthly maximum" / "ceiling" / "**proration**" / "billing granularity" | rafftechnologies 厂商文档原文：按小时计费的上限、折算、计费粒度 |
+| "**Do not assume that shutting down the operating system or powering off the VM ends infrastructure billing**" | 同上原文：关机不等于停计费，厂商文档里明确警告 |
+| "the number of hours used to calculate the **monthly maximum**" | 同上原文：就是那个 730，但厂商只说"用来算月上限的小时数"，不写出来 |
+
+### 明日候选
+
+1. **Hourly Rate × 730: What a $0.007/hr VPS Actually Costs Per Month** — B2 + C19/C20/C21（对应缺口台账「可用 #3」）
+2. **"VPS Restock" Explained: Why Cheap Plans Sell Out and How the Wait Actually Works** — B5 + C3/C11
+3. **"Stuck in an AI Support Loop": What to Do When a Cheap VPS Provider Goes Quiet** — B3 + C6/C7/C8/C9
+
+已用：`compare-vps-deals-total-cost`（10-07）、`vps-deals-renews-at-x`（10-08）、`vps-deals-refund-window`（10-09，退款天数）、`vps-deals-cost-per-gb-ram`（10-09，每 GB 单价，**最后一篇已发布**）。
+
+已降级/不再写第二篇：退款天数（英文位被 affordablevpsserver 占 + 已发）、每 GB 单价（三个英文站在做 + 已发）。
+
+剩余候选（未被消耗）：Unmetered Port, Metered Reality（Day2 B4 + C6/C13/C15）；"Lifetime Discount" vs "First Payment"（Day2 C3/C4/C5）
