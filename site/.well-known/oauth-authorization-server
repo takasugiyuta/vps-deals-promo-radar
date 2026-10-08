@@ -37,7 +37,8 @@
       "capabilities_status": "planned_contract_only",
       "credential_types_supported": [
         "access_token"
-      ]
+      ],
+      "claim_uri": "https://lumafare.com/agent-auth/claim"
     }
   }
 }

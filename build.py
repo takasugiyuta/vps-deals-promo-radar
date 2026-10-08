@@ -352,7 +352,7 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  }
  (OUT/'openapi.json').write_text(json.dumps(openapi,indent=2)+'\n',encoding='utf8')
  (OUT/'.well-known'/'api-catalog').write_text(json.dumps({'linkset':[{'anchor':base+'/api/agent/articles','service-desc':[{'href':base+'/openapi.json','type':'application/vnd.oai.openapi+json;version=3.1'}],'service-doc':[{'href':base+'/ai/','type':'text/html'}]}]},indent=2)+'\n',encoding='utf8')
- construction={'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','message':'Coming soon; authentication is not available. Public article lookup remains available without authentication.','launch_date':None,'issuer':base,'authorization_endpoint':base+'/agent-auth/authorize','token_endpoint':base+'/agent-auth/token','jwks_uri':base+'/.well-known/jwks.json','grant_types_supported':['authorization_code','urn:ietf:params:oauth:grant-type:jwt-bearer'],'response_types_supported':['code'],'code_challenge_methods_supported':['S256'],'scopes_supported':['site:read'],'agent_auth':{'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','skill':base+'/auth.md','register_uri':base+'/agent-auth/register','claim_uri':base+'/agent-auth/claim','identity_types_supported':['anonymous'],'anonymous':{'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','credential_types_supported':['access_token']}}}
+ construction={'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','message':'Coming soon; authentication is not available. Public article lookup remains available without authentication.','launch_date':None,'issuer':base,'authorization_endpoint':base+'/agent-auth/authorize','token_endpoint':base+'/agent-auth/token','jwks_uri':base+'/.well-known/jwks.json','grant_types_supported':['authorization_code','urn:ietf:params:oauth:grant-type:jwt-bearer'],'response_types_supported':['code'],'code_challenge_methods_supported':['S256'],'scopes_supported':['site:read'],'agent_auth':{'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','skill':base+'/auth.md','register_uri':base+'/agent-auth/register','claim_uri':base+'/agent-auth/claim','identity_types_supported':['anonymous'],'anonymous':{'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','credential_types_supported':['access_token'],'claim_uri':base+'/agent-auth/claim'}}}
  (OUT/'.well-known'/'oauth-authorization-server').write_text(json.dumps(construction,indent=2)+'\n',encoding='utf8')
  prm={'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','message':'Coming soon. Existing public lookup remains available without authentication.','launch_date':None,'resource':base,'planned_resource_endpoint':base+'/agent-auth/resource','authorization_servers':[base],'scopes_supported':['site:read'],'bearer_methods_supported':['header']}
  (OUT/'.well-known'/'oauth-protected-resource').write_text(json.dumps(prm,indent=2)+'\n',encoding='utf8')
@@ -373,10 +373,22 @@ Registration endpoint: `{base}/agent-auth/register`
 register_uri: `{base}/agent-auth/register`
 registration_status: under_construction
 registration_available: false
-identity_types_supported: anonymous
-anonymous_registration: planned only; not available
 
-Anonymous agent registration is a future design only. While `available` is `false`, do not call the registration endpoint or attempt to create an identity. The reserved endpoint currently returns HTTP 503 and does not store submitted data, create accounts, issue credentials, or start an authorization flow. No login or token exchange is active.
+The planned anonymous registration method is described by these fields:
+
+```json
+{{
+  "register_uri": "{base}/agent-auth/register",
+  "claim_uri": "{base}/agent-auth/claim",
+  "identity_types_supported": ["anonymous"],
+  "anonymous": {{
+    "credential_types_supported": ["access_token"],
+    "claim_uri": "{base}/agent-auth/claim"
+  }}
+}}
+```
+
+Anonymous agent registration is a future design only. While `available` is `false`, do not call the registration or claim endpoint or attempt to create an identity. The reserved endpoints currently return HTTP 503 and do not store submitted data, create accounts, issue credentials, or start an authorization flow. No login or token exchange is active.
 
 ## Available public service
 

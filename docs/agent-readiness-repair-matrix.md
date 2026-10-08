@@ -31,7 +31,7 @@ Official sources: [Wrangler Pages deploy help](https://developers.cloudflare.com
 ## Current limitations
 
 - Current default profile, enabled check set, displayed score, and post-change score are unknown because a new scanner request is not permitted in this session.
-- The scanner's `auth-md` repair skill could not be opened in this session because access to the scanner origin had previously been refused. The `auth.md` registration section follows the owner-provided parse failure and explicit requested fields; its exact detector markers remain unverified until the owner's next scan.
+- The updated `auth.md` registration fields follow the owner-provided copy of the scanner's `auth-md` skill. Detector acceptance remains unverified until the owner's next scan.
 - DNS-AID is not configured until current draft semantics, DNSSEC validation, and account/zone DNS-edit permission are verified.
 - Content-Signal directives now use the requested proposed defaults `search=yes, ai-input=yes, ai-train=no`; these are pending owner confirmation, not scanner or protocol requirements.
 - OAuth is deliberately construction-only: no registration, login, token issuance, or identity storage exists.

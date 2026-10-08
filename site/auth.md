@@ -14,10 +14,22 @@ Registration endpoint: `https://lumafare.com/agent-auth/register`
 register_uri: `https://lumafare.com/agent-auth/register`
 registration_status: under_construction
 registration_available: false
-identity_types_supported: anonymous
-anonymous_registration: planned only; not available
 
-Anonymous agent registration is a future design only. While `available` is `false`, do not call the registration endpoint or attempt to create an identity. The reserved endpoint currently returns HTTP 503 and does not store submitted data, create accounts, issue credentials, or start an authorization flow. No login or token exchange is active.
+The planned anonymous registration method is described by these fields:
+
+```json
+{
+  "register_uri": "https://lumafare.com/agent-auth/register",
+  "claim_uri": "https://lumafare.com/agent-auth/claim",
+  "identity_types_supported": ["anonymous"],
+  "anonymous": {
+    "credential_types_supported": ["access_token"],
+    "claim_uri": "https://lumafare.com/agent-auth/claim"
+  }
+}
+```
+
+Anonymous agent registration is a future design only. While `available` is `false`, do not call the registration or claim endpoint or attempt to create an identity. The reserved endpoints currently return HTTP 503 and do not store submitted data, create accounts, issue credentials, or start an authorization flow. No login or token exchange is active.
 
 ## Available public service
 
