@@ -7,7 +7,7 @@ Baseline source: owner-provided `C:\Users\y\WorkBuddy AI\Claw\tmp\lumafare_basel
 | linkHeaders | Homepage response advertises working discovery resources | fail: no Link headers | Add Link relations through Pages middleware | `functions/_middleware.js`, `build.py` | HTTP header check | Revert middleware/build changes |
 | dnsAid | `_index._agents` publishes the current, valid discovery record and target | fail: record absent | Verify current draft and DNSSEC first; do not publish experimental `key65409` without current specification support | DNS only if zone permissions and syntax verified | Authoritative + validating resolver queries | Restore captured exact DNS baseline |
 | markdownNegotiation | HTML remains default; `Accept: text/markdown` returns page content as Markdown | fail: HTML returned | Add HTML-to-Markdown representation in Pages middleware with `Vary: Accept` and no-store | `functions/_middleware.js` | Request HTML→Markdown and Markdown→HTML | Revert middleware |
-| contentSignals | robots.txt states the owner-approved AI usage signals | fail: no Content Signals | Await owner’s explicit `ai-train`, `search`, and `ai-input` choices | `build.py` | Read generated robots.txt | Revert robots generation |
+| contentSignals | robots.txt states the owner-approved AI usage signals | fail: no Content Signals | Add the owner-side proposed default `search=yes, ai-input=yes, ai-train=no`; marked pending owner's confirmation, not an official requirement | `build.py` | Read generated robots.txt after build | Revert robots generation |
 | apiCatalog | RFC 9727 linkset describes a working read-only API | fail: absent | Publish catalog and OpenAPI; implement bounded article search/read | `build.py`, `functions/api/agent/articles/*` | known/empty/missing API inputs | Revert generated resources/functions |
 | oauthDiscovery | Truthful construction-only authorization metadata | fail: absent | Publish unavailable, planned-only authorization metadata; no auth flow | `build.py`, `functions/agent-auth/*` | schema/status and no-store checks | Revert generated docs/function |
 | oauthProtectedResource | PRM agrees with exact canonical ORIGIN | fail: absent | Publish construction-only PRM with resource exactly `https://lumafare.com` | `build.py` | JSON field check | Revert generated document |
@@ -31,8 +31,9 @@ Official sources: [Wrangler Pages deploy help](https://developers.cloudflare.com
 ## Current limitations
 
 - Current default profile, enabled check set, displayed score, and post-change score are unknown because a new scanner request is not permitted in this session.
+- The scanner's `auth-md` repair skill could not be opened in this session because access to the scanner origin had previously been refused. The `auth.md` registration section follows the owner-provided parse failure and explicit requested fields; its exact detector markers remain unverified until the owner's next scan.
 - DNS-AID is not configured until current draft semantics, DNSSEC validation, and account/zone DNS-edit permission are verified.
-- Content-Signal directives require owner choices and are not inferred from crawler allow rules.
+- Content-Signal directives now use the requested proposed defaults `search=yes, ai-input=yes, ai-train=no`; these are pending owner confirmation, not scanner or protocol requirements.
 - OAuth is deliberately construction-only: no registration, login, token issuance, or identity storage exists.
 
 ## DNS-AID preflight evidence

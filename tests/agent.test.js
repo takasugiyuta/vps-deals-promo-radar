@@ -92,6 +92,15 @@ test("discovery resources are valid and the skill digest matches served bytes", 
   assert.equal(card.skills[0].id, "site-lookup");
   const catalog = JSON.parse(await readFile(new URL("../site/.well-known/ai-catalog.json", import.meta.url), "utf8"));
   assert.ok(catalog.entries.length >= 3);
+  const robots = await readFile(new URL("../site/robots.txt", import.meta.url), "utf8");
+  assert.match(robots, /^Content-Signal: search=yes, ai-input=yes, ai-train=no$/m);
+  const auth = await readFile(new URL("../site/auth.md", import.meta.url), "utf8");
+  assert.match(auth, /^# auth\.md$/m);
+  assert.match(auth, /^## Agent Registration$/m);
+  assert.match(auth, /registration_available: false/);
+  assert.match(auth, /anonymous_registration: planned only; not available/);
+  assert.match(auth, /do not call the registration endpoint/i);
+  assert.match(auth, /HTTP 503/);
   const sitemap = await readFile(new URL("../site/sitemap.xml", import.meta.url), "utf8");
   assert.equal((sitemap.match(/<url>/g) || []).length, 12);
   const redirects = await readFile(new URL("../site/_redirects", import.meta.url), "utf8");

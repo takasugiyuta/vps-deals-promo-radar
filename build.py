@@ -321,7 +321,7 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
   target='/providers/'+slug(o.get('provider',''))+'#plan-'+(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
   add_redirect(old,target)
  (OUT/'_redirects').write_text('\n'.join(redirects)+'\n',encoding='utf8')
- (OUT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n',encoding='utf8')
+ (OUT/'robots.txt').write_text(f'User-agent: *\nAllow: /\nContent-Signal: search=yes, ai-input=yes, ai-train=no\nSitemap: {base}/sitemap.xml\n',encoding='utf8')
  # Agent discovery is generated from the exact same article source as the visible article pages.
  public_articles=[{'slug':a['slug'],'title':a['title'],'description':a['description'],'question':a.get('question') or None,'date':a['date'],'sources':a['sources'],'url':base+'/articles/'+a['slug']+'/','body':a['body']} for a in articles]
  (OUT/'agent-articles.json').write_text(json.dumps({'articles':public_articles},ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf8')
@@ -357,7 +357,31 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  prm={'status':'under_construction','available':False,'capabilities_status':'planned_contract_only','message':'Coming soon. Existing public lookup remains available without authentication.','launch_date':None,'resource':base,'planned_resource_endpoint':base+'/agent-auth/resource','authorization_servers':[base],'scopes_supported':['site:read'],'bearer_methods_supported':['header']}
  (OUT/'.well-known'/'oauth-protected-resource').write_text(json.dumps(prm,indent=2)+'\n',encoding='utf8')
  (OUT/'.well-known'/'jwks.json').write_text(json.dumps({'status':'under_construction','available':False,'keys':[]},indent=2)+'\n',encoding='utf8')
- (OUT/'auth.md').write_text('# auth.md\n\nStatus: under construction. Authentication is unavailable; no registration or token exchange is active. Do not attempt login or token operations. The public read-only article lookup works without authentication: see [the API docs](/openapi.json) and [agent instructions](/ai/).\n',encoding='utf8')
+ (OUT/'auth.md').write_text(f'''# auth.md
+
+## Authentication status
+
+status: under_construction
+available: false
+capabilities_status: planned_contract_only
+
+Authentication, account creation, and token issuance are not available. The public article lookup remains usable without signing in.
+
+## Agent Registration
+
+Registration endpoint: `{base}/agent-auth/register`
+register_uri: `{base}/agent-auth/register`
+registration_status: under_construction
+registration_available: false
+identity_types_supported: anonymous
+anonymous_registration: planned only; not available
+
+Anonymous agent registration is a future design only. While `available` is `false`, do not call the registration endpoint or attempt to create an identity. The reserved endpoint currently returns HTTP 503 and does not store submitted data, create accounts, issue credentials, or start an authorization flow. No login or token exchange is active.
+
+## Available public service
+
+The read-only article lookup works without authentication. See the [API contract](/openapi.json), [agent instructions](/ai/), and [public article search and read endpoint](/api/agent/articles).
+''',encoding='utf8')
  (OUT/'.well-known'/'mcp').mkdir(parents=True,exist_ok=True)
  mcp_card={'name':'com.lumafare/articles','title':'Lumafare public article lookup','description':'Read-only search and retrieval of published Lumafare VPS articles.','version':'1.0.0','serverInfo':{'name':'com.lumafare/articles','version':'1.0.0'},'supportedVersions':['2025-11-25'],'remotes':[{'type':'streamable-http','url':base+'/mcp'}],'capabilities':{'tools':{'listChanged':False}}}
  (OUT/'.well-known'/'mcp'/'server-card.json').write_text(json.dumps(mcp_card,indent=2)+'\n',encoding='utf8')
