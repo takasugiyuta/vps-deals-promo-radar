@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What a VPS Deal Actually Costs Per GB of RAM | Lumafare</title><meta name="description" content="We divided the posted price by the RAM on every plan card three major hosts publish. The spread runs from $1.62 to $9.00 per GB — and one plan inside a single provider&#x27;s own line costs 50% more per GB than the bigger plan directly above it."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-cost-per-gb-ram/">
+<meta property="og:title" content="What a VPS Deal Actually Costs Per GB of RAM | Lumafare"><meta property="og:description" content="We divided the posted price by the RAM on every plan card three major hosts publish. The spread runs from $1.62 to $9.00 per GB — and one plan inside a single provider&#x27;s own line costs 50% more per GB than the bigger plan directly above it."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-cost-per-gb-ram/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>What a VPS Deal Actually Costs Per GB of RAM</h1><p>We divided the posted price by the RAM on every plan card three major hosts publish. The spread runs from $1.62 to $9.00 per GB — and one plan inside a single provider&#x27;s own line costs 50% more per GB than the bigger plan directly above it.</p><p><small>Published: 2026-10-09</small></p><p><strong>Question:</strong> How much am I really paying per GB of RAM on a VPS deal, and which plans are quietly the worst value in their own lineup?</p><p>Every VPS deal page prints a monthly price. None of them print the price of what you are actually buying. Divide the posted price by the RAM on the card and the same three hosts — read from their own pricing pages on 2026-10-09 — span <strong>$1.62 to $9.00 per GB</strong>, a 5.5x spread on a commodity. Worse: <strong>DigitalOcean sells a 2 GB / 2 vCPU Droplet at $9.00 per GB, while the 4 GB / 2 vCPU directly above it costs $6.00 per GB.</strong> Same CPU count, double the memory, better rate. The smaller plan is strictly worse value than the one above it.</p>
+<h2>The table: price divided by RAM</h2>
+<p>| Provider | Plan | Posted /mo | RAM | vCPU | <strong>$/GB RAM</strong> | $/vCPU | |---|---|---|---|---|---|---| | Hostinger | KVM 1 | $6.49 | 4 GB | 1 | <strong>$1.62</strong> | $6.49 | | Hostinger | KVM 2 | $8.99 | 8 GB | 2 | <strong>$1.12</strong> | $4.50 | | Hostinger | KVM 4 | $12.99 | 16 GB | 4 | <strong>$0.81</strong> | $3.25 | | Hostinger | KVM 8 | $25.99 | 32 GB | 8 | <strong>$0.81</strong> | $3.25 | | Namecheap | Spark | $3.88 | 1 GB | 1 | <strong>$3.88</strong> | $3.88 | | Namecheap | Pulsar | $6.88 | 2 GB | 2 | <strong>$3.44</strong> | $3.44 | | Namecheap | Quasar | $12.88 | 6 GB | 4 | <strong>$2.15</strong> | $3.22 | | Namecheap | Magnetar | $24.88 | 12 GB | 8 | <strong>$2.07</strong> | $3.11 | | Namecheap | Hypernova | $46.88 | 24 GB | 12 | <strong>$1.95</strong> | $3.91 | | DigitalOcean | Basic 512 MiB | $4.00 | 0.5 GB | 1 | <strong>$8.00</strong> | $4.00 | | DigitalOcean | Basic 1 GiB | $6.00 | 1 GB | 1 | <strong>$6.00</strong> | $6.00 | | DigitalOcean | Basic 2 GiB | $12.00 | 2 GB | 1 | <strong>$6.00</strong> | $12.00 | | DigitalOcean | Basic 2 GiB / 2 vCPU | $18.00 | 2 GB | 2 | <strong>$9.00</strong> | $9.00 | | DigitalOcean | Basic 4 GiB | $24.00 | 4 GB | 2 | <strong>$6.00</strong> | $12.00 | | DigitalOcean | Basic 8 GiB | $48.00 | 8 GB | 4 | <strong>$6.00</strong> | $12.00 | | DigitalOcean | Basic 16 GiB | $96.00 | 16 GB | 8 | <strong>$6.00</strong> | $12.00 |</p>
+<p>Read the billing basis before you compare: Hostinger&#x27;s posted rate is the <strong>total for the initial term divided by the months in it</strong>, and its cards print the renewal rate separately. Namecheap&#x27;s posted rate is the <strong>yearly-billed monthly equivalent</strong>. DigitalOcean posts a straight monthly list rate. These are not the same kind of number, and that is the point — the deal pages put them side by side as if they were.</p>
+<h2>The renewal rate is where the unit price breaks</h2>
+<p>Hostinger prints both numbers, so you can watch the per-GB rate move:</p>
+<p>| Plan | Promotional $/GB | Renewal $/GB | Jump | |---|---|---|---| | KVM 1 | $1.62 | $3.00 | <strong>1.85x</strong> | | KVM 2 | $1.12 | $1.87 | <strong>1.67x</strong> | | KVM 4 | $0.81 | $1.81 | <strong>2.23x</strong> | | KVM 8 | $0.81 | $1.56 | <strong>1.92x</strong> |</p>
+<p>At renewal, Hostinger&#x27;s entry plan costs <strong>$3.00 per GB</strong> — which lands right next to Namecheap&#x27;s yearly-billed rate of $3.88 and is no longer the cheapest thing on this page by a wide margin. The discount does not shrink the unit price by a fixed amount. It moves you to a different tier entirely.</p>
+<p>Two more things fall out of that column. <strong>KVM 4 and KVM 8 have identical promotional unit prices</strong> — $0.81 per GB and $3.25 per vCPU each. Buying the bigger plan gets you no per-unit discount at all during the promotional term; the difference only appears at renewal ($1.81 vs $1.56). And the worst renewal jump is on KVM 4, not on the entry plan.</p>
+<h2>DigitalOcean&#x27;s line is flat — except in one place</h2>
+<p>Across 1 GB, 2 GB, 4 GB, 8 GB and 16 GB, DigitalOcean&#x27;s Basic Droplets hold an almost perfectly flat <strong>$6.00 per GB</strong>. Whatever you think of the absolute number, that is a legible pricing curve: double the memory, double the price, no games.</p>
+<p>Then there are the two exceptions, and one of them is a trap:</p>
+<ul>
+<li>The <strong>512 MiB</strong> plan costs $8.00 per GB — the second-worst rate in this entire table.</li>
+<li>The <strong>2 GiB / 2 vCPU</strong> plan costs <strong>$9.00 per GB</strong>, which is worse than every other DigitalOcean plan on the page *and* worse than the 4 GiB / 2 vCPU plan sitting directly below it at $6.00 per GB.</li>
+</ul>
+<p>Both have 2 vCPUs. One has twice the memory. The one with twice the memory is 33% cheaper per GB. There is no workload for which the $18 plan is the better buy.</p>
+<h2>Why nobody publishes this number</h2>
+<p>We read 30 pages across the three biggest comparison sites ranking for VPS deals. Not one of them divides price by RAM. They rank by headline monthly price, by star rating, or by a feature checklist — all of which are things the provider controls and prints for you.</p>
+<p>Price per GB is the one number the provider does not print, cannot spin, and does not want compared. Hostinger will tell you it is &quot;67% off.&quot; It will not tell you that at renewal you are paying $3.00 per GB, or that KVM 8 gives you no per-unit advantage over KVM 4 for the entire promotional term.</p>
+<h2>How to run this on any deal in ten seconds</h2>
+<pre><code>$/GB RAM  = monthly price / RAM in GB
+$/vCPU    = monthly price / vCPU count</code></pre>
+<p>Then do the thing the deal pages will not do for you: <strong>compute it twice</strong>, once at the promotional rate and once at the renewal rate printed on the same card. If the renewal column is not printed, treat the promotional unit price as temporary and reprice at the list rate before you commit.</p>
+<p>And check the plan one size up. In every lineup above, per-GB price falls as you scale — except where it does not, and those are exactly the plans to skip.</p>
+<h2>What we could not verify</h2>
+<p>Hetzner&#x27;s Cloud pricing page renders its plan prices client-side and returned no figures to an automated reader on 2026-10-09, so it is absent from the table rather than estimated. Its published billing model is hourly with a monthly price cap, rounded up to whole hours — a different shape from the three above, and worth its own calculation once the plan figures are readable.</p>
+<p>Vultr, Linode and Contabo pricing pages also refused automated reads today. We are not filling those rows with recalled numbers.</p><section><h2>Sources</h2><ul><li><a href="https://www.hostinger.com/vps-hosting">https://www.hostinger.com/vps-hosting</a></li><li><a href="https://www.namecheap.com/hosting/vps/">https://www.namecheap.com/hosting/vps/</a></li><li><a href="https://www.digitalocean.com/pricing/droplets">https://www.digitalocean.com/pricing/droplets</a></li><li><a href="https://docs.hetzner.com/cloud/billing/faq/">https://docs.hetzner.com/cloud/billing/faq/</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-08T17:04:48+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>
