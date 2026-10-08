@@ -14,6 +14,11 @@ Registration endpoint: `https://lumafare.com/agent-auth/register`
 register_uri: `https://lumafare.com/agent-auth/register`
 registration_status: under_construction
 registration_available: false
+agent_auth: advertised in OAuth Authorization Server metadata (`https://lumafare.com/.well-known/oauth-authorization-server`) as `skill`, `register_uri`, `claim_uri` and a complete anonymous registration method.
+
+## How an agent registers
+
+Registration is performed by the agent itself: call `register_uri` to obtain an identity, then `claim_uri` to bind it. Both endpoints are reserved and return HTTP 503 while `available` is `false`.
 
 The planned anonymous registration method is described by these fields:
 
