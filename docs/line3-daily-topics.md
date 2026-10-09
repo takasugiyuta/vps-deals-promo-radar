@@ -177,3 +177,72 @@ Rules (locked):
 已降级/不再写第二篇：退款天数（英文位被 affordablevpsserver 占 + 已发）、每 GB 单价（三个英文站在做 + 已发）。
 
 剩余候选（未被消耗）：Unmetered Port, Metered Reality（Day2 B4 + C6/C13/C15）；"Lifetime Discount" vs "First Payment"（Day2 C3/C4/C5）
+
+---
+
+## 2026-10-10 (Day 4)
+
+### A. 原创内容邪修
+
+| # | 邪修点 | 为什么别人抄不走 |
+|---|---|---|
+| A1 | **「可读 ≠ 有 deal」三态表**。本次 scan（`2026-10-09T18:31:28Z`，= 北京时间 10-10 02:31）8 个官方 URL 三态：可读且有 offer（Hostinger 5 条 / Hetzner 1 条）、可读但 **0 条 offer**（DigitalOcean `/pricing/droplets` 抓通了、一条折扣都没吐出来）、不可读（Vultr / Linode / Contabo×3）。把这三态并排列出来 | 榜单站只有"有价格"一种状态。要写出"抓通了但没有 deal"这一态，必须自己跑解析并记录 readable 布尔值——没有抓取管道的写手连这个区别都看不见 |
+| A2 | **同一个厂商试了三个入口，三个都没进去**。Contabo 今天有 3 条 URL 在 source_checks 里（`contabo.com/en/`、`/en/server-outlet/`、`/en-us/pricing/`），**3 条全 false**。失败面从"一条"扩到"整站三个入口"，这是性质判断：不是临时抽风，是整站反爬。公开写成"我们为一个厂商试了三个入口，全被挡" | 竞品只会写"某厂商价格如下"。要敢写"我们进不去"，必须先真的进去过三次；这是自曝其短，商业站永远不做 |
+| A3 | **Hetzner 首页第一件事，连续两个 scan 都是二手拍卖**。10-08 18:33Z 和 10-09 18:31Z 两次 scan，Hetzner 抓到的**唯一** offer 都是 `Server Auction`（`/sb`，"refurbished servers"）。官方把"清库存"排在"做促销"前面，而且是连续两天。反向写：不看它卖多少钱，看它首页推的第一件事是什么 | 需要连续日期的同源快照才敢说"连续"。单篇榜单文只有一个时刻的手抄价，没有时间维度 |
+| A4 | **官方页上的 deal，有多少条其实指向别的页面**。Hostinger 5 条 offer 里 4 条 `offer_url` = `https://www.hostinger.com/vps-hosting`（回到本页），但第 1 条 `Student discount` 的 `offer_url` = `https://www.hostinger.com/student-discount` —— **20% 的"VPS 折扣"其实导去了另一个业务线**。给读者一条可复制动作：把官方页上每条 deal 的链接域名/路径列出来，跳出去的那几条不是套餐折扣 | 需要解析并比对 `offer_url` 与 `source_url` 的路径差异。手抄价的人看到"5 条折扣"就写 5 条，不会发现其中一条根本不在 VPS 页里 |
+| A5 | **用 `fetched_at` 的秒级精度拆穿"实时价格"**。Hostinger 4 条折扣（70% / 67% / 63% / 65% off）的 `fetched_at` **完全相同，都是 `2026-10-09T18:31:21+00:00`**，和 Hetzner 那条差 1 秒，整个 scan 7 秒跑完。这说明这些百分比是同一份 HTML 里的静态文案，不是实时价接口。教读者一个动作：看到同页多个折扣标签且时间戳同一秒，就别把它当动态价格 | 需要秒级 `fetched_at` 字段 + 一次抓取里的多条目。没有管道就没有任何时间戳，更谈不上从"同一秒"推出"静态文案" |
+
+### B. 谷歌搜索查词（今天真跑过的）
+
+| query | SERP 上看到了什么 | 判断 |
+|---|---|---|
+| `vps deals` | **核心词**。只返回 3 条：spacevps.cc/deals（中文，"按日期更新"）、uvps.org/deals（中文，1 天前）、vpsdeck.com/categories/vps-deals/（唯一英文，且是分类页不是文章）。连续第三天同一格局：中文聚合占 2/3，英文位只有一个分类页占位 | 核心词锁 28 天不动。三天一致 → 是英文供给不足，不是需求不足 |
+| `cheap vps unmetered bandwidth fair use policy throttled speed fine print` | 5 条：lumovps、vps-craft 两条中文；**affordablevpsserver.com 英文原文**（2026-07-21，"VPS Bandwidth Policies: Throttling, Overage Fees, and Fair-Use Limits"）；hostadvice.com/vps/unmetered/（英文，但只是"10 Best Unmetered VPS Hosting Providers"榜单）；vpsbang 中文 | 真讲条款的英文文只有 1 篇，另一篇是榜单。且我们有自己的抓取时间戳 + 三态表可以做得更硬 → **可做，升为明日候选 #1** |
+| `lowendtalk provider went dark no response refund recourse steps` | 5 条：services.lowendtalk.com/submitticket.php、lowendtalk.com/categories/help、lowendtalk.com 首页、services 公告页，加一条 maxlaw.cn 中文法律问答 | **全是 LET 自己的服务台页，0 篇把这件事整理成流程的文章**。需求明确存在（LET 有独立 help 板块），英文内容位仍然空 → 保留候选，写成流程不写法律建议 |
+| `vps hourly billing rate convert to monthly cost 730 hours cap` | 5 条：calculatorlib 中文版 + **英文版**（"730 hours、8760 hours 行业标准"）、racira 计算器、**calculory.com**（"monthly cost equals hourly rate times 730 hours"）、**hourlyvps.com/guides/**（英文，6 天前更新，整站只做按小时计费）。**新信号：昨天还没有 hourlyvps 这个站** | 英文站清一色用 730，但今天实测 DigitalOcean 官方写的是**封顶 672 小时（28 天）**，且 v5 机型"no monthly usage cap"。**整个英文互联网在用一个厂商文档里根本不存在的数字** → 缝很大，**可做，升为明日候选 #2** |
+| `vps deal recurring price first term renewal increase how much` | 5 条：vps-craft（中文）、vpscost.com 两篇（英文域名、中文正文）、vpsdoge.com/watch（中文）、vpstier（中文）。**5 条里 0 条英文正文** | 英文位完全空缺；但 `vps-deals-renews-at-x` 已于 10-08 发布 → **不写同角度第二篇**。要写就换 LET 原生词角度（`recurring` / `Price Locked on Renewal` / `ALWAYS`） |
+| `lowendbox YABS benchmark results how to read vps performance` | 5 条：vpsart、stellaroam、vps69、banwagongvps **四条中文**（全是"YABS 怎么用"），加 lowendbox.com 英文原帖 "How To Use YABS To Check Your New VPS Or Dedicated Server"（2022 年，讲怎么跑、不讲怎么读） | 中文站把"怎么跑"抄烂了，**英文位只有一篇 2022 年的"怎么跑"，没有"怎么读结果"**。可做 → **升为明日候选 #3** |
+
+### C. 老外怎么说（真在用的说法）
+
+| phrase | 谁在用 / 什么意思 |
+|---|---|
+| "Usage is **capped at 672 hours (28 days)** per month" | DigitalOcean 官方文档原文：捆绑套餐的月封顶是 672 小时，**不是行业惯例的 730**。整个英文互联网换算时都在用错的数字 |
+| "billed per second with a **minimum charge of 60 seconds or $0.01, whichever is higher**" | 同上：按秒计费 + 最低 60 秒/1 分钱，取高者 |
+| "**v5 Droplets do not have a monthly usage cap.** The monthly total ... varies based on the number of hours in the month" | 同上：v5 机型干脆没有月上限，月费随当月实际小时数浮动——厂商自己承认"每月不一样" |
+| "You are **still billed for ... Droplets that are powered off** because the compute resources stay reserved on the hypervisor" | 同上：关机照样计费，因为资源在宿主上仍被占着。**停计费的唯一方法是 destroy** |
+| "Additional outbound transfer is billed at **$0.01 per GiB**. Inbound transfer to Droplets is free." | 同上：出向超量单价，入向免费 |
+| "Transfer allowance and usage is **pooled cumulatively ... at the team level, not individually** per Droplet" | 同上：流量额度是**团队池**不是单机池 |
+| "**Accrued transfer does not roll over** between months" | 同上：没用完的流量不结转 |
+| "**Throttle** — Port speed drops (e.g. from 1 Gbps to 10 Mbps) until the reset date" | affordablevpsserver 英文评测站：三种执法模型之一，限速到重置日 |
+| "**Bill per GB** — Overage charged at $0.01–$0.05/GB on the next invoice" | 同上：第二种执法模型，超量按 GB 计费 |
+| "**Suspend** — Server paused or network cut until renewal or manual top-up" | 同上：第三种执法模型，直接停机 |
+| "\"Unlimited\" bandwidth **does not exist on a shared network port**; what exists is a fair-use policy" | 同上原文：不存在"无限带宽"，只有 FUP |
+| "Providers phrase the limits as \"**reasonable use**\" precisely so they can act without publishing a number" | 同上原文：厂商故意用"合理使用"这种不含数字的说法，好让自己随时可以动手 |
+| "**Treat port speed as a ceiling, not an allowance**" | 同上原文：端口速率是天花板，不是额度 |
+| "**YABS** ... the name \"yabs\" stands for \"**yet another bench script**\"" | LowEndBox 英文教程原文：跑分脚本的行话全称，名字本身是梗（致敬 Yacc） |
+| "A bench test hopefully tells us whether we really are **getting everything our Provider's ad promised**" | 同上原文：社区对跑分的真实动机——验广告 |
+| "**AES-NI** : ✔ Enabled" / "**VM-x/AMD-V** : ✔ Enabled" | 同上 YABS 输出原文：开箱先看的两项硬件直通，直接决定能不能干某些活 |
+| "**fio** Disk Speed Tests (Mixed R/W 50/50)" / "**iperf3** Network Speed Tests (IPv4)" / "**Geekbench 5** Benchmark Test" | 同上 YABS 输出三段标题原文：磁盘、网络、CPU 的称呼方式 |
+| "**10,000 YABS**" / "largest collection of YABS ... benchmarks on the planet, with over 10,000 user-submitted reports" | LowEndBox / ServerVerify 原文：社区把跑分库存量当卖点 |
+| "D4 Networks \| 4GB KVM, 80-120GB NVMe \| **$49/year, renews at $49**" | LowEndTalk 标题原文：续费价标注句式，第四天仍在首页 |
+| "[WLX] Hong Kong Dedicated ... \| **Price Locked on Renewal**" | LET 标题原文：与 "renews at" 对立的信任信号 |
+| "[UK] VirexNode ... \| From $3.31/mo **recurring**" | LET 标题原文：**recurring = 一直这个价**，和首单促销价对立 |
+| "**RPiServers 2.0 -- $3.14 ALWAYS!**" / "**$5 for 5 Years?!** Dewlance® - **Quinquennially**" | LET 标题原文：不涨价声明的两种写法（`ALWAYS`、五年一付的 `Quinquennially`） |
+| "**25G Unmetered** 30% lifetime discount" / "Regular **VPS Restock**" | LET 标题原文：unmetered 与补货，低价套餐的常态措辞 |
+| "**[TRANSFER]** HostBilby 12c/24GB/160GB NVMe ($60/yr) + DartNode Ryzen 9950X 2c/4GB ($45/yr)" | LET 转让区标题原文：转让的是**合同**，标题里必须写清原套餐与原价 |
+| "**BYOASN/BYOIP**" / "Only Providers/**LIRs** are allowed to post offers" | LET 公告与标题原文：自带 ASN/IP；社区对"谁有资格发 offer"的硬门槛 |
+| "**VirMach LA outage**" / "VSYS Host: UA data centers. **What happened and where recovery stands?**" | LET 标题原文：出事后的问法——不问"好不好"，问"发生了什么、恢复到哪一步" |
+| "**Netcup price increase (September 2026)**" / "**cPanel: Price increase 2027**" / "**Should I just get a VDS**" | LET 标题原文：涨价有月份，VDS 是区别于 VPS 的独立品类名 |
+
+### 明日候选
+
+1. **672, Not 730: Why Your VPS Hourly Rate Doesn't Convert to a Month the Way Every Calculator Says** — B4 + C1/C2/C3/C4（DigitalOcean 官方 672 封顶 + v5 无封顶 + 关机仍计费 + 按秒最低 60 秒；对应缺口台账「可用 #3」）
+2. **Unmetered Port, Metered Reality: What Actually Happens When You Hit a VPS Bandwidth Cap** — B2 + C8/C9/C10/C11/C12/C13（三种执法模型 + FUP + 端口是天花板不是额度）
+3. **YABS in Plain English: How to Read a VPS Benchmark You Didn't Run** — B6 + C14/C15/C16/C17（怎么读结果，不是怎么跑）
+
+已用：`compare-vps-deals-total-cost`（10-07）、`vps-deals-renews-at-x`（10-08）、`vps-deals-refund-window`（10-09）、`vps-deals-cost-per-gb-ram`（10-09）、`vps-deals-who-collects-vat`（10-09，**最后一篇已发布**）。
+
+已降级/不再写第二篇：退款天数（英文位被 affordablevpsserver 占 + 已发）、每 GB 单价（三个英文站在做 + 已发）、renews at 换算（已发，且 B5 显示英文位 0 篇正文 → 想写只能换成 recurring / price locked 原生词角度）。
+
+剩余候选（未被消耗）："Lifetime Discount" vs "First Payment"（Day2 C3/C4/C5）；VPS Restock 等待机制（Day3 B5 + C3/C11）；"Stuck in an AI Support Loop"（Day3 B3 + C6/C7/C8/C9）。
