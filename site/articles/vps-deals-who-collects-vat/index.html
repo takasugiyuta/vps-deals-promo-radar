@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Who Actually Collects the VAT on Your VPS Deal | Lumafare</title><meta name="description" content="Nobody on a VPS deal page tells you who charges the tax. Read the hosts&#x27; own billing docs side by side and one rule governs all of them — the collector is set by your tax location, and that location is seeded from the billing address on the payment method you attach first."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-who-collects-vat/">
+<meta property="og:title" content="Who Actually Collects the VAT on Your VPS Deal | Lumafare"><meta property="og:description" content="Nobody on a VPS deal page tells you who charges the tax. Read the hosts&#x27; own billing docs side by side and one rule governs all of them — the collector is set by your tax location, and that location is seeded from the billing address on the payment method you attach first."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-who-collects-vat/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>Who Actually Collects the VAT on Your VPS Deal</h1><p>Nobody on a VPS deal page tells you who charges the tax. Read the hosts&#x27; own billing docs side by side and one rule governs all of them — the collector is set by your tax location, and that location is seeded from the billing address on the payment method you attach first.</p><p><small>Published: 2026-10-09</small></p><p><strong>Question:</strong> On a VPS deal, who collects the VAT — the host, the payment provider, or me — and what actually decides it?</p><p>Four parties can end up accounting for the VAT on a VPS deal, and which one you get is decided before you ever see a price with tax on it: <strong>the host</strong>, <strong>the marketplace vendor</strong>, <strong>you</strong>, or <strong>nobody at all</strong>. Every tax document we read on 2026-10-09 keys that decision to a single variable — your tax location — and every one of them derives that location from an address attached to your payment method. DigitalOcean states it plainly: *&quot;Your tax location is typically based on your account address, which is initially set to the payment address of your primary payment method when you sign up.&quot;* Hostinger goes further and puts the country dropdown <strong>on the payment step itself</strong>: *&quot;Once you have chosen a period and created your account, you will be asked to select a payment method. Before submitting the payment, select your country.&quot;*</p>
+<p>So the payment rail is not what matters — the address on the rail is. That distinction is worth real money: on DigitalOcean&#x27;s own published schedule, the identical $6.00/mo Basic Droplet invoices at <strong>$6.30 in the UAE and $7.62 in Hungary</strong>, a 21% spread on the same resource, with no VPN, no coupon and no plan change.</p>
+<h2>The four collectors, and how to tell which one you got</h2>
+<p>| Collector | When it applies | Documented example | |---|---|---| | <strong>The host</strong> | Your tax location appears on the host&#x27;s published country schedule and you have no valid business tax ID on file | DigitalOcean charges EU VAT at the member-state rate; Hetzner charges Germany 19% | | <strong>The marketplace vendor</strong> | You buy through a marketplace and your location is one where the platform has pushed collection to the seller | DigitalOcean Marketplace: Japan (JCT), Saudi Arabia, Switzerland and the UAE are all <strong>&quot;Vendor&quot;</strong>, not DigitalOcean | | <strong>You</strong> | You are a registered business in a reverse-charge or withholding regime | Hetzner: EU customers with a valid VAT ID are invoiced *&quot;according to the &#x27;Reverse-Charge&#x27; procedure, without German tax&quot;*; Tanzania: *&quot;you may be required to withhold 15% of the gross payment&quot;* | | <strong>Nobody</strong> | Your location is outside every schedule the host publishes | Hetzner: *&quot;Customers from these countries will receive their invoice without VAT&quot;* |</p>
+<p>The second row is the one nobody writes about. DigitalOcean publishes an explicit Responsibility to Collect and Remit Taxes matrix for its Marketplace, and for <strong>four of the twenty jurisdictions listed — Japan, Saudi Arabia, Switzerland and the UAE — the answer is &quot;Vendor,&quot; not DigitalOcean</strong>, for both domestic and cross-border sales. If you buy a VPS-adjacent service through that marketplace in Zurich, the company whose logo is on the invoice is not the company doing the remitting.</p>
+<p>The third row is where the money actually hides. Tanzania is the clearest published case: DigitalOcean charges <strong>18% VAT</strong> *and separately*, under the Tanzania Income Tax Act, a registered Tanzanian business *&quot;may be required to withhold 15% of the gross payment for digital services from DigitalOcean.&quot;* The doc is explicit that *&quot;Withholding tax is separate from value-added tax.&quot;* One purchase, two tax mechanisms, two different remitters.</p>
+<h2>What a $6.00 VPS actually invoices at, by tax location</h2>
+<p>DigitalOcean&#x27;s published schedule lists <strong>39 tax locations</strong> with rates from 5% to 27%. Applying those rates to the $6.00/mo Basic 1 GiB Droplet list price:</p>
+<p>| Tax location | Published rate | Landed monthly on $6.00 | |---|---|---| | United Arab Emirates | 5% | <strong>$6.30</strong> | | Thailand | 7% | $6.42 | | Switzerland | 8.1% | $6.49 | | Singapore | 9% | $6.54 | | Australia / Japan / South Korea / Vietnam | 10% | $6.60 | | India / Peru / Tanzania / Uganda | 18% | $7.08 | | Germany (EU) | 19% | $7.14 | | United Kingdom | 20% | $7.20 | | Russia | 22% | $7.32 | | Iceland | 24% | $7.44 | | Norway | 25% | $7.50 | | Finland (EU) | 25.5% | $7.53 | | Hungary (EU) | 27% | <strong>$7.62</strong> |</p>
+<p>DigitalOcean notes that *&quot;Prices listed on the DigitalOcean website do not include applicable VAT charges&quot;* — so every figure in the right-hand column is a number the pricing page will never show you.</p>
+<p>Now the part that deletes the top of that table entirely: *&quot;If you have a valid VAT ID in the European Union, you can add it to your team to remove tax charges from your invoice. If you have a valid VAT ID but don&#x27;t add it to your team, your invoice includes tax charges.&quot;* The 27% is not a fact about Hungary. It is a fact about whether you typed a number into a form.</p>
+<h2>Two hosts, same day, three different EU rates</h2>
+<p>We read DigitalOcean&#x27;s EU VAT table and Hetzner&#x27;s VAT page on the same day. They disagree on three member states:</p>
+<p>| EU country | DigitalOcean | Hetzner | |---|---|---| | Estonia | 24% | 22% | | Luxembourg | 16% | 17% | | Romania | 21% | 19% |</p>
+<p>They also disagree on South Africa: DigitalOcean publishes <strong>15.5%</strong> (effective 1 May 2019), Hetzner publishes <strong>15.00%</strong> (effective 1 January 2021). Hetzner&#x27;s table carries &quot;Starting on&quot; dates; DigitalOcean&#x27;s does not. We are not going to adjudicate which is current — the point for a buyer is that the rate on your invoice is whatever the host&#x27;s billing engine decided, and two major hosts reading the same statute land on different numbers. Check the invoice, not the schedule.</p>
+<p>Hetzner also splits the world differently from DigitalOcean. Where DigitalOcean applies one EU regime, Hetzner has five outcomes: <strong>Germany 19%</strong>, <strong>EU with a valid VAT ID → reverse charge, no German tax</strong>, <strong>EU without one → the VAT rate of your country of origin</strong>, <strong>a short list of non-EU countries</strong> (Australia 10%, Norway 25%, Singapore 9%, South Africa 15%, Switzerland 8.10%, UK 20%, plus sales tax in Texas, Utah, Arizona, Colorado and New Mexico), and <strong>everyone else → no VAT</strong>. Hetzner is also the only one of the two that charges US state sales tax by name: *&quot;We charge an 8% sales tax for customers in Texas... We use the address in your account to figure this out.&quot;*</p>
+<h2>The Hostinger trap: the VAT you paid is gone</h2>
+<p>Hostinger&#x27;s tax page contains a sentence that should be printed on every checkout screen: *&quot;Due to taxes being forwarded automatically, the VAT already applied to an invoice cannot be refunded.&quot;* And *&quot;Invoices already issued will remain unchanged.&quot;*</p>
+<p>The consequence is procedural, not theoretical. The VAT ID field lives on the payment step — *&quot;Before submitting the payment, select your country&quot;* — and if you skip it, Hostinger&#x27;s only remedy is prospective: *&quot;If you didn&#x27;t add your tax identification code during the purchasing process... The new information will appear on your future invoices. Invoices already issued will remain unchanged.&quot;* Buying a 24-month promotional term and remembering your VAT number in month two costs you the tax on month one permanently.</p>
+<p>There is also a ceiling on what Hostinger will even issue. Tax-compliant invoices are available <strong>only</strong> for entities with a valid tax ID in the EU/Northern Ireland, India or Indonesia; *&quot;tax invoices cannot be issued for countries outside the EU/Northern Ireland, India, and Indonesia.&quot;* A UAE-registered company *&quot;receive[s] a regular invoice showing VAT charged, rather than a fiscal invoice&quot;* — and Hostinger charges UAE companies <strong>5%</strong>. If your finance team needs a reclaimable fiscal invoice, that is a purchasing decision you make before the order, not after.</p>
+<h2>What the deal pages tell you: nothing</h2>
+<p>We opened the three biggest sites ranking for VPS deals. LowEndBox lists a German VPS at &quot;€3.49/Month&quot; and a Dutch one in euros with <strong>no tax qualifier anywhere on the page</strong> — despite both being in VAT-applicable jurisdictions. Liquid Web&#x27;s VPS packages page shows three cards at $150.30, $175.50 and $256.50/mo with renewal terms, and its closest thing to tax language is a value prop reading *&quot;Clear inclusions and predictable pricing from day one&quot;* — no tax, no VAT, no statement of whether those figures are inclusive or exclusive. Namecheap&#x27;s public billing knowledgebase, checked the same day, publishes <strong>no VAT or tax schedule at all</strong>; its checkout is the only place the number appears.</p>
+<p>A shopper cannot determine from any of those first screens what they will actually be charged. That is the gap, and it is identical across all three.</p>
+<h2>The ten-second check before you buy</h2>
+<pre><code>1. Identify your tax location  -&gt; the billing address of the payment method
+                                  you attach FIRST, not your nationality
+2. Look up that location on the host&#x27;s published tax schedule
+   - listed?       -&gt; host collects.  landed = posted x (1 + rate)
+   - not listed?   -&gt; host collects nothing.  Check whether YOUR country
+                      requires you to self-account (reverse charge / WHT)
+3. Buying on a marketplace?    -&gt; check the &quot;who remits&quot; matrix.  In Japan,
+                                  Saudi Arabia, Switzerland and the UAE on
+                                  DigitalOcean Marketplace it is the VENDOR
+4. Registered business?        -&gt; enter the VAT/GST ID BEFORE you submit
+                                  payment.  Already-paid VAT is not refundable
+                                  at Hostinger, and prior invoices do not change
+5. Compare landed prices, not posted prices</code></pre>
+<p>Step 4 is where the money is, and it is the one step every checkout flow lets you skip. The rate is not the decision — the form field is.</p>
+<h2>What we could not verify</h2>
+<p>Vultr, Linode (Akamai) and Contabo pricing pages refused automated reads on 2026-10-09, and we did not reach their tax documentation, so no landed-cost figures for them appear here. Namecheap publishes no tax schedule in its public knowledgebase, so we cannot state what it charges or where — we can only state that the number is not published in the place a buyer would look. DigitalOcean lists Canada, the EU and the United States as &quot;Varies&quot; rather than as single rates; we have not resolved those to a per-jurisdiction number and have left them out of the table rather than estimating.</p><section><h2>Sources</h2><ul><li><a href="https://docs.digitalocean.com/platform/billing/taxes/">https://docs.digitalocean.com/platform/billing/taxes/</a></li><li><a href="https://docs.digitalocean.com/platform/billing/taxes/eu/">https://docs.digitalocean.com/platform/billing/taxes/eu/</a></li><li><a href="https://docs.digitalocean.com/platform/billing/taxes/tza/">https://docs.digitalocean.com/platform/billing/taxes/tza/</a></li><li><a href="https://marketplace.digitalocean.com/vendors/saas-tax">https://marketplace.digitalocean.com/vendors/saas-tax</a></li><li><a href="https://docs.hetzner.com/general/billing-and-account-management/billing-at-hetzner/value-added-tax/">https://docs.hetzner.com/general/billing-and-account-management/billing-at-hetzner/value-added-tax/</a></li><li><a href="https://www.hostinger.com/support/4933340-how-to-set-up-or-change-your-tax-code-at-hostinger/">https://www.hostinger.com/support/4933340-how-to-set-up-or-change-your-tax-code-at-hostinger/</a></li><li><a href="https://www.hostinger.com/support/5401907-how-to-download-invoices-for-hostinger-purchases/">https://www.hostinger.com/support/5401907-how-to-download-invoices-for-hostinger-purchases/</a></li><li><a href="https://www.digitalocean.com/pricing/droplets">https://www.digitalocean.com/pricing/droplets</a></li><li><a href="https://www.liquidweb.com/vps-hosting/packages/">https://www.liquidweb.com/vps-hosting/packages/</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-09T00:41:36+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>
