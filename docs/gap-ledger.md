@@ -18,7 +18,7 @@
 | # | 缺口 | 依据（30 篇扫描） | 独家料来源 | 状态 | slug | 线上 URL | 日期 | commit |
 |---|---|---|---|---|---|---|---|---|
 | 1 | **退款天数**：每家到底几天包退，不是"各家不同" | Liquid Web 只写 "Money-back guarantee varies based on product"，没给任何一家具体天数 | 逐家读官方退款/条款页，挂真实链接 | 已写 | vps-deals-refund-window | https://lumafare.com/articles/vps-deals-refund-window/ | 2026-10-09 | 65118a5 |
-| 2 | **VAT/GST 谁代收**：付款方式决定税由谁收 | 三站正文零覆盖；只有 RackNerd 的人在 LowEndBox 评论区答过一次：信用卡付款不代收，PayPal 由支付方代收代缴 | 逐家核官方结算/条款页 + 已抓到的评论区原话作旁证 | 未写 | | | | |
+| 2 | **VAT/GST 谁代收**：付款方式决定税由谁收 | 三站正文零覆盖；只有 RackNerd 的人在 LowEndBox 评论区答过一次：信用卡付款不代收，PayPal 由支付方代收代缴 | 逐家核官方结算/条款页 + 已抓到的评论区原话作旁证 | 已写 | vps-deals-who-collects-vat | https://lumafare.com/articles/vps-deals-who-collects-vat/ | 2026-10-09 | 9747359 |
 | 3 | **按小时计费折月**：$0.007/hr 到底等于多少钱一个月 | Liquid Web 产品页给小时费率 $0.007–$0.245，不折算，也不和包月比 | 拿官方页上写明的小时费率 × 730 折月，和同页包月价对比，算式写在文里 | 未写 | | | | |
 
 ---
@@ -57,3 +57,11 @@
   - Hostinger KVM 4 和 KVM 8 促销期**单位价完全相同**（$0.81/GB、$3.25/vCPU），买大不打折；
   - **DigitalOcean 2GiB/2vCPU $18 是 $9.00/GB，比它正下方的 4GiB/2vCPU $24 的 $6.00/GB 还贵 50%**，同为 2 vCPU、内存翻倍、单价更低——这条是全篇最硬的"别买这个配置"。
   - Hetzner / Vultr / Linode / Contabo 定价页今日机器不可读，如实写"未核到"，没编数。
+- 2026-10-09 第四次修订：2 号 VAT/GST 代收已发（`vps-deals-who-collects-vat`，commit 9747359，线上 200）。硬事实（2026-10-09 读官方页）：
+  - **付款方式决定税，机制是"地址"不是"通道"**：DigitalOcean 官方写明 tax location "initially set to the payment address of your primary payment method"；Hostinger 把国家下拉框**放在付款方式那一步**（"Before submitting the payment, select your country"）。评论区流传的"信用卡不代收 / PayPal 代收"在所有读到的官方页里都找不到依据。
+  - **代收方有四种**：厂商 / 市场卖方 / 你自己 / 无人代收。DigitalOcean Marketplace 的 Responsibility 表里 **20 个辖区中有 4 个（日本 JCT、沙特、瑞士、UAE）是 Vendor 收，不是 DigitalOcean**；坦桑尼亚 18% VAT 之外另有 **15% 预提**，由企业自己扣缴，"与 VAT 是两笔"。
+  - **同一台 $6.00/mo Droplet，按 DO 自己公布的 39 个辖区税率折出来是 $6.30（UAE 5%）到 $7.62（匈牙利 27%），同一资源差 21%**；且 EU 有 VAT ID 就归零——27% 不是匈牙利的性质，是你有没有填那个表单的性质。
+  - **两家同一天公布的 EU 税率互相打架**：爱沙尼亚 DO 24% / Hetzner 22%，卢森堡 16% / 17%，罗马尼亚 21% / 19%；南非 DO 15.5% / Hetzner 15%。都是官方页面原话，不判谁对，只提醒看账单不看表。
+  - **Hostinger 的坑**："Due to taxes being forwarded automatically, the VAT already applied to an invoice cannot be refunded" + "Invoices already issued will remain unchanged"——VAT ID 必须在付款前填，买 24 个月促销再补，第一个月的税永久拿不回。
+  - 三站实测零覆盖：LowEndBox 欧元价无任何税标注；Liquid Web 包月页只有 "predictable pricing" 这种空话；Namecheap 公开 KB 里**根本没有税率表**。
+- **可用条目只剩 3 号（按小时计费折月）**。写完 3 号后，回退到 `docs/line3-daily-topics.md` 最新 block 的「明日候选」取题，并立刻重跑 BENCH 补缺口。
