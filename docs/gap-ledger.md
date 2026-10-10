@@ -35,7 +35,7 @@
 |---|---|---|---|---|---|---|---|---|
 | 1 | **退款天数**：每家到底几天包退，不是"各家不同" | Liquid Web 只写 "Money-back guarantee varies based on product"，没给任何一家具体天数 | 逐家读官方退款/条款页，挂真实链接 | 已写 | vps-deals-refund-window | https://lumafare.com/articles/vps-deals-refund-window/ | 2026-10-09 | 65118a5 |
 | 2 | **VAT/GST 谁代收**：付款方式决定税由谁收 | 三站正文零覆盖；只有 RackNerd 的人在 LowEndBox 评论区答过一次：信用卡付款不代收，PayPal 由支付方代收代缴 | 逐家核官方结算/条款页 + 已抓到的评论区原话作旁证 | 已写 | vps-deals-who-collects-vat | https://lumafare.com/articles/vps-deals-who-collects-vat/ | 2026-10-09 | 9747359 |
-| 3 | **按小时计费折月**：$0.007/hr 到底等于多少钱一个月 | Liquid Web 产品页给小时费率 $0.007–$0.245，不折算，也不和包月比。**2026-10-09 实测更正见下** | ⚠️ **别用 ×730**（原写法，错）。DO 官方 FAQ 原话：*"Bundled Plans have a monthly cap, so you'll never pay more than the flat monthly price for that plan. v5 Droplets are billed on actual hours used each month and are not capped at 672 hours."* 定价表 hourly×**672**=monthly（0.00595/$4、0.00893/$6、0.01786/$12、0.02679/$18、0.03571/$24、0.07143/$48、0.14286/$96，七档比值全为 672）。**×730 会高估 8.6%**。独家点：网上流传的折月口诀是错的，官方自己的封顶是 672 小时（28 天）；且 v5 Droplets **不封顶**，用满 730 小时的月份会超出月价。来源可读：DO pricing 页 200（小时价与月价同表）。Hetzner docs 客户端渲染抓不到数、Liquid Web / Vultr 均 403 → 一律写 not verifiable，不许用代理取来的数 | 未写 | | | | |
+| 3 | **按小时计费折月**：$0.007/hr 到底等于多少钱一个月 | Liquid Web 产品页给小时费率 $0.007–$0.245，不折算，也不和包月比。**2026-10-09 实测更正见下** | ⚠️ **别用 ×730**（原写法，错）。DO 官方 FAQ 原话：*"Bundled Plans have a monthly cap, so you'll never pay more than the flat monthly price for that plan. v5 Droplets are billed on actual hours used each month and are not capped at 672 hours."* 定价表 hourly×**672**=monthly（0.00595/$4、0.00893/$6、0.01786/$12、0.02679/$18、0.03571/$24、0.07143/$48、0.14286/$96，七档比值全为 672）。**×730 会高估 8.6%**。独家点：网上流传的折月口诀是错的，官方自己的封顶是 672 小时（28 天）；且 v5 Droplets **不封顶**，用满 730 小时的月份会超出月价。来源可读：DO pricing 页 200（小时价与月价同表）。Hetzner docs 客户端渲染抓不到数、Liquid Web / Vultr 均 403 → 一律写 not verifiable，不许用代理取来的数 | 已写 | vps-deals-hourly-to-monthly | https://lumafare.com/articles/vps-deals-hourly-to-monthly/ | 2026-10-10 | 7e2d180 |
 | 4 | **存储单价 $/GB 磁盘**：NVMe 和 SSD 到底差多少钱 | 18 篇把 NVMe / SSD 当标签贴，**0 篇给任何 per-GB 价格**（`per/$ N per GB of disk/storage` 命中 0/30，与「单位价格」那篇的扫描一致） | 月价 ÷ 磁盘 GB，逐档算 $/GB 磁盘。**来源已探通**：DO pricing 页 200（磁盘 GiB 与月价同表）、Hostinger vps-hosting 200 | 未写 | | | | |
 | 5 | **取消要不要提前通知 / 自动续费开关** | **0/30 篇提到**（`cancel + notice` / `notice of termination` 零命中） | 逐家核条款里的通知期 + 自动续费默认开还是关。**来源已探通**：DO ToS 200、Hostinger legal 200、Hetzner 条款页 200 | 未写 | | | | |
 | 6 | **端口 25 / SMTP 能不能发信**：买了 VPS 能不能自己发邮件 | **0/30 篇提到**（`port 25` / `SMTP` 零命中）。自建邮局、WordPress 发信的真实卡点，三家完全空白 | 逐家核官方文档：默认封不封 25、能不能申请解封。**来源还没找到**：DO support 两个 SMTP 文档 URL 都是 404，写之前先现找 | 未写 | | | | |
@@ -105,7 +105,14 @@
   - **两家同一天公布的 EU 税率互相打架**：爱沙尼亚 DO 24% / Hetzner 22%，卢森堡 16% / 17%，罗马尼亚 21% / 19%；南非 DO 15.5% / Hetzner 15%。都是官方页面原话，不判谁对，只提醒看账单不看表。
   - **Hostinger 的坑**："Due to taxes being forwarded automatically, the VAT already applied to an invoice cannot be refunded" + "Invoices already issued will remain unchanged"——VAT ID 必须在付款前填，买 24 个月促销再补，第一个月的税永久拿不回。
   - 三站实测零覆盖：LowEndBox 欧元价无任何税标注；Liquid Web 包月页只有 "predictable pricing" 这种空话；Namecheap 公开 KB 里**根本没有税率表**。
+- **2026-10-10 第五次修订：3 号「按小时计费折月」已发**（`vps-deals-hourly-to-monthly`，commit 7e2d180，线上 200，Actions run 38016571718 两 job 全绿）。硬事实（2026-10-10 直读官方页）：
+  - **19 组 DO 官方定价对全部整除 672**，不是 730。$/mo ÷ $/hr 在 Shared 七档、CPU-Optimized 六档、General Purpose 六档上全是 672.0（含 $1.87500/$1,260.00 这种大档），不是四舍五入巧合。
+  - **×730 到底是错还是对，取决于有没有 cap**：DO 官方原话 *"Bundled Plans have a monthly cap... v5 Droplets are billed on actual hours used each month and are not capped at 672 hours"*。×730×12 = 8,760 = 365 天全年小时数，所以 **×730 对不封顶的 v5 是对的，对封顶的 Bundled 高估 8.63%**（730÷672−1，每档恒定）。此前台账只写「别用 ×730」，口径过粗，本条更正为按 cap 分岔。
+  - **672 就是二月**：DO billing 文档写明 *"billing cycles are monthly... over the course of the calendar month"*，2026 非闰年 → 31 天月 744h、30 天月 720h、二月 672h。封顶套餐全年跑满实跑 8,760h 只计 8,064h，**白送 696 小时 = 29 天**；31 天月实际时薪 $4.00/744 = $0.005376，比页面标价 $0.00595 低 9.68%。**页面上的 $/hr 是二月价，也就是它一年中最贵的一档**。不封顶的 v5 拿不到这 696 小时。
+  - 三家第一屏实测（2026-10-10）**都不做单位换算**：LowEndBox 把 `$12/Year` 和 `€3.49 / Month` 混排从不折算，"Hourly Billing" 只作为标题标签出现一次、无费率无换算；Namecheap 卡面 $3.88/mo「Billed yearly」+ $46.56 + 续费 $58.56/year，数字成对出现但从不写那句解释；Liquid Web 包月页三个档只有 /mo + 小字年续费，全程无小时价。
+  - **没有小时价的套餐不该做小时换算**：Hostinger VPS 页（200）只给 KVM 1 $6.49/mo / KVM 2 $8.99/mo / KVM 4 $12.99/mo 与 2 年续费价，全文零小时费率。Liquid Web、Vultr 今日直连 403，Hetzner Cloud 价客户端渲染抓不到 → 一律 not verifiable，未用代理/缓存补数。
+  - 独家闸门：28 条事实条目 / 26 条零命中 / **92.9% PASS**（要求 ≥3）。
 - **2026-10-09 21:00 兜底核对**：今天实际发了 3 篇（#1 退款窗口 / A 单位价格 / #2 VAT 代收），三篇线上均 200，台账均已回填且三篇都过了独家闸门（3/5、28/32、23/28）。
-  **可用条目还剩 6 条：#3 按小时计费折月、#4 存储单价、#5 取消通知/自动续费、#6 端口 25、#7 SLA 赔付、#8 付款方式矩阵**——上一行"只剩 3 号"是笔误，以本行和上方表格为准。
-  取题顺序仍是**序号最小优先**：下一步取 **#3**（#4/#5 来源已探通 200，#6/#7/#8 取题前必须先跑 `probe_sources.py` 复探，404/403 就写 not verifiable）。
+  **2026-10-10 更新：#3 已写，可用条目还剩 5 条：#4 存储单价、#5 取消通知/自动续费、#6 端口 25、#7 SLA 赔付、#8 付款方式矩阵**（原"还剩 6 条"是 10-09 口径，以本行为准）。
+  取题顺序仍是**序号最小优先**：下一步取 **#4 存储单价 $/GB 磁盘**（#4/#5 来源已探通 200；#6/#7/#8 取题前必须先跑 `probe_sources.py` 复探，404/403 就写 not verifiable）。
   **6 条写完才允许**回退到 `docs/line3-daily-topics.md` 的「明日候选」，并立刻重跑 BENCH 补缺口。
