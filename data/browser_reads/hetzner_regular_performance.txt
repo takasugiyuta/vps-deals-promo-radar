@@ -1,0 +1,438 @@
+Ask AI
+Dedicated
+DEDICATED
+Cloud
+CLOUD
+Storage
+STORAGE
+Managed
+MANAGED
+Services
+SERVICES
+Resources
+RESOURCES
+Cloud
+Regular Performance:
+Flexible and powerful
+Best price-performance ratio
+Low to medium CPU usage
+New hardware generations
+Create cloud instance
+The flexible plan with the
+best price-performance ratio
+
+With the Regular Performance plan, you get a cloud server with high availability based on shared resources.
+It is particularly suitable for web applications, small databases, and test and development environments that do not require maximum computing power on a permanent basis.
+
+Compared to the Cost-Optimized plan, you benefit from newer hardware generations and thus from higher overall CPU performance.
+
+Global availability. European data security.
+Over 1,000,000 happy customers
+VCPU
+RAM
+Drives
+Price
+CPX02
+New
+1
+AMD
+1 GB
+20 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+eu-central
+ FSN1
+ NBG1
+ HEL1
+Traffic inclusive
+20 TB
+ /month
+ap-southeast
+ SIN1
+Traffic inclusive
+0.5 TB
+ /month
+CPX12
+1
+AMD
+2 GB
+40 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+eu-central
+ FSN1
+ NBG1
+ HEL1
+Traffic inclusive
+20 TB
+ /month
+ap-southeast
+ SIN1
+Traffic inclusive
+0.5 TB
+ /month
+CPX22
+2
+AMD
+4 GB
+80 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+eu-central
+ NBG1
+ HEL1
+Traffic inclusive
+20 TB
+ /month
+ap-southeast
+ SIN1
+Traffic inclusive
+1 TB
+ /month
+CPX32
+4
+AMD
+8 GB
+160 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+eu-central
+ NBG1
+ HEL1
+Traffic inclusive
+20 TB
+ /month
+ap-southeast
+ SIN1
+Traffic inclusive
+2 TB
+ /month
+CPX42
+8
+AMD
+16 GB
+320 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+eu-central
+ NBG1
+ HEL1
+Traffic inclusive
+20 TB
+ /month
+ap-southeast
+ SIN1
+Traffic inclusive
+3 TB
+ /month
+CPX52
+12
+AMD
+24 GB
+480 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+eu-central
+ NBG1
+ HEL1
+Traffic inclusive
+20 TB
+ /month
+ap-southeast
+ SIN1
+Traffic inclusive
+4 TB
+ /month
+CPX62
+16
+AMD
+32 GB
+640 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+eu-central
+ NBG1
+ HEL1
+Traffic inclusive
+20 TB
+ /month
+ap-southeast
+ SIN1
+Traffic inclusive
+5 TB
+ /month
+CPX11
+2
+AMD
+2 GB
+40 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+us-west
+ HIL1
+Traffic inclusive
+1 TB
+ /month
+us-east
+ ASH1
+Traffic inclusive
+1 TB
+ /month
+CPX21
+3
+AMD
+4 GB
+80 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+us-west
+ HIL1
+Traffic inclusive
+2 TB
+ /month
+us-east
+ ASH1
+Traffic inclusive
+2 TB
+ /month
+CPX31
+4
+AMD
+8 GB
+160 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+us-west
+ HIL1
+Traffic inclusive
+3 TB
+ /month
+us-east
+ ASH1
+Traffic inclusive
+3 TB
+ /month
+CPX41
+8
+AMD
+16 GB
+240 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+us-west
+ HIL1
+Traffic inclusive
+4 TB
+ /month
+us-east
+ ASH1
+Traffic inclusive
+4 TB
+ /month
+CPX51
+16
+AMD
+32 GB
+360 GB
+NVMe
+from  /month
+ /hour
+Create
+This product is currently unavailable. Please check back later.
+us-west
+ HIL1
+Traffic inclusive
+5 TB
+ /month
+us-east
+ ASH1
+Traffic inclusive
+5 TB
+ /month
+Price incl. IPv4 ▪ 
+Available Locations
+eu-central
+FSN
+NBG
+HEL
+us-east
+ASH
+us-west
+HIL
+ap-southeast
+SIN
+Best price-performance ratio
+
+Shared resources enable particularly favorable prices.
+
+For small user groups
+
+Perfect for families, clubs, or small businesses (e.g., groupware, CMS/blogs)
+
+Medium CPU usage
+
+Suited for workloads that can handle variable processor performance.
+
+New processor generations
+
+The latest generations from Intel® and AMD deliver more performance than the cost-optimized plan.
+
+Create cloud instance 
+Flexibility meets performance
+
+The possible applications are extremely diverse. The plan is particularly suitable for services with a manageable number of users, such as families, clubs, or small businesses. It is especially useful for applications with varying workloads, such as groupware, shared media storage, or private blogs.
+
+Development teams can also use it for Kubernetes clusters in development and staging environments and test new features without having to pay for expensive hardware.
+
+Everything you need, included.
+API
+
+All essential functions for automatic management of the cloud infrastructure are also available via a developer-friendly REST API and a CLI tool.
+
+Integrations
+
+Integrations for various programming languages (e.g., Python and Go) and management frameworks (e.g., Ansible, Terraform, or Kubernetes) allow for a high degree of automation and integration of the cloud infrastructure, for example, in CI/CD pipelines.
+
+Networks
+
+Networks enable servers to communicate via a private network. They also allow complex network topologies to be created. Typical use cases include operating a Kubernetes cluster or a database that is not publicly accessible.
+
+Firewalls
+
+Our stateful firewalls enable easy infrastructure security without additional costs. Unwanted incoming and outgoing data traffic is blocked based on defined rules. Once configured, you can assign them to as many cloud servers as you like.
+
+Images
+
+Ubuntu, Debian, Fedora, and many other Linux distributions are available as operating systems. So whether you are looking for a particularly beginner-friendly solution or want to operate long-term, predictable enterprise servers, the right option is available.
+
+CLOUD COMPARISON: SAVE ON YOUR CLOUD EXPENSES
+Hetzner Cloud is the winner in terms of price-performance ratio
+
+The independent price-performance check shows that Hetzner offers significantly more computing power per dollar compared to its competitors. The analysis is based on objective benchmark data from sparecores.com and highlights how efficiently our cloud servers operate in relation to their costs.
+
+Create cloud instance 
+Enhance your cloud with add-ons: Backups
+Backups are automatic, daily copies of the server hard drive and enable quick recovery or the creation of a duplicate. Seven backup slots are available per server. Once the limit is reached, the oldest backup is automatically replaced. Backups are server-bound and are removed when the server is deleted.
+
+Other useful add-ons are Snapshots and Floating IPs.
+Create cloud instance 
+Snapshots
+per GB per month
+Backups
+mo. price related to instance, starting at:
+Floating IPs
+per IPv6 per month
+SCALE YOUR CLOUD WITH POWERFUL ADD-ONS
+Block Storage
+Learn more
+Object Storage
+Learn more
+Load Balancer
+Learn more
+START YOUR FIRST CLOUD PROJECT NOW
+
+As always, we keep it simple - from setup to use. If questions come up, though, our docs and tutorials are ready to help.
+
+Create cloud instance
+Cloud Docs
+Docs
+Cloud Guides
+Tutorials
+API Docs
+Docs
+FREQUENTLY ASKED QUESTIONS
+ 
+
+How do you bill your servers?
+
+ 
+
+What is the bandwidth of your Cloud Servers?
+
+ 
+
+Is there a library to access Hetzner Cloud from my programming language?
+
+ 
+
+Will you add additional locations in different geographic regions?
+
+ 
+
+Do you plan to add x feature?/Will you add more features?
+
+ 
+
+Can I install Windows?
+
+ 
+
+What linux distributions do you support?
+
+More FAQs 
+NOT THE RIGHT ONE?
+DISCOVER OUR OTHER OFFERS
+Shared: Cost Optimized
+starting from
+max/mo.
+Explore this plan 
+Dedicated: General Purpose
+starting from
+max/mo.
+Explore this plan 
+Subscribe to our Newsletter
+Hetzner
+Company
+Our Customers
+Sustainability
+new
+Blog
+Career
+Pressroom
+Support
+Support Center
+Contact
+Downloads
+Hetzner Docs
+Status
+Legal
+Legal notice
+Data privacy
+System policies
+Terms and conditions
+Digital Services Act
+Abuse form
+© 2026 Hetzner Online GmbH. All Rights Reserved. Prices 

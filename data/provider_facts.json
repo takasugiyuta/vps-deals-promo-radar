@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-10-10T06:20:07Z",
+  "checked_at": "2026-10-10T07:56:00Z",
   "providers": {
     "Hostinger": {
       "source_url": "https://www.hostinger.com/vps-hosting",
       "entry_plan": "KVM 1",
       "human_page": null,
-      "read_at": "2026-10-10T06:20:07Z",
+      "read_at": "2026-10-10T07:56:00Z",
       "status": 200,
       "note": "",
       "lead": "Hostinger sells KVM VPS plans in fixed multi-year terms, so the headline monthly rate covers the first term only; the renewal rate is printed under it.",
@@ -19,13 +19,67 @@
         "Bandwidth": "4 TB",
         "Refund window": "30-day money-back guarantee"
       },
-      "unverified": []
+      "unverified": [],
+      "cards": {
+        "hostinger-67-off-hostinger-vps-page": {
+          "plan": "KVM 1",
+          "discount": "67% off",
+          "price": "$6.49/month",
+          "list_price": "$19.49/month",
+          "renewal": "$11.99/month after the 2-year term",
+          "specs": {
+            "vCPU": "1 vCPU core",
+            "RAM": "4 GB",
+            "Storage": "50 GB NVMe",
+            "Bandwidth": "4 TB"
+          }
+        },
+        "hostinger-63-off-hostinger-vps-page": {
+          "plan": "KVM 2",
+          "discount": "63% off",
+          "price": "$8.99/month",
+          "list_price": "$24.49/month",
+          "renewal": "$14.99/month after the 2-year term",
+          "specs": {
+            "vCPU": "2 vCPU cores",
+            "RAM": "8 GB",
+            "Storage": "100 GB NVMe",
+            "Bandwidth": "8 TB"
+          }
+        },
+        "hostinger-70-off-hostinger-vps-page": {
+          "plan": "KVM 4",
+          "discount": "70% off",
+          "price": "$12.99/month",
+          "list_price": "$42.99/month",
+          "renewal": "$28.99/month after the 2-year term",
+          "specs": {
+            "vCPU": "4 vCPU cores",
+            "RAM": "16 GB",
+            "Storage": "200 GB NVMe",
+            "Bandwidth": "16 TB"
+          }
+        },
+        "hostinger-65-off-hostinger-vps-page": {
+          "plan": "KVM 8",
+          "discount": "65% off",
+          "price": "$25.99/month",
+          "list_price": "$73.99/month",
+          "renewal": "$49.99/month after the 2-year term",
+          "specs": {
+            "vCPU": "8 vCPU cores",
+            "RAM": "32 GB",
+            "Storage": "400 GB NVMe",
+            "Bandwidth": "32 TB"
+          }
+        }
+      }
     },
     "DigitalOcean": {
       "source_url": "https://www.digitalocean.com/pricing/droplets",
       "entry_plan": "1 GiB / 1 vCPU",
       "human_page": null,
-      "read_at": "2026-10-10T06:20:07Z",
+      "read_at": "2026-10-10T07:56:00Z",
       "status": 200,
       "note": "",
       "lead": "DigitalOcean prices Droplets by the hour and prints the monthly equivalent beside it, so the smallest plan is also the one you can stop at any time.",
@@ -41,42 +95,37 @@
       },
       "unverified": [
         "Renewal price"
-      ]
+      ],
+      "cards": {}
     },
     "Hetzner": {
-      "source_url": "https://www.hetzner.com/cloud/",
-      "entry_plan": "cloud server",
+      "source_url": "https://www.hetzner.com/cloud/regular-performance/",
+      "entry_plan": "CPX02",
       "human_page": null,
-      "read_at": "2026-10-10T06:20:07Z",
+      "read_at": "2026-10-10T07:56:00Z",
       "status": 200,
-      "note": "the official cloud page answers HTTP 200 but renders every plan price in the browser after load, so a static read returns no price or spec text; no refund term could be read from hetzner.com legal or docs pages in this run either",
-      "lead": "Hetzner renders its cloud prices in the browser after the page loads, so this check read no number off the official page and none is asserted here.",
+      "note": "prices come from Hetzner's own price API, the same endpoint the cloud page calls; the plan specs and the cancellation term were read in Chrome over the DevTools protocol after the page rendered, because the page prints no number of its own until it runs",
+      "lead": "Hetzner draws its plan prices in from a separate price service after the page loads, so the cloud page itself prints no number until a browser runs it; the figures below were read in Chrome plus from Hetzner's own price API.",
       "fields": {
-        "Price": null,
-        "Billing term": null,
+        "Price": "€6.49/month (€0.0104/hour); $8.09/month in USD — Hetzner price API, CPX02 at FSN1",
+        "Billing term": "Per hour or per month; Hetzner's price API publishes both rates",
         "Renewal price": null,
-        "vCPU": null,
-        "Memory": null,
-        "Storage": null,
-        "Bandwidth": null,
-        "Refund window": null
+        "vCPU": "1 vCPU (AMD, CPX02)",
+        "Memory": "1 GB RAM",
+        "Storage": "20 GB NVMe",
+        "Bandwidth": "20 TB/month inclusive (FSN1, NBG1, HEL1)",
+        "Refund window": "Cancel within fourteen days of conclusion without giving reasons (Terms and Conditions 12.1); an ongoing contract ends with 30 days' notice to month end (2.6)"
       },
       "unverified": [
-        "Price",
-        "Billing term",
-        "Renewal price",
-        "vCPU",
-        "Memory",
-        "Storage",
-        "Bandwidth",
-        "Refund window"
-      ]
+        "Renewal price"
+      ],
+      "cards": {}
     },
     "Vultr": {
       "source_url": "https://api.vultr.com/v2/plans",
       "entry_plan": "vc2-1c-1gb",
       "human_page": "https://www.vultr.com/products/cloud-compute/",
-      "read_at": "2026-10-10T06:20:07Z",
+      "read_at": "2026-10-10T07:56:00Z",
       "status": 200,
       "note": "the public pricing page https://www.vultr.com/products/cloud-compute/ answered HTTP 403",
       "lead": "Vultr publishes its plan list through its own public API, which is where these numbers come from; the marketing pricing page answered this check with HTTP 403.",
@@ -93,13 +142,14 @@
       "unverified": [
         "Renewal price",
         "Refund window"
-      ]
+      ],
+      "cards": {}
     },
     "Linode (Akamai)": {
       "source_url": "https://api.linode.com/v4/linode/types",
       "entry_plan": "g6-nanode-1",
       "human_page": "https://www.linode.com/pricing/",
-      "read_at": "2026-10-10T06:20:07Z",
+      "read_at": "2026-10-10T07:56:00Z",
       "status": 200,
       "note": "the public pricing page https://www.linode.com/pricing/ answered HTTP 403",
       "lead": "Akamai's Linode plan catalogue is machine-readable through the official Linode API, so the figures below are read there instead of from the pricing page, which answered this check with HTTP 403.",
@@ -116,7 +166,8 @@
       "unverified": [
         "Renewal price",
         "Refund window"
-      ]
+      ],
+      "cards": {}
     }
   }
 }

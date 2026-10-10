@@ -251,19 +251,26 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  for p in c['providers']:
   s=slug(p['name']);path='/providers/'+s+'.html';urls.append(path);(OUT/'providers').mkdir(exist_ok=True)
   provider_offers=[o for o in offers if o.get('provider')==p['name']]
-  if p['name']=='Hostinger':
+  cards=(provider_facts.get(p['name']) or {}).get('cards',{})
+  if provider_offers:
    plans=[]
    for o in provider_offers:
-    plan_id='plan-'+(o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title','')))
-    specs=''.join(f'<li>{e(k)}: {e(v)}</li>' for k,v in o.get('specs',{}).items())
-    price=f'<p>{e(o["currency"])} {e(o["price"])}{e("/"+o["price_period"]) if o.get("price_period") else ""}</p>' if o.get('price') and o.get('currency') else '<p>Currently no verified price available.</p>'
-    discount=f'<p>Officially displayed discount: {e(o["discount"])} off.</p>' if o.get('discount') else ''
-    checked=site_check_at
-    price_note='<p>The provider states that plans are paid upfront; the monthly rate is the total plan price divided by the number of months.</p>' if o.get('price_period') else ''
-    plans.append(f'<article class="card plan" id="{e(plan_id)}"><h3>{e(o.get("title","Official offer"))}</h3>{discount}{price_note}{price}<p>Plan specifications published on the official page:</p><ul>{specs}</ul><p>Prices and availability can change. Confirm the total and current terms with the provider before purchasing.</p><p><a href="{e(o.get("offer_url",p["source_url"]))}" rel="nofollow">Open official provider source ↗</a></p><section class="plan-details"><h4>Verification details</h4><p><strong>Source scan run:</strong> {e(checked)}</p><p><strong>Source page:</strong> <a href="{e(o.get("source_url",p["source_url"]))}">{e(o.get("source_url",p["source_url"]))}</a></p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> No additional plan terms are verified here; confirm current terms on the linked official page.</p></section></article>')
-   plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(plans)+'</section>'
-  elif provider_offers:
-   plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(card(o) for o in provider_offers)+'</section>'
+    offer_slug=o.get('page_slug') or slug(o.get('provider','')+' '+o.get('title',''))
+    card_facts=cards.get(offer_slug)
+    if not card_facts:continue
+    plan_id='plan-'+offer_slug
+    specs=''.join(f'<li>{e(k)}: {e(v)}</li>' for k,v in card_facts['specs'].items())
+    facts_source=(provider_facts.get(p['name']) or {}).get('source_url',p['source_url'])
+    facts_read=(provider_facts.get(p['name']) or {}).get('read_at',site_check_at)
+    plans.append(f'<article class="card plan" id="{e(plan_id)}"><h3>{e(o.get("title","Official offer"))}</h3>'
+      f'<p>{e(card_facts["discount"])} on the {e(card_facts["plan"])} plan: {e(card_facts["price"])} instead of {e(card_facts["list_price"])}.</p>'
+      f'<ul>{specs}</ul>'
+      f'<p>Renews at {e(card_facts["renewal"])}.</p>'
+      f'<p><strong>Source:</strong> {e(card_facts["plan"])} figures read from <a href="{e(facts_source)}">{e(facts_source)}</a> at {e(facts_read)}.</p>'
+      f'<p><a href="{e(o.get("offer_url",p["source_url"]))}" rel="nofollow">Open the official {e(card_facts["plan"])} plan page ↗</a></p></article>')
+   # A promotion card is only published when its own figures were read off the official page:
+   # a card carrying a discount name but no number is worse than no card.
+   plan_content='<h2>Promotions on the official plan page</h2><section class="grid">'+''.join(plans)+'</section>' if plans else ''
   else:
    plan_content=''
   facts=provider_facts.get(p['name'])

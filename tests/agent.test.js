@@ -22,8 +22,13 @@ test("article API supports bounded search, exact read and 404", async () => {
   const search = await onRequestGet({ request: new Request("https://lumafare.com/api/agent/articles?q=VPS+billing&limit=2"), env });
   const found = await search.json();
   assert.equal(search.status, 200);
-  assert.equal(found.count, 1);
-  assert.equal(found.results[0].slug, "compare-vps-deals-total-cost");
+  // The article set grew: "VPS billing" now matches more than one article, so this asserts
+  // the bounded search still returns results and still ranks the expected article inside the
+  // requested limit, instead of pinning a count that changes every time an article is added.
+  assert.ok(found.count >= 1, "a bounded search should return at least one article");
+  assert.ok(found.results.length <= 2, "the limit parameter must bound the result list");
+  assert.ok(found.results.some((r) => r.slug === "compare-vps-deals-total-cost"),
+    "compare-vps-deals-total-cost should be returned for a VPS billing query");
   assert.ok(found.results[0].source_url.startsWith("https://"));
   const read = await onRequestGet({ request: new Request("https://lumafare.com/api/agent/articles?slug=compare-vps-deals-total-cost"), env });
   assert.match((await read.json()).body, /renewal/i);
@@ -120,7 +125,18 @@ test("discovery resources are valid and the skill digest matches served bytes", 
   assert.deepEqual(as.agent_auth.anonymous.credential_types_supported, ["access_token"]);
   assert.equal(as.agent_auth.anonymous.claim_uri, registration.claim_uri);
   const sitemap = await readFile(new URL("../site/sitemap.xml", import.meta.url), "utf8");
-  assert.equal((sitemap.match(/<url>/g) || []).length, 12);
+  // The sitemap grows every time an article is published, so it is checked by route presence
+  // instead of a fixed count that goes stale on the next article.
+  for (const route of ["/", "/compare", "/about", "/privacy", "/contact", "/providers/hostinger"]) {
+    assert.ok(sitemap.includes(`<loc>https://lumafare.com${route}</loc>`),
+      `sitemap should list ${route}`);
+  }
   const redirects = await readFile(new URL("../site/_redirects", import.meta.url), "utf8");
-  assert.equal((redirects.match(/ 301$/gm) || []).length, 5);
+  // Published /deals/ addresses must keep a 301 target even as new ones are added.
+  for (const legacy of ["/deals/hostinger-student-discount", "/deals/hostinger-70-off-hostinger-vps-page",
+    "/deals/hostinger-67-off-hostinger-vps-page", "/deals/hostinger-63-off-hostinger-vps-page",
+    "/deals/hostinger-65-off-hostinger-vps-page"]) {
+    assert.match(redirects, new RegExp(`^${legacy} \\S+ 301$`, "m"),
+      `${legacy} should still redirect with 301`);
+  }
 });
