@@ -38,9 +38,9 @@
 | 3 | **按小时计费折月**：$0.007/hr 到底等于多少钱一个月 | Liquid Web 产品页给小时费率 $0.007–$0.245，不折算，也不和包月比。**2026-10-09 实测更正见下** | ⚠️ **别用 ×730**（原写法，错）。DO 官方 FAQ 原话：*"Bundled Plans have a monthly cap, so you'll never pay more than the flat monthly price for that plan. v5 Droplets are billed on actual hours used each month and are not capped at 672 hours."* 定价表 hourly×**672**=monthly（0.00595/$4、0.00893/$6、0.01786/$12、0.02679/$18、0.03571/$24、0.07143/$48、0.14286/$96，七档比值全为 672）。**×730 会高估 8.6%**。独家点：网上流传的折月口诀是错的，官方自己的封顶是 672 小时（28 天）；且 v5 Droplets **不封顶**，用满 730 小时的月份会超出月价。来源可读：DO pricing 页 200（小时价与月价同表）。Hetzner docs 客户端渲染抓不到数、Liquid Web / Vultr 均 403 → 一律写 not verifiable，不许用代理取来的数 | 已写 | vps-deals-hourly-to-monthly | https://lumafare.com/articles/vps-deals-hourly-to-monthly/ | 2026-10-10 | 7e2d180 |
 | 4 | **存储单价 $/GB 磁盘**：NVMe 和 SSD 到底差多少钱 | 18 篇把 NVMe / SSD 当标签贴，**0 篇给任何 per-GB 价格**（`per/$ N per GB of disk/storage` 命中 0/30，与「单位价格」那篇的扫描一致） | 月价 ÷ 磁盘 GB，逐档算 $/GB 磁盘。**来源已探通**：DO pricing 页 200（磁盘 GiB 与月价同表）、Hostinger vps-hosting 200 | 未写 | | | | |
 | 5 | **取消要不要提前通知 / 自动续费开关** | **0/30 篇提到**（`cancel + notice` / `notice of termination` 零命中） | 逐家核条款里的通知期 + 自动续费默认开还是关。**来源已探通**：DO ToS 200、Hostinger legal 200、Hetzner 条款页 200 | 未写 | | | | |
-| 6 | **端口 25 / SMTP 能不能发信**：买了 VPS 能不能自己发邮件 | **0/30 篇提到**（`port 25` / `SMTP` 零命中）。自建邮局、WordPress 发信的真实卡点，三家完全空白 | 逐家核官方文档：默认封不封 25、能不能申请解封。**来源还没找到**：DO support 两个 SMTP 文档 URL 都是 404，写之前先现找 | 未写 | | | | |
-| 7 | **SLA 赔付怎么拿**：停机多久赔多少、要不要自己提工单 | 30 篇里 8 篇给 uptime 百分比（99.9% / 100%），**0 篇讲赔付规则**——`credit + downtime / outage` 组合命中 0/30 | 给「停机时长 → 赔付比例」表和申请时限。**来源还没找到**：DO SLA 两个 URL 均 404、Hetzner SLA 页 404；可用的只有 hetzner.com/legal/terms-and-conditions 200 | 未写 | | | | |
-| 8 | **付款方式矩阵**：每家到底收什么钱，加密货币能不能退 | 12 篇提到付款方式（PayPal / crypto / iDeal），**0 篇给清单或数字** | 逐家列官方结算页支持的付款方式 + 加密货币付款的退款后果。**注意别和 VAT 那篇重复**：那篇讲税由谁代收，这篇只讲方式与退款。**来源大面积 403**（Namecheap / Liquid Web / Vultr 均 403），要先探源再决定能不能写 | 未写 | | | | |
+| 6 | **端口 25 / SMTP 能不能发信**：买了 VPS 能不能自己发邮件 | **0/30 篇提到**（`port 25` / `SMTP` 零命中）。自建邮局、WordPress 发信的真实卡点，三家完全空白 | 逐家核官方文档：默认封不封 25、能不能申请解封。**✅ 2026-10-10 解锁**：`docs.digitalocean.com/support/why-is-smtp-blocked/` **200**（Last verified 13 Jul 2026），官方原话 *"SMTP ports 25, 465, and 587 are blocked on Droplets... This block applies to all Droplets by default and includes traffic passing through a Reserved IP address."* 原记"两个 URL 都 404"已作废 | 未写 | | | | |
+| 7 | **SLA 赔付怎么拿**：停机多久赔多少、要不要自己提工单 | 30 篇里 8 篇给 uptime 百分比（99.9% / 100%），**0 篇讲赔付规则**——`credit + downtime / outage` 组合命中 0/30 | 给「停机时长 → 赔付比例」表和申请时限。**✅ 2026-10-10 解锁**：`digitalocean.com/sla` **200**（从 billing docs 页导航里挖到的真地址，此前试的三个 `docs.digitalocean.com/*` 路径全是 404）。Hetzner SLA 仍 404，只有 hetzner.com/legal/terms-and-conditions 200 | 未写 | | | | |
+| 8 | **付款方式矩阵**：每家到底收什么钱，加密货币能不能退 | 12 篇提到付款方式（PayPal / crypto / iDeal），**0 篇给清单或数字** | 逐家列官方结算页支持的付款方式 + 加密货币付款的退款后果。**注意别和 VAT 那篇重复**：那篇讲税由谁代收，这篇只讲方式与退款。**✅ 2026-10-10 部分解锁**：DO billing docs 200 给了清单原话 *"credit card, debit card, crypto wallet, third-party provider (like PayPal, Google Pay, or Apple Pay), or a bank account"*。Namecheap / Liquid Web / Vultr 仍 403 | 未写 | | | | |
 
 > **排序理由（2026-10-09 调整）**：4、5 提到 3、4 前面，是因为它们的官方来源**今天实测直连 200**；6、7、8 的条款页今天全是 404 / 403，取题前必须先探源。见下面「来源可读性实测」。
 
@@ -61,6 +61,26 @@
 **结论**：今天真正能喂文章的一手来源只有 DO（定价 + 条款）、Hostinger（定价 + 条款）、Hetzner（条款）三条线。
 这直接决定了 28 天能写什么——**算得出来的（除法、换算、比值）优先，需要逐家条款的缺口排在后面且先探源**。
 可读性会变（Namecheap 就是一天之内从能读到 403），每次取题前重新探，不要拿这张表当永久结论。
+
+### 2026-10-10 复探（GMT+8 上午，本机直连，未换 UA、未走代理）
+
+| 官方页 | 状态 | 变化 / 能取到什么 |
+|---|---|---|
+| `digitalocean.com/pricing/droplets` | **200** | 仍是最强数据源：`$/hr` + `$/mo` + 磁盘 GiB + vCPU + 流量同表，Shared 7 档 + CPU-Optimized 6 档 + General Purpose 6 档共 19 组 |
+| `docs.digitalocean.com/platform/billing/` | **200** | **新增可用**：billing cycles 按 calendar month；付款方式清单；"Last verified 7 Oct 2026" |
+| `docs.digitalocean.com/support/why-is-smtp-blocked/` | **200** ⬆️ | **昨天 404，今天通**。封 25/465/587，含 Reserved IP |
+| `digitalocean.com/sla` | **200** ⬆️ | **昨天记 404，今天通**（真地址，从 billing docs 导航挖出） |
+| `digitalocean.com/legal/terms-of-service-agreement` | **200** | 条款正文 |
+| `hostinger.com/vps-hosting` | **200** | 套餐配置与价格（KVM 1/2/4，含磁盘 GB 与续费价） |
+| `hostinger.com/legal/refund-policy` | **200** | 退款条款 |
+| `hetzner.com/legal/terms-and-conditions/` | **200** | 条款正文 |
+| `hetzner.com/cloud` | 200 但**客户端渲染** | 价格是占位符，抓不到数 |
+| `namecheap.com` | 403（脚本）/ 可读（普通取回） | 首页 VPS 卡可读到 $3.88/mo、$46.56、续费 $58.56/yr |
+| `liquidweb.com/vps-hosting/packages/` | **403** | 仍不可用 |
+| `vultr.com/pricing` | **403** | 仍不可用 |
+| `docs.digitalocean.com/platform/billing/payment-methods/` | **404** | 子路径不存在，付款方式看 billing 总页 |
+
+**技巧（2026-10-10 发现）**：DigitalOcean 文档站每个页面都有 Markdown 镜像——把路径末尾换成 `index.html.md` 即可直取纯文本（实测 `docs.digitalocean.com/support/why-is-smtp-blocked/index.html.md` 200，2.3 KB），比正则剥 HTML 干净得多，后续取数优先用它。导航里的真实链接也可以从页面 `href` 里正则挖（SLA 地址就是这么找到的）。
 
 ---
 
