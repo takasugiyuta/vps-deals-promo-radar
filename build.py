@@ -117,6 +117,11 @@ def main():
  if OUT.resolve().parent!=R.resolve():raise RuntimeError('Refusing to clean output outside project root')
  # Validate every required input first: a failed build must never leave the previous site deleted.
  d=json.loads((R/'data/offers.json').read_text(encoding='utf8')) if (R/'data/offers.json').exists() else {'offers':[]}
+ # Provider fact tables are read off the official pages by verify_provider_facts.py. A field
+ # that run could not read stays null and is rendered as "Not verified in this check".
+ facts_json=json.loads((R/'data/provider_facts.json').read_text(encoding='utf8')) if (R/'data/provider_facts.json').exists() else {}
+ provider_facts=facts_json.get('providers',{})
+ NOT_VERIFIED='Not verified in this check'
  if not d.get('source_scan_at'):raise RuntimeError('A completed scraper run is required; data/offers.json has no source_scan_at.')
  try:scan_time=datetime.fromisoformat(d['source_scan_at'].replace('Z','+00:00')).astimezone(timezone.utc)
  except ValueError as exc:raise RuntimeError('Invalid source_scan_at in data/offers.json.') from exc
@@ -257,12 +262,34 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
     price_note='<p>The provider states that plans are paid upfront; the monthly rate is the total plan price divided by the number of months.</p>' if o.get('price_period') else ''
     plans.append(f'<article class="card plan" id="{e(plan_id)}"><h3>{e(o.get("title","Official offer"))}</h3>{discount}{price_note}{price}<p>Plan specifications published on the official page:</p><ul>{specs}</ul><p>Prices and availability can change. Confirm the total and current terms with the provider before purchasing.</p><p><a href="{e(o.get("offer_url",p["source_url"]))}" rel="nofollow">Open official provider source ↗</a></p><section class="plan-details"><h4>Verification details</h4><p><strong>Source scan run:</strong> {e(checked)}</p><p><strong>Source page:</strong> <a href="{e(o.get("source_url",p["source_url"]))}">{e(o.get("source_url",p["source_url"]))}</a></p><p><strong>Update cadence:</strong> {e(c["updates_every"])}</p><p><strong>Unconfirmed items:</strong> No additional plan terms are verified here; confirm current terms on the linked official page.</p></section></article>')
    plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(plans)+'</section>'
-  else:
+  elif provider_offers:
    plan_content='<h2>Promotion links</h2><section class="grid">'+''.join(card(o) for o in provider_offers)+'</section>'
+  else:
+   plan_content=''
+  facts=provider_facts.get(p['name'])
+  if facts:
+   rows=''.join(f'<tr><th scope="row">{e(k)}</th><td>{e(v) if v else NOT_VERIFIED}</td></tr>' for k,v in facts.get('fields',{}).items())
+   missing=facts.get('unverified',[])
+   missing_html=('<p><strong>Not verified for '+e(p['name'])+' in this check:</strong> '+e(', '.join(missing))+'.</p>') if missing else ''
+   note_html=('<p><strong>Why:</strong> '+e(facts['note'])+'.</p>') if facts.get('note') else ''
+   answer=(f'<h1>{e(p["name"])} VPS: price and specs read from the official page</h1>'
+     f'<p>{e(facts["lead"])}</p>'
+     f'<div class="table-wrap"><table class="verification-table"><caption>Current {e(p["name"])} figures for the {e(facts["entry_plan"])} plan, read from the official source below.</caption>'
+     '<thead><tr><th scope="col">Item</th><th scope="col">What this check could verify</th></tr></thead>'
+     f'<tbody>{rows}</tbody></table></div>'
+     f'<p><strong>Source page:</strong> <a href="{e(facts["source_url"])}">{e(facts["source_url"])}</a></p>'
+     f'<p><strong>Read at:</strong> {e(facts["read_at"])}</p>'
+     f'{note_html}{missing_html}'
+     f'<p><a href="{e(facts["source_url"])}" rel="nofollow">Check these figures on the official page ↗</a></p>')
+  else:
+   answer=(f'<h1>{e(p["name"])} VPS</h1><p>See current plans and promotions on the official provider page.</p>'
+     f'<p><a href="{e(p["source_url"])}">Official source ↗</a></p>')
   siblings=''.join(f'<a href="/providers/{slug(q["name"])}">{e(q["name"])}</a>' for q in c['providers'] if q['name']!=p['name'])
-  b=f'<main><nav class="crumbs"><a href="/">Home</a> › <span>{e(p["name"])} VPS</span></nav><h1>{e(p["name"])} VPS</h1><p>See current plans and promotions on the official provider page.</p><p><a href="{e(p["source_url"])}">Official source ↗</a></p>{plan_content}<h2>Other providers in this directory</h2><nav class="siblings">{siblings}<a href="/compare">Compare all providers</a></nav>{details(provider_offers, [p["source_url"]])}</main>'
+  b=f'<main><nav class="crumbs"><a href="/">Home</a> › <span>{e(p["name"])} VPS</span></nav>{answer}{plan_content}<h2>Other providers in this directory</h2><nav class="siblings">{siblings}<a href="/compare">Compare all providers</a></nav></main>'
   provider_ld={'@context':'https://schema.org','@graph':[{'@type':'Product','name':p['name']+' VPS hosting','brand':{'@type':'Brand','name':p['name']},'url':p['url']},{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Home','item':base+'/'},{'@type':'ListItem','position':2,'name':p['name'],'item':base+path.replace('.html','')}]}]}
-  (OUT/'providers'/f'{s}.html').write_text(page(p['name']+' VPS offers | '+c['brand']+' · '+f'{scan_time:%B %Y}','Official source links for '+p['name']+'.',path,b,provider_ld),encoding='utf8')
+  desc=(f'{p["name"]} VPS price and specs read from {facts["source_url"]} at {facts["read_at"]}.'
+        if facts else f'Official source links for {p["name"]}.')
+  (OUT/'providers'/f'{s}.html').write_text(page(p['name']+' VPS price and specs | '+c['brand']+' · '+f'{scan_time:%B %Y}',desc,path,b,provider_ld),encoding='utf8')
  for guide in c['coupon_guides']:
   path='/'+guide['slug']+'.html';urls.append(path);checked=site_check_at
   sources=guide['sources'];source_links=' · '.join(f'<a href="{e(u)}">Official source ↗</a>' for u in sources)

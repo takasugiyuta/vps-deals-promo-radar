@@ -1,0 +1,122 @@
+{
+  "checked_at": "2026-10-10T06:20:07Z",
+  "providers": {
+    "Hostinger": {
+      "source_url": "https://www.hostinger.com/vps-hosting",
+      "entry_plan": "KVM 1",
+      "human_page": null,
+      "read_at": "2026-10-10T06:20:07Z",
+      "status": 200,
+      "note": "",
+      "lead": "Hostinger sells KVM VPS plans in fixed multi-year terms, so the headline monthly rate covers the first term only; the renewal rate is printed under it.",
+      "fields": {
+        "Price": "$6.49/month (KVM 1, listed at $19.49)",
+        "Billing term": "2-year term, paid upfront",
+        "Renewal price": "$11.99/month for the 2-year term",
+        "vCPU": "1 vCPU core (KVM 1)",
+        "Memory": "4 GB RAM",
+        "Storage": "50 GB NVMe",
+        "Bandwidth": "4 TB",
+        "Refund window": "30-day money-back guarantee"
+      },
+      "unverified": []
+    },
+    "DigitalOcean": {
+      "source_url": "https://www.digitalocean.com/pricing/droplets",
+      "entry_plan": "1 GiB / 1 vCPU",
+      "human_page": null,
+      "read_at": "2026-10-10T06:20:07Z",
+      "status": 200,
+      "note": "",
+      "lead": "DigitalOcean prices Droplets by the hour and prints the monthly equivalent beside it, so the smallest plan is also the one you can stop at any time.",
+      "fields": {
+        "Price": "$6.00/month ($0.00893/hour) for 1 GiB / 1 vCPU",
+        "Billing term": "Hourly, per-second billing (minimum 60 seconds or $0.01, whichever is higher)",
+        "Renewal price": null,
+        "vCPU": "1 vCPU (Regular CPU option)",
+        "Memory": "1 GiB",
+        "Storage": "25 GiB SSD",
+        "Bandwidth": "1,000 GiB transfer",
+        "Refund window": "We do not offer refunds. If there are extenuating circumstances, contact support."
+      },
+      "unverified": [
+        "Renewal price"
+      ]
+    },
+    "Hetzner": {
+      "source_url": "https://www.hetzner.com/cloud/",
+      "entry_plan": "cloud server",
+      "human_page": null,
+      "read_at": "2026-10-10T06:20:07Z",
+      "status": 200,
+      "note": "the official cloud page answers HTTP 200 but renders every plan price in the browser after load, so a static read returns no price or spec text; no refund term could be read from hetzner.com legal or docs pages in this run either",
+      "lead": "Hetzner renders its cloud prices in the browser after the page loads, so this check read no number off the official page and none is asserted here.",
+      "fields": {
+        "Price": null,
+        "Billing term": null,
+        "Renewal price": null,
+        "vCPU": null,
+        "Memory": null,
+        "Storage": null,
+        "Bandwidth": null,
+        "Refund window": null
+      },
+      "unverified": [
+        "Price",
+        "Billing term",
+        "Renewal price",
+        "vCPU",
+        "Memory",
+        "Storage",
+        "Bandwidth",
+        "Refund window"
+      ]
+    },
+    "Vultr": {
+      "source_url": "https://api.vultr.com/v2/plans",
+      "entry_plan": "vc2-1c-1gb",
+      "human_page": "https://www.vultr.com/products/cloud-compute/",
+      "read_at": "2026-10-10T06:20:07Z",
+      "status": 200,
+      "note": "the public pricing page https://www.vultr.com/products/cloud-compute/ answered HTTP 403",
+      "lead": "Vultr publishes its plan list through its own public API, which is where these numbers come from; the marketing pricing page answered this check with HTTP 403.",
+      "fields": {
+        "Price": "$5.00/month ($0.007/hour) for vc2-1c-1gb",
+        "Billing term": "Per hour or per month; the Vultr plan list publishes both rates",
+        "Renewal price": null,
+        "vCPU": "1 vCPU (vc2-1c-1gb)",
+        "Memory": "1 GB (1024 MB, vc2-1c-1gb)",
+        "Storage": "25 GB SSD",
+        "Bandwidth": "1024 GB/month",
+        "Refund window": null
+      },
+      "unverified": [
+        "Renewal price",
+        "Refund window"
+      ]
+    },
+    "Linode (Akamai)": {
+      "source_url": "https://api.linode.com/v4/linode/types",
+      "entry_plan": "g6-nanode-1",
+      "human_page": "https://www.linode.com/pricing/",
+      "read_at": "2026-10-10T06:20:07Z",
+      "status": 200,
+      "note": "the public pricing page https://www.linode.com/pricing/ answered HTTP 403",
+      "lead": "Akamai's Linode plan catalogue is machine-readable through the official Linode API, so the figures below are read there instead of from the pricing page, which answered this check with HTTP 403.",
+      "fields": {
+        "Price": "$5.00/month ($0.0075/hour) for g6-nanode-1",
+        "Billing term": "Per hour or per month; the Linode plan list publishes both rates",
+        "Renewal price": null,
+        "vCPU": "1 vCPU (g6-nanode-1)",
+        "Memory": "1 GB (1024 MB, g6-nanode-1)",
+        "Storage": "25 GB (25600 MB)",
+        "Bandwidth": "1000 GB/month",
+        "Refund window": null
+      },
+      "unverified": [
+        "Renewal price",
+        "Refund window"
+      ]
+    }
+  }
+}
