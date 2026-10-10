@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What a VPS Hourly Rate Actually Costs Per Month (The Multiplier Is 672, Not 730) | Lumafare</title><meta name="description" content="Every VPS hourly-to-monthly conversion you have read multiplies by 730. DigitalOcean&#x27;s own pricing table divides to exactly 672 on all 19 published plan pairs, and its billing docs say cycles run on the calendar month — which means the shortcut is right for uncapped plans, 8.63% too high for capped ones, and hands you 696 free hours a year."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-hourly-to-monthly/">
+<meta property="og:title" content="What a VPS Hourly Rate Actually Costs Per Month (The Multiplier Is 672, Not 730) | Lumafare"><meta property="og:description" content="Every VPS hourly-to-monthly conversion you have read multiplies by 730. DigitalOcean&#x27;s own pricing table divides to exactly 672 on all 19 published plan pairs, and its billing docs say cycles run on the calendar month — which means the shortcut is right for uncapped plans, 8.63% too high for capped ones, and hands you 696 free hours a year."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-hourly-to-monthly/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>What a VPS Hourly Rate Actually Costs Per Month (The Multiplier Is 672, Not 730)</h1><p>Every VPS hourly-to-monthly conversion you have read multiplies by 730. DigitalOcean&#x27;s own pricing table divides to exactly 672 on all 19 published plan pairs, and its billing docs say cycles run on the calendar month — which means the shortcut is right for uncapped plans, 8.63% too high for capped ones, and hands you 696 free hours a year.</p><p><small>Published: 2026-10-10</small></p><p><strong>Question:</strong> On a VPS deal, what does an hourly rate actually cost per month — is the multiplier 730, 672, or something else?</p><p>The multiplier is <strong>not</strong> 730. On DigitalOcean&#x27;s own pricing page, read on 2026-10-10, every one of the 19 published plan pairs divides to <strong>exactly 672 hours</strong> — not 730, not 744, not &quot;about 700.&quot; A $0.00595/hr Droplet is listed at $4.00/mo, and 4.00 ÷ 0.00595 = 672.3. A $1.87500/hr General Purpose Droplet is listed at $1,260.00/mo, and 1260.00 ÷ 1.875 = 672.0. Nineteen pairs, one number.</p>
+<p>That matters because 730 is the number everyone uses, and using it on the wrong kind of plan overstates your bill by <strong>8.63%</strong> every single month. The catch — and this is the part no pricing page explains — is that 672 is not the same thing as 730 in disguise. They are two different billing contracts:</p>
+<ul>
+<li><strong>Capped plans</strong> bill a flat monthly ceiling. DigitalOcean states it directly: *&quot;Bundled Plans have a monthly cap, so you&#x27;ll never pay more than the flat monthly price for that plan.&quot;* For these, your real annual cost is <strong>12 × the monthly price</strong>, period. Multiplying the hourly rate by anything is the wrong operation.</li>
+<li><strong>Uncapped plans</strong> bill actual hours. Same page, next sentence: *&quot;v5 Droplets are billed on actual hours used each month and are not capped at 672 hours.&quot;* For these, ×730 *is* correct, because 730 × 12 = 8,760, which is exactly the number of hours in a 365-day year.</li>
+</ul>
+<p>So the folk rule everyone repeats is half right: <strong>×730 is the correct formula for uncapped hourly billing and a 8.63% overestimate for capped plans.</strong> The only way to know which one you are looking at is to read the one sentence the pricing page buries in its FAQ — and then to notice that 672 is not an arbitrary constant at all.</p>
+<h2>Why 672: it is February</h2>
+<p>672 hours is exactly 28 days. DigitalOcean&#x27;s billing documentation pins the cycle to the calendar: *&quot;DigitalOcean billing cycles are monthly. Your balance accrues over the course of the calendar month based on the cost of the resources you use.&quot;*</p>
+<p>Calendar months are not all the same length, and 2026 is not a leap year. Run a capped Droplet 24/7 for a full year and here is what the collision produces:</p>
+<p>| Month type (2026) | Months | Hours in month | Hours billed (capped) | Free hours | |---|---|---|---|---| | 31 days | 7 (Jan, Mar, May, Jul, Aug, Oct, Dec) | 744 | 672 | <strong>72</strong> | | 30 days | 4 (Apr, Jun, Sep, Nov) | 720 | 672 | <strong>48</strong> | | 28 days | 1 (Feb) | 672 | 672 | <strong>0</strong> |</p>
+<p>Add it up: 7 × 72 + 4 × 48 = <strong>696 hours of free compute per year</strong>, which is 29 full days. You run 8,760 hours and pay for 8,064. The advertised hourly rate is, quite literally, the <strong>February rate</strong> — the one month of the year where the cap and the calendar agree. In every other month the effective hourly rate is lower than the number printed on the page: in a 31-day month, $4.00 ÷ 744 = <strong>$0.005376/hr</strong> against an advertised $0.00595/hr, a 9.68% discount you get for free.</p>
+<p>An uncapped v5 Droplet gets none of that. In January it is billed 744 hours. In February, 672.</p>
+<h2>The whole published table, and what ×730 does to it</h2>
+<p>Every figure below is printed on DigitalOcean&#x27;s pricing page as of 2026-10-10. The last two columns are the two answers to &quot;what does this cost per month&quot; — and they only agree in February.</p>
+<p>| Plan (Shared) | Advertised $/hr | Listed $/mo | $/hr × 730 | Error vs listed | Real annual, capped | Real annual, uncapped | |---|---|---|---|---|---|---| | 512 MiB / 1 vCPU | $0.00595 | $4.00 | $4.34 | <strong>+8.6%</strong> | $48.00 | $52.12 | | 1 GiB / 1 vCPU | $0.00893 | $6.00 | $6.52 | <strong>+8.6%</strong> | $72.00 | $78.23 | | 2 GiB / 1 vCPU | $0.01786 | $12.00 | $13.04 | <strong>+8.6%</strong> | $144.00 | $156.45 | | 2 GiB / 2 vCPU | $0.02679 | $18.00 | $19.56 | <strong>+8.7%</strong> | $216.00 | $234.68 | | 4 GiB / 2 vCPU | $0.03571 | $24.00 | $26.07 | <strong>+8.6%</strong> | $288.00 | $312.82 | | 8 GiB / 4 vCPU | $0.07143 | $48.00 | $52.14 | <strong>+8.6%</strong> | $576.00 | $625.73 | | 16 GiB / 8 vCPU | $0.14286 | $96.00 | $104.29 | <strong>+8.6%</strong> | $1,152.00 | $1,251.45 |</p>
+<p>The same 672 constant holds across the other two families on the page, so it is not a rounding artifact of the cheap tiers:</p>
+<p>| Family | Sample pair | $/hr | $/mo | $/mo ÷ $/hr | |---|---|---|---|---| | CPU-Optimized | 4 GiB / 2 vCPU | $0.06250 | $42.00 | 672.0 | | CPU-Optimized | 64 GiB / 32 vCPU | $1.00000 | $672.00 | 672.0 | | General Purpose | 8 GiB / 2 vCPU | $0.09375 | $63.00 | 672.0 | | General Purpose | 160 GiB / 40 vCPU | $1.87500 | $1,260.00 | 672.0 |</p>
+<p>The error in the ×730 column is constant at 730 ÷ 672 − 1 = <strong>8.63%</strong>, on every tier, at every price point. That is the signature of a systematic mistake, not a rounding difference.</p>
+<h2>The decision rule you can actually apply</h2>
+<p>You cannot tell which contract you have from the price. You have to read one sentence. Here is the test:</p>
+<p>| What the page says | Your plan is | Monthly cost formula | Annual cost formula | |---|---|---|---| | Has a &quot;monthly cap&quot; / &quot;never pay more than the flat monthly price&quot; | <strong>Capped</strong> | The listed monthly price. Stop. | 12 × monthly price | | &quot;Billed on actual hours used&quot; / &quot;not capped&quot; | <strong>Uncapped</strong> | $/hr × hours in *this* month (672 / 720 / 744) | $/hr × 8,760 | | No hourly rate published at all | <strong>Neither — it is a term contract</strong> | Ignore hourly entirely; compare total contract value | See below |</p>
+<p>That third row is where most VPS deals actually live, and it is worth saying plainly: <strong>if a host does not publish an hourly rate, there is no hourly math to do.</strong> Hostinger&#x27;s VPS page, read on 2026-10-10, publishes no hourly figure anywhere — it lists KVM 1 at <strong>$6.49/mo</strong> (from $19.49, &quot;67% off&quot;), &quot;Renews at $11.99/mo for 2 years,&quot; KVM 2 at $8.99/mo and KVM 4 at $12.99/mo. Namecheap goes the other direction and leads with a monthly-equivalent of an annual charge: its VPS card shows <strong>$3.88/mo</strong>, &quot;Billed yearly,&quot; &quot;You pay $46.56 — renews at $58.56/year,&quot; with a struck-through &quot;Was $4.88/mo.&quot; Both of those reconcile correctly on their own terms (3.88 × 12 = 46.56; 58.56 ÷ 12 = 4.88). Neither has an hourly rate to convert.</p>
+<p>Two hosts we could not verify today, stated as such rather than filled in with remembered numbers: direct requests to <code>liquidweb.com/vps-hosting/packages/</code> and <code>vultr.com/pricing/</code> both returned <strong>HTTP 403</strong> on 2026-10-10, and Hetzner&#x27;s Cloud page renders its prices client-side, returning placeholder text in place of figures. <strong>Not verifiable.</strong> We did not substitute figures from any cache, proxy or archive for these three.</p>
+<h2>Why nobody tells you this</h2>
+<p>We read the first screen of the three biggest VPS deal destinations on 2026-10-10, and the pattern is consistent: <strong>all of them show a price with a period label attached and none of them reconcile the periods.</strong></p>
+<ul>
+<li><strong>LowEndBox</strong> mixes annual and monthly headline prices in the same feed — *&quot;a 1GB VPS for $12/Year&quot;* next to *&quot;a 6GB VPS for Only €3.49 / Month!&quot;* — and never converts one into the other. Hourly billing appears exactly once, as a headline label on a LowEndTalk offer: *&quot;Hourly Billing.&quot;* No rate, no conversion, no explanation.</li>
+<li><strong>Namecheap</strong> leads with $3.88/mo while billing yearly, and shows both the annual total and the renewal rate without ever writing the sentence that connects them.</li>
+<li><strong>Liquid Web</strong> is monthly-only on its packages page, with 1-year and 2-year toggles and a renewal figure in the fine print. No hourly rate appears anywhere on the screen.</li>
+</ul>
+<p>The gap is not that these sites lack the arithmetic. It is that a page whose job is to rank deals cannot stop to explain the units, because explaining the units makes comparable things look less comparable. A $12/year VPS and a €3.49/month VPS are not the same kind of object, and an hourly rate is not a monthly price divided by 730.</p>
+<h2>What to do with this</h2>
+<ol>
+<li><strong>Stop using ×730 on capped plans.</strong> If the plan has a monthly cap, your monthly cost is the monthly price. On the $96.00/mo tier, ×730 tells you $104.29 — $8.29/month, $99.45/year, of pure arithmetic error.</li>
+<li><strong>Find the sentence.</strong> &quot;Monthly cap&quot; or &quot;not capped&quot; — it is usually in the FAQ at the bottom of the pricing page, not in the table. That one sentence is worth 8.63%.</li>
+<li><strong>For uncapped plans, use 8,760 hours per year, not 730 × 12 as a guess.</strong> They are the same number, but writing it as 8,760 forces you to remember February is cheaper than January: 672 hours billed vs 744.</li>
+<li><strong>If you are comparing a capped plan against an uncapped one, compare annual totals, not hourly rates.</strong> The capped plan&#x27;s advertised hourly rate is its February rate — the most expensive rate it will ever charge you. The uncapped plan&#x27;s advertised hourly rate is its every-month rate. Comparing $0.00595 against $0.00595 across those two contract types is comparing a ceiling to an average.</li>
+<li><strong>When there is no hourly rate, walk away from the hourly question.</strong> Hostinger, Namecheap and Liquid Web deals are term contracts. The number that matters is the renewal price and the total contract value, and no amount of hour arithmetic will get you there.</li>
+</ol><section><h2>Sources</h2><ul><li><a href="https://www.digitalocean.com/pricing/droplets">https://www.digitalocean.com/pricing/droplets</a></li><li><a href="https://docs.digitalocean.com/platform/billing/">https://docs.digitalocean.com/platform/billing/</a></li><li><a href="https://www.digitalocean.com/pricing/">https://www.digitalocean.com/pricing/</a></li><li><a href="https://www.hostinger.com/vps-hosting">https://www.hostinger.com/vps-hosting</a></li><li><a href="https://www.namecheap.com/">https://www.namecheap.com/</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-10T00:39:55+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>
