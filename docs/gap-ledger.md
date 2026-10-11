@@ -152,3 +152,10 @@
   - **口径提示**：DO 报 GiB、Hostinger 报 GB，1 GB = 0.931 GiB，Hostinger 的真实 per-GiB 比 per-GB **差 7.4%**；文章里两个数都给了（KVM 4/8 最优档 $0.0650/GB = $0.0697/GiB 促销价、$0.1342/GiB 续费价）。
   - 独家闸门：**82 条事实条目 / 68 条零命中 / 82.9% PASS**（要求 ≥3，退出码 0）。
 - **2026-10-11 工程改动（顺带修的，不是文章本身）**：`render_markdown` **此前不支持 markdown 表格**，5 篇已发文章的管道表全是原样管道符文本输出。本次在 `build.py` 里加了表格解析（thead/tbody + `.table-wrap` 横向滚动）与配套 CSS，**现有 5 篇文章的表格一并修复**。非文章页的 diff 只有新增的 7 行 CSS。
+- **2026-10-11 21:00 兜底核对**：今天已发 1 篇（#4 存储单价 $/GB 磁盘，`vps-deals-cost-per-gb-disk`，commit 09bb1fb），
+  https://lumafare.com/articles/vps-deals-cost-per-gb-disk/ → **200**，title/canonical 正确，`sitemap.xml` 已含（全站 7 篇文章 URL 均在 sitemap 内）。
+  CI run 38104761784（workflow_dispatch）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿；当日另有 3 次 schedule run 全绿。
+  台账 #4 行早上已回填完整（slug / URL / 2026-10-11 / 09bb1fb 齐全），本次仅核对 + 复跑闸门：
+  **82 条事实条目 / 68 条零命中 / 82.9% PASS**（`--min 3`，退出码 0）。未补发、未重复发。
+  下一步取 **#5「取消要不要提前通知 / 自动续费开关」**（来源已探通：DO ToS 200、Hostinger legal 200、Hetzner 条款 200）；
+  可用条目还剩 **4 条：#5 / #6 / #7 / #8**，与上方表格一致。
