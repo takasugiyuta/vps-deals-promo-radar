@@ -319,3 +319,88 @@ Rules (locked):
 已降级/不再写第二篇：退款天数（英文位被 affordablevpsserver 占 + 已发）、每 GB 单价（三个英文站在做 + 已发）、renews at 换算（已发）、Hourly ×672/730（Day4 候选 #1，已由 10-10 的 `vps-deals-hourly-to-monthly` 消耗）、CPU steal 诊断（B3 显示英文位已有三篇新文占满）、过期 deal（B6 显示 pennyclouds 已占英文位）。
 
 剩余候选（未被消耗）：Unmetered Port, Metered Reality（Day2 B4 + C6/C13/C15）；"Stuck in an AI Support Loop"（Day3 B3 + C6/C7/C8/C9）；YABS 怎么读结果（Day4 候选 #3）。
+
+---
+
+## 2026-10-12 (Day 6)
+
+### A. 原创内容邪修
+
+| # | 邪修点 | 为什么别人抄不走 |
+|---|---|---|
+| A1 | **同一家厂商的两份官方页面，对同一个拍卖的起价方向说法相反**。Hetzner 官方博客（2026-06-10）写 "Prices **start out low** and keep dropping over the course of the day, at randomly chosen intervals"；Hetzner 官方文档 FAQ 写 "The prices **start high**, and go down over time"，还补了一句 "For each server model, Hetzner decides the starting price. When we add a server from that model to the Auction, it **always starts at the same price**"。一个说起价低、一个说起价高，且两页今天都在线 | 必须同时读过厂商博客**和**厂商文档并逐字比对。二手评测站只抄博客那一句（今天 SERP 上 reviewplan.com 就是这么干的），榜单站一个源都不读。而且第三方不敢写"大厂自己两页打架"——要贴两份原文并排才站得住 |
+| A2 | **我们每天扫完整个促销盘，只用 8 秒**。本次 scan `2026-10-11T18:31:15Z`，六条 offer 的 `fetched_at` 落在 `18:31:07`–`18:31:09`，八条 URL 检查全部在这 8 秒内完成。把这个真实耗时当作正文的一部分写出来 | 需要每条 offer 落盘时带自己的秒级 `fetched_at`。榜单站没有"抓取耗时"这个概念，只有一个"最后更新：今天"。而且自曝"我的管道只要 8 秒"等于承认自己很小，商业站不会这么写 |
+| A3 | **折扣标签不是按大小排的**。Hostinger 四条是 `70% → 67% → 63% → 65%`——**第三个（63）比第四个（65）小**。这说明顺序来自页面 DOM，不是"最优惠在前"。而几乎所有 deals 站都按折扣百分比降序排列：那个排序是他们自己加的，厂商页面上根本不存在 | 要判断"顺序无意义"，得连续多天看到同一组数字在页面里的位置不变，**并且**注意到它不单调。只截一次图的人会照抄这个顺序，还会默认 70% 是最好的那个 |
+| A4 | **六条 offer 里，唯一一个把你带离 VPS 页面的链接是学生折扣**。五条 `70/67/63/65 off` 的 `offer_url` 全部指回 `https://www.hostinger.com/vps-hosting`——**自指**，即"促销就是这一页本身"。只有 `Student discount` 指向 `/student-discount`。VPS 定价页上唯一一个真正改变目的地的链接，跟配置、价格、机房全都无关，只跟"你是谁"有关 | 需要把 `offer_url` 和 `source_url` **分开存储**并逐条做相等性判断。多数 deals 站只保留一个"去购买"链接，两类 URL 混在一个字段里，永远做不出"自指 vs 外跳"这个区分 |
+| A5 | **我们自己两个数据文件的年龄差了两天**。offers.json 的 scan 是 `2026-10-11T18:31:15Z`（本地 mtime 10-12 07:02），provider_facts.json 的本地 mtime 停在 10-10 15:56。促销每天刷，厂商事实两天没动 | 得先有两个分开维护的数据文件，并且敢公开它们更新不同步。把它变成给读者的方法：看一个 deals 站的"促销块"和"厂商参数块"是不是同一天更新的——不是的话，参数块就是旧的，而它通常还是你比价的依据 |
+
+### B. 谷歌搜索查词（今天真跑过的）
+
+| query | SERP 上看到了什么 | 判断 |
+|---|---|--|
+| `vps deals` | **核心词**。5 条：spacevps.cc/deals、uvps.org/deals（3 天前）、vpshub.org/zh/0_100/（1 天前，**380 个套餐**）、vpsdeck.com/categories/vps-deals/（唯一英文，仍只是分类页不是文章）、vpsclub.cc/deals。**与昨天的差异：vpshub 套餐数 377→380；昨天刚出现的 vpsrankings.com/en/deals 今天掉了** | 核心词锁 28 天不动。英文位连续第五天只有同一个分类页占位，中文聚合站还在增加 → "英文供给不足而非需求不足"继续加固 |
+| `vps deal out of stock restock notification waitlist cheap plan` | 5 条**全部中文**：hostf4.com/zh-hans/stock（英文站却给中文路径）、vpsdoge.com/restock-alerts、stockvps.org、hosthum.com、vpsrestock.com（10-12 更新）。**英文位 0** | 补货监控这个需求在中文圈已经被做成一整类站点（库存监控站、TG 机器人、订阅提醒），**英文位完全空缺** → **升为明日候选 #1**（Day5 候选 #3 今天第一次拿到"5/5 中文"的硬证据） |
+| `hetzner server auction how it works refurbished server buy` | 5 条里 4 条英文：hetzner.com/blog（官方解释文）、hetzner.com/sb（官方拍卖页）、**docs.hetzner.com/robot/general/server-auction-faqs（官方文档，Day5 没挖到，今天新发现）**、reviewplan.com（英文，2023），加 1 条中文 vpstop.cn | **官方文档页是 Day5 没找到的新源，且它与官方博客的说法直接冲突（见 A1）** → Hetzner 候选不但成立，还多出一个独家切口 → **继续列明日候选 #2** |
+| `vps unmetered bandwidth fair use policy port speed throttle explained` | **5 条全部英文且都是长文**：vpshostreview.com（新英文站，逐段拆 unlimited 的三种实现）、affordablevpsserver.com 两篇（计量三模型 + 超量 $0.01–$0.15/GB）、positioniseverything.net、infotechna.hu（匈牙利厂商自己写的 FUP 条款页，9 节） | 英文位**已被占满**，且 vpshostreview 已经写了我们原本打算写的"端口速率 → 理论月上限"表（1 Gbps ≈ 330 TB/月）→ **把 Day2 遗留候选「Unmetered Port, Metered Reality」正式降级，不写**。但 infotechna 那份 FUP 是厂商自己列的逐条清单，是好素材 → 收进 C 栏 |
+| `hostinger vps 70% off student discount deal terms` | 5 条：webseotrends.com（英文，"up to **85%** off"）、studentbeans.com（英文，"up to **67%** off n8n VPS Hosting"）、hostadvice.com / zh.hostadvice.com 两条（中文，写"**74%**"） | **同一件事在 SERP 上出现 85% / 74% / 67% 三个互不相同且都偏离官方页面的数字**，而我们从官方页面抓到的是 70/67/63/65。第三方数字全部不是页面上的数 → 缝很大，但与 A4 同源，**合并进候选 #3，不单独开题** |
+| `lowendtalk support ticket AI chatbot escalate human` | 5 条**全是 SaaS 客服产品页和 GitHub 项目**（builtabot "human handoff" 指南、chatbot.com、endurancesoftwares、两个 AI 工单分类 GitHub repo），**0 条讲 VPS 买家视角** | 这个词的 SERP 被"卖 AI 客服的"占满，不是我们的战场 → **把 Day3 遗留候选「Stuck in an AI Support Loop」正式降级**。除非改写成 LET 原生词角度（`no ticket reply in 5 days` / `3 different licensing stories in 1 ticket`），这两个今天在 LET 首页就有原文（见 C 栏） |
+
+### C. 老外怎么说（真在用的说法）
+
+| phrase | 谁在用 / 什么意思 |
+|---|---|
+| "The prices **start high**, and go down over time" | Hetzner 官方文档 FAQ 原文：拍卖起价**高**，往下走。与官方博客那句 "start out low" 直接冲突（见 A1） |
+| "For each server model, Hetzner decides the starting price. When we add a server from that model to the Auction, it **always starts at the same price**" | 同上原文：同型号每次上架起价相同，所以同型号价格不同只因挂了不同时长 |
+| "So you might see the same server model at different prices because the servers have been on the Server Auction for **different amounts of time**" | 同上原文：同型号不同价的官方解释 |
+| "We use software to **randomly decide how much time there is between price drops**" / "We at Hetzner **do not manipulate the prices**" | 同上原文：降价间隔由软件随机决定；厂商主动声明不操纵价格 |
+| "It is a **Dutch-style auction** where customers can find servers" | 同上原文：厂商自己的品类说法 |
+| "All of the servers in the Auction are **'old' servers**… When we … introduce the next generation of new servers, we make the 'old' servers available" | 同上原文：拍卖货源就是被新品换代下来的旧机型 |
+| "**There are no setup fees for these servers.**" / "Since these servers do not have setup fees, they are a bit more affordable than our newest models" | 同上原文：零装机费，且官方自己把它当价格优势讲 |
+| "The **cancellation period** for these servers is usually **immediately**" | 同上原文：官方文档对"最短合约期"的答法——不说"无最短期限"，说"取消期通常即时" |
+| "They are **unmanaged servers**, and you, the customer, are the only person who has root access to them" | 同上原文：unmanaged + 你独自拥有 root，责任全在你 |
+| "You are also responsible for preventing any kind of abuse on the server, and for quickly removing any issues if our **Abuse Team** contacts you" | 同上原文：Abuse Team 是厂商侧对口的那个部门名 |
+| "Our technicians will make sure that the server is **connected to the internet**" / "our team can **attach a KVM console** … or … run a **full hardware test**" | 同上原文：官方划出"免费支持"的边界——只到联网和硬件 |
+| "Usually, we can deploy these servers **within 1 business day**" / "if you are a new Hetzner customer, our **sales technicians** will first review your account information" | 同上原文：1 个工作日交付；新客要过一遍人工审核 |
+| "We only add servers to the Auction **once the previous user has cancelled them**" | 同上原文：拍卖库存取决于上一位客户什么时候退 |
+| "If you open a ticket and write something vague like, **'My server's acting weird. I think the drives are defective,'** our team will ask you for more information, and that will slow down the process" | 同上原文：**厂商文档里教你怎么写工单**——模糊工单会被打回，直接拖慢处理 |
+| "All dedicated root servers (including those from the Server Auction) have **unlimited traffic**" / "a dedicated uplink with **guaranteed bandwidth of 1 Gbit/s**" | 同上原文：二手拍卖机照样 unlimited traffic + 1 Gbit/s 保证带宽 |
+| "**E-waste** is a growing global problem" / "**reduce, reuse, recycle**" / "**one of the best ways to reduce the environmental footprint of hardware is to use it for as long as possible**" | 同上原文：厂商对二手业务的环保叙事口径，与博客一致 |
+| "Prices **start out low** and keep dropping over the course of the day, at **randomly chosen intervals**" | Hetzner 官方博客（2026-06-10）原文：与上面 docs 那句"start high"**相反**。两页都是官方、都是英文 |
+| "The longer you wait, the cheaper your dream server can get. **The catch: with every passing minute, the risk grows that someone else beats you to it**" | 同上原文：等越久越便宜 vs 被抢走，厂商自己把这个权衡讲明 |
+| "there's **no one-time setup fee, since the server was already set up**" | 同上原文：零装机费的理由——机器早就装好了 |
+| "we extend a server's life from an average of **three to four years to around eight**" | 同上原文：延寿口径，3–4 年拉到约 8 年 |
+| "Since there's **no minimum contract term**, the auction works well for short-term projects too" | 同上原文：博客口径写的是"无最短合约期"（docs 写的是"取消期通常即时"，两种答法） |
+| "**Regular VPS Restock**" / "**VPS Restock**" | LowEndTalk 首页 DeluxHost 两条标题原文：低价套餐补货的**固定栏目式说法**，不是临时公告 |
+| "our popular plans are **back**!" / "Taiwan VPS Deals are **BACK**!" | LET / LEB 原文：补货的另一种写法，用"回来"而不是"上架" |
+| "**Servitro: unusable IPv4 (broadcast address), no ticket reply in 5 days**" / "**Servitro down for over 24 hours**" | LET 标题原文：出事帖的标准写法——给出具体故障（不可用的广播地址）+ 工单无回复的天数 |
+| "**Weeks later: ServerHost / VPSHostingService.co, pt 2: 3 different licensing stories in 1 ticket**" | LET 评测区标题原文：一个工单里三种说法；`Weeks later` + `pt 2` 是社区追更帖的写法 |
+| "**Cloudzy account suspended without warning: 4 servers offline, no explanation, no way to retrieve dat[a]**" | LET 标题原文：停机投诉的四段式写法（无预警 / 几台离线 / 无解释 / 取不回数据） |
+| "**[WARNING] NoBanHost … Assigned a non-routable IANA documentation IP (198.51.100.251)**" / "**HostDZire IPv6 Allocation Violation: Service Terminated After Configuration Error**" | LET 标题原文：`[WARNING]` 前缀 + 具体技术违规；社区用 RFC 文档地址段举例说明厂商发错 IP |
+| "**ReliableSite ending referral program, says GTFO before 30 October**" | LET 标题原文：社区直接引用厂商原话（GTFO）当标题 |
+| "**Why are people posting First Second Third and GLWS on basically every thread?**" | LET 标题原文：有人公开问行话——说明 `First/Second/Third` 抢楼和 `GLWS`（Good Luck With Sale）已是默认礼仪 |
+| "**[FREE] shellter.me — FreeBSD pubnix (bash, 60MB ZFS, 3× IPv6, self-service revDNS)**" | LET 标题原文：免费公共 Unix 机的规格写法，`pubnix` 和 `self-service revDNS` 是社区默认词 |
+| "**[Request] 16TB+ Storage VPS/Dedi – 10Gbps, 100TB/mo, ~$200/2yr (Black Friday?)**" | LET 求购帖标题原文：需求 + 预算 + 周期一行写完，末尾挂 `(Black Friday?)` 表示在等旺季 |
+| "**offers rss broke again?**" | LET 标题原文：社区靠 RSS 订阅 offer，`broke again` 说明它经常坏 |
+| "**Exclusive LowEndBox Pricing: 2GB KVM VPS for $1.83/Month First Year! Godlike.Host is Back!**" | LowEndBox 原创帖标题原文：`Exclusive … Pricing`（站方专属价）+ `First Year`（暗示次年另算）+ `is Back`（商家回归） |
+| "**Another year, another cPanel / WHMCS price increase. What are you actually getting for the surging cost…**" | LEB 标题原文：对年度涨价的固定吐槽句式 `Another year, another … price increase` |
+| "**Welcome back, Kainode! This is the third time we've featured them on LowEndBox**" | LEB 原文：站方会数这是第几次收录某商家——`featured` 是 LEB 的收录用词 |
+| "**10,000 YABS!**" / "largest collection of YABS (**Yet Another Benchmark Script**) benchmarks on the planet, with over 10,000 user-submitted reports" | LEB 原文：跑分库存量当卖点，`YABS` 全称在站内被正式展开 |
+| "'**Unmetered bandwidth**' means that your VPS plan does not impose a fixed monthly data transfer limit … However, **this does not equate to unlimited or unrestricted usage**" | infotechna.hu 厂商 FUP 条款页原文：厂商自己定义 unmetered 并立刻否定 unlimited |
+| "**Sustained usage at or near the maximum capacity for extended periods may be considered excessive**" | 同上原文：FUP 里"超限"的实际判据——不是总量，是**长时间贴近端口上限** |
+| "**No Overage Fees:** Since your plan is unmetered, you will not incur additional bandwidth charges."（同页第 6 节又写 "we may **throttle** your bandwidth … or … temporarily **suspend** your VPS"） | 同上原文：厂商 FUP 的自相矛盾处——不收超量费，但可以限速或停机 |
+| "A plan advertising 'unlimited bandwidth' on a 100 Mbps port is making a claim that the port speed already makes difficult to violate. **The physics of the connection do most of the limiting.**" | vpshostreview.com 英文评测文原话：解释"为什么厂商敢写 unlimited"最狠的一句 |
+| "1 Gbps **~330 TB**" / "A 100 Mbps port maxes out at roughly **33 TB** per month" | 同上原文的换算表：端口速率对应的理论月流量上限 |
+| "**Overage** — per-GB charges after the cap, often **$0.01–$0.15/GB** depending on provider and region" | affordablevpsserver 英文评测站：超量单价区间 |
+| "A **2TB cap with a 100Mbps throttle** is very different from a **2TB cap with $0.05/GB overage** fees" | 同上原文：同样 2TB 额度，执法方式不同就是两种产品——社区比价时真正看的东西 |
+
+### 明日候选
+
+1. **"Regular VPS Restock": Why the Cheap Plan You Want Is Out of Stock — and How the Wait Actually Works** — B2（英文位 5/5 中文、0 英文）+ C22/C23（LET 两条 DeluxHost 补货标题 + `plans are back` / `Deals are BACK`）。缝：中文圈已把补货做成监控站、TG 机器人、订阅提醒一整类，英文位一篇都没有
+2. **Hetzner Sells Used Servers First: What a Dutch Auction Does to the Price — and Why Hetzner's Own Two Pages Disagree** — A1（博客 "start out low" vs 文档 "start high"，两页原文并排）+ B3（官方文档页是 Day5 没找到的新源）+ C1–C21
+3. **The Only Link on a VPS Pricing Page That Leaves the Page Is the Student Discount** — A3（标签顺序不单调）+ A4（五条 offer 自指，只有学生折扣外跳）+ B5（SERP 上 85% / 74% / 67% 三个数都不是页面上的 70/67/63/65）
+
+已用：`compare-vps-deals-total-cost`（10-07）、`vps-deals-renews-at-x`（10-08）、`vps-deals-refund-window`（10-09）、`vps-deals-cost-per-gb-ram`（10-09）、`vps-deals-who-collects-vat`（10-09）、`vps-deals-hourly-to-monthly`（10-10）、`vps-deals-cost-per-gb-disk`（10-11，**最后一篇已发布**）。
+
+已降级/不再写第二篇：退款天数（已发）、每 GB 单价（已发）、renews at 换算（已发）、Hourly ×672/730（已由 10-10 消耗）、CPU steal 诊断（英文位三篇新文占满）、过期 deal（pennyclouds 已占）、**Unmetered Port, Metered Reality（Day2 遗留，B4 实测英文位被 vpshostreview + affordablevpsserver×2 + positioniseverything 占满，今日降级）**、**Stuck in an AI Support Loop（Day3 遗留，B6 实测 SERP 被 AI 客服 SaaS 页和 GitHub 项目占满，今日降级；若要写只能改用 LET 原生词角度）**。
+
+剩余候选（未被消耗）：YABS 怎么读结果（Day4 候选 #3）；"Automatically Reverts to Standard Pricing" 四种折扣结束方式（Day5 候选 #2，今天无新证据，保留未升级）。
