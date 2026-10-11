@@ -36,7 +36,7 @@
 | 1 | **退款天数**：每家到底几天包退，不是"各家不同" | Liquid Web 只写 "Money-back guarantee varies based on product"，没给任何一家具体天数 | 逐家读官方退款/条款页，挂真实链接 | 已写 | vps-deals-refund-window | https://lumafare.com/articles/vps-deals-refund-window/ | 2026-10-09 | 65118a5 |
 | 2 | **VAT/GST 谁代收**：付款方式决定税由谁收 | 三站正文零覆盖；只有 RackNerd 的人在 LowEndBox 评论区答过一次：信用卡付款不代收，PayPal 由支付方代收代缴 | 逐家核官方结算/条款页 + 已抓到的评论区原话作旁证 | 已写 | vps-deals-who-collects-vat | https://lumafare.com/articles/vps-deals-who-collects-vat/ | 2026-10-09 | 9747359 |
 | 3 | **按小时计费折月**：$0.007/hr 到底等于多少钱一个月 | Liquid Web 产品页给小时费率 $0.007–$0.245，不折算，也不和包月比。**2026-10-09 实测更正见下** | ⚠️ **别用 ×730**（原写法，错）。DO 官方 FAQ 原话：*"Bundled Plans have a monthly cap, so you'll never pay more than the flat monthly price for that plan. v5 Droplets are billed on actual hours used each month and are not capped at 672 hours."* 定价表 hourly×**672**=monthly（0.00595/$4、0.00893/$6、0.01786/$12、0.02679/$18、0.03571/$24、0.07143/$48、0.14286/$96，七档比值全为 672）。**×730 会高估 8.6%**。独家点：网上流传的折月口诀是错的，官方自己的封顶是 672 小时（28 天）；且 v5 Droplets **不封顶**，用满 730 小时的月份会超出月价。来源可读：DO pricing 页 200（小时价与月价同表）。Hetzner docs 客户端渲染抓不到数、Liquid Web / Vultr 均 403 → 一律写 not verifiable，不许用代理取来的数 | 已写 | vps-deals-hourly-to-monthly | https://lumafare.com/articles/vps-deals-hourly-to-monthly/ | 2026-10-10 | 7e2d180 |
-| 4 | **存储单价 $/GB 磁盘**：NVMe 和 SSD 到底差多少钱 | 18 篇把 NVMe / SSD 当标签贴，**0 篇给任何 per-GB 价格**（`per/$ N per GB of disk/storage` 命中 0/30，与「单位价格」那篇的扫描一致） | 月价 ÷ 磁盘 GB，逐档算 $/GB 磁盘。**来源已探通**：DO pricing 页 200（磁盘 GiB 与月价同表）、Hostinger vps-hosting 200 | 未写 | | | | |
+| 4 | **存储单价 $/GB 磁盘**：NVMe 和 SSD 到底差多少钱 | 18 篇把 NVMe / SSD 当标签贴，**0 篇给任何 per-GB 价格**（`per/$ N per GB of disk/storage` 命中 0/30，与「单位价格」那篇的扫描一致） | 月价 ÷ 磁盘 GB，逐档算 $/GB 磁盘。**来源已探通**：DO pricing 页 200（磁盘 GiB 与月价同表）、Hostinger vps-hosting 200 | 已写 | vps-deals-cost-per-gb-disk | https://lumafare.com/articles/vps-deals-cost-per-gb-disk/ | 2026-10-11 | 09bb1fb |
 | 5 | **取消要不要提前通知 / 自动续费开关** | **0/30 篇提到**（`cancel + notice` / `notice of termination` 零命中） | 逐家核条款里的通知期 + 自动续费默认开还是关。**来源已探通**：DO ToS 200、Hostinger legal 200、Hetzner 条款页 200 | 未写 | | | | |
 | 6 | **端口 25 / SMTP 能不能发信**：买了 VPS 能不能自己发邮件 | **0/30 篇提到**（`port 25` / `SMTP` 零命中）。自建邮局、WordPress 发信的真实卡点，三家完全空白 | 逐家核官方文档：默认封不封 25、能不能申请解封。**✅ 2026-10-10 解锁**：`docs.digitalocean.com/support/why-is-smtp-blocked/` **200**（Last verified 13 Jul 2026），官方原话 *"SMTP ports 25, 465, and 587 are blocked on Droplets... This block applies to all Droplets by default and includes traffic passing through a Reserved IP address."* 原记"两个 URL 都 404"已作废 | 未写 | | | | |
 | 7 | **SLA 赔付怎么拿**：停机多久赔多少、要不要自己提工单 | 30 篇里 8 篇给 uptime 百分比（99.9% / 100%），**0 篇讲赔付规则**——`credit + downtime / outage` 组合命中 0/30 | 给「停机时长 → 赔付比例」表和申请时限。**✅ 2026-10-10 解锁**：`digitalocean.com/sla` **200**（从 billing docs 页导航里挖到的真地址，此前试的三个 `docs.digitalocean.com/*` 路径全是 404）。Hetzner SLA 仍 404，只有 hetzner.com/legal/terms-and-conditions 200 | 未写 | | | | |
@@ -134,8 +134,21 @@
   - 独家闸门：28 条事实条目 / 26 条零命中 / **92.9% PASS**（要求 ≥3）。
 - **2026-10-09 21:00 兜底核对**：今天实际发了 3 篇（#1 退款窗口 / A 单位价格 / #2 VAT 代收），三篇线上均 200，台账均已回填且三篇都过了独家闸门（3/5、28/32、23/28）。
   **2026-10-10 更新：#3 已写，可用条目还剩 5 条：#4 存储单价、#5 取消通知/自动续费、#6 端口 25、#7 SLA 赔付、#8 付款方式矩阵**（原"还剩 6 条"是 10-09 口径，以本行为准）。
-  取题顺序仍是**序号最小优先**：下一步取 **#4 存储单价 $/GB 磁盘**（#4/#5 来源已探通 200；#6/#7/#8 取题前必须先跑 `probe_sources.py` 复探，404/403 就写 not verifiable）。
+  取题顺序仍是**序号最小优先**：~~下一步取 #4 存储单价 $/GB 磁盘~~ → **2026-10-11 已写完，下一步取 #5「取消要不要提前通知 / 自动续费开关」**（#4/#5 来源已探通 200；#6/#7/#8 取题前必须先跑 `probe_sources.py` 复探，404/403 就写 not verifiable）。
   **这 5 条写完才允许**回退到 `docs/line3-daily-topics.md` 的「明日候选」，并立刻重跑 BENCH 补缺口。
+  可用表口径更新（2026-10-11）：#4 已写，**还剩 4 条：#5 / #6 / #7 / #8**。
 - **2026-10-10 21:00 兜底核对**：今天已发 1 篇（#3 按小时计费折月，`vps-deals-hourly-to-monthly`，commit 7e2d180），线上 200、canonical 正确、sitemap 已含、CI run 38016571718 两 job 全绿。
   台账 #3 行已回填（slug / URL / 日期 / commit 齐全），独家闸门重跑 **26/28 = 92.9% PASS**（要求 ≥3，退出码 0）。未补发、未重复发。
   顺带更正上一行口径（原写「6 条」与「还剩 5 条」矛盾，以 5 条为准）。**下一步取 #4 存储单价 $/GB 磁盘**（来源已探通：DO pricing 200、Hostinger vps-hosting 200）。
+- **2026-10-11 第六次修订：4 号「存储单价 $/GB 磁盘」已发**（`vps-deals-cost-per-gb-disk`，commit 09bb1fb，线上 200，Actions run 38104761784 两 job 全绿）。硬事实（2026-10-11 直读官方页，只跑 build.py 未跑 scraper）：
+  - **NVMe 不是价格档位**。DO 同一页 31 个套餐，月价 ÷ 磁盘 = **$0.24 → $2.52/GiB，10.5 倍价差**；其中 DO 自己标 NVMe 的四条线分别收 **$0.4367（Storage-Opt）／$1.6800（CPU-Opt）／$1.6800（Mem-Opt）／$2.5200（General Purpose）**——**NVMe 内部价差 5.77 倍**。"NVMe" 这个标签不预测价格。
+  - **唯一干净的 NVMe-vs-SSD 溢价是 +45.6%**：Storage-Opt（DO 无条件写明用 NVMe）$0.4367/GiB ÷ Basic（SSD 列，60 GiB 以上恒定 $0.3000/GiB）；对 Basic 最低档 $0.2400 则是 **+81.9%**。
+  - **跨厂商溢价是负的**：Hostinger 明文标 "NVMe disk space"，KVM 4/8 促销 **$0.0650/GB**，比 DO 非 NVMe 的 SSD（$0.3000/GiB）**便宜 4.6 倍**，比 DO 自家的 NVMe 便宜 6.7 倍。**即使按续费价算（KVM 1 续费 $11.99 → $0.2398/GB，本表最差的一档）仍低于 DO 最便宜的 SSD 档 $0.2400/GiB**。
+  - **DO 自家一个 GB 的参考价是 $0.06/GB**（同页 Additional product pricing：Droplet Snapshots），另有 Backups usage-based *"start at $0.01/GiB per month"*。据此捆绑磁盘是快照价的 **4.0x / 5.0x / 6.7x / 7.3x / 28.0x / 42.0x**——**General Purpose 的 $2.5200/GiB 是同一页最便宜 GB（快照）的 42 倍**。
+  - **百分比备份永远比按量贵**：break-even 是「磁盘 GiB ÷ 月价 = 20（周备）/ 30（日备）」，而 DO 页面上最高的比值只有 **4.167 GiB/$1**（Basic 1 GiB、2 GiB/1vCPU），General Purpose 仅 **0.397** → 周备百分比价是按量的 **4.8x（Basic 1 GiB）到 50.4x（General Purpose，$12.60/mo vs $0.25/mo）**。
+  - **Basic 线 60 GiB 以上零批量折扣**（320 GiB 也是 $0.3000/GiB）；**512 MiB 档 $0.4000/GiB 是全页最差**。Hostinger 相反，从 $0.1298 降到 $0.0650（2.0x 批量折扣）。
+  - 三站第一屏实测（2026-10-11）**都不给 per-GB**：LowEndBox 首页是目录 + 文章流，卡片只有标题/作者/日期/评论数，无磁盘字段，NVMe 只是 tag；Namecheap 首页 VPS 卡 "From $3.88 Annual plan / Instead of $4.88/mo"，无磁盘容量、无介质类型；Liquid Web 包月页只写 "GB storage"，**不写 SSD 还是 NVMe**。
+  - **未核到（not verifiable，未用代理/缓存补数）**：Namecheap `/hosting/vps/` 403、Liquid Web `/vps-hosting/packages/` 403、Vultr / Linode / Contabo 均 403、Hetzner `hetzner.com/cloud` 客户端渲染；DO 四条高端线的 SSD Variant（1x/2x/3x）是客户端选择，静态 HTML 只有默认 1x，**未对 2x/3x 价格作任何断言**。
+  - **口径提示**：DO 报 GiB、Hostinger 报 GB，1 GB = 0.931 GiB，Hostinger 的真实 per-GiB 比 per-GB **差 7.4%**；文章里两个数都给了（KVM 4/8 最优档 $0.0650/GB = $0.0697/GiB 促销价、$0.1342/GiB 续费价）。
+  - 独家闸门：**82 条事实条目 / 68 条零命中 / 82.9% PASS**（要求 ≥3，退出码 0）。
+- **2026-10-11 工程改动（顺带修的，不是文章本身）**：`render_markdown` **此前不支持 markdown 表格**，5 篇已发文章的管道表全是原样管道符文本输出。本次在 `build.py` 里加了表格解析（thead/tbody + `.table-wrap` 横向滚动）与配套 CSS，**现有 5 篇文章的表格一并修复**。非文章页的 diff 只有新增的 7 行 CSS。
