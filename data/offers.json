@@ -1,5 +1,5 @@
 {
-  "source_scan_at": "2026-10-10T18:30:32+00:00",
+  "source_scan_at": "2026-10-11T00:38:18+00:00",
   "source_checks": [
     {
       "provider": "Hostinger",
@@ -45,42 +45,42 @@
       "title": "Student discount",
       "offer_url": "https://www.hostinger.com/student-discount",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-10T18:30:24+00:00"
+      "fetched_at": "2026-10-11T00:38:11+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "70% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-10T18:30:24+00:00"
+      "fetched_at": "2026-10-11T00:38:11+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "67% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-10T18:30:24+00:00"
+      "fetched_at": "2026-10-11T00:38:11+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "63% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-10T18:30:24+00:00"
+      "fetched_at": "2026-10-11T00:38:11+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "65% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-10T18:30:24+00:00"
+      "fetched_at": "2026-10-11T00:38:11+00:00"
     },
     {
       "provider": "Hetzner",
       "title": "Server Auction Save money and do good for the planet with refurbished servers from",
       "offer_url": "https://www.hetzner.com/sb",
       "source_url": "https://www.hetzner.com/hosting/",
-      "fetched_at": "2026-10-10T18:30:26+00:00"
+      "fetched_at": "2026-10-11T00:38:14+00:00"
     }
   ]
 }
