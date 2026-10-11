@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What a Gigabyte of VPS Disk Actually Costs (NVMe vs SSD, Priced Per GB) | Lumafare</title><meta name="description" content="Every VPS deal page calls its storage &quot;NVMe&quot; or &quot;SSD&quot; but none of them price it. Read on 2026-10-11, DigitalOcean&#x27;s own pricing page puts a gigabyte of included disk anywhere from $0.24 to $2.52 a month — a 10.5x spread, and the NVMe badge does not predict where a plan lands. Hostinger sells NVMe at $0.065/GB, which is cheaper than DigitalOcean&#x27;s non-NVMe SSD."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-cost-per-gb-disk/">
+<meta property="og:title" content="What a Gigabyte of VPS Disk Actually Costs (NVMe vs SSD, Priced Per GB) | Lumafare"><meta property="og:description" content="Every VPS deal page calls its storage &quot;NVMe&quot; or &quot;SSD&quot; but none of them price it. Read on 2026-10-11, DigitalOcean&#x27;s own pricing page puts a gigabyte of included disk anywhere from $0.24 to $2.52 a month — a 10.5x spread, and the NVMe badge does not predict where a plan lands. Hostinger sells NVMe at $0.065/GB, which is cheaper than DigitalOcean&#x27;s non-NVMe SSD."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-cost-per-gb-disk/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}
+.table-wrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+caption{caption-side:bottom;padding-top:8px;font-size:.82rem;opacity:.75;text-align:left}
+th,td{border:1px solid rgba(218,228,241,.95);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#eef3fb;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:rgba(238,243,251,.55)}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>What a Gigabyte of VPS Disk Actually Costs (NVMe vs SSD, Priced Per GB)</h1><p>Every VPS deal page calls its storage &quot;NVMe&quot; or &quot;SSD&quot; but none of them price it. Read on 2026-10-11, DigitalOcean&#x27;s own pricing page puts a gigabyte of included disk anywhere from $0.24 to $2.52 a month — a 10.5x spread, and the NVMe badge does not predict where a plan lands. Hostinger sells NVMe at $0.065/GB, which is cheaper than DigitalOcean&#x27;s non-NVMe SSD.</p><p><small>Published: 2026-10-11</small></p><p><strong>Question:</strong> On a VPS deal, how much more does NVMe storage actually cost than SSD, measured per gigabyte?</p><p><strong>The short answer: NVMe costs DigitalOcean about 46% more per gigabyte than its own regular SSD — and that is the only honest number in this article, because at one vendor the spread inside the NVMe-labelled plans alone is 5.77x.</strong> Read on 2026-10-11, <code>digitalocean.com/pricing/droplets</code> publishes 31 plans across five families. Divide the monthly price by the included disk and a gigabyte costs anywhere from <strong>$0.24</strong> to <strong>$2.52</strong> per month. That is a <strong>10.5x spread on one vendor&#x27;s own page</strong>, and the word &quot;NVMe&quot; tells you nothing about where in that range a plan sits.</p>
+<p>Meanwhile the cross-vendor number runs the other way entirely. Hostinger sells <strong>400 GB of NVMe for $25.99/mo — $0.065 per GB</strong>. DigitalOcean&#x27;s plain, non-NVMe SSD is <strong>$0.30 per GiB</strong>. Hostinger&#x27;s NVMe is <strong>4.6x cheaper per gigabyte than DigitalOcean&#x27;s regular SSD</strong>, and it is still cheaper if you price Hostinger at its *renewal* rate, which is the worst case.</p>
+<p>So the two questions people actually ask — &quot;is NVMe worth it?&quot; and &quot;how much more does NVMe cost?&quot; — have completely different answers, and neither is the one the deal pages imply.</p>
+<h2>The formula, so you can check this yourself</h2>
+<p>Every number below is one division. No estimation, no extrapolation, no scraping a field that does not exist:</p>
+<pre><code>$ per GB of disk = monthly plan price (USD) ÷ included disk (GB or GiB)</code></pre>
+<p>One worked example: DigitalOcean&#x27;s Basic 16 GiB / 8 vCPU plan is listed at <strong>$96.00/mo</strong> with <strong>320 GiB</strong> of SSD. <code>96.00 ÷ 320 = 0.300</code>. That plan sells disk at <strong>$0.30/GiB/month</strong>.</p>
+<p>Two caveats, stated up front so you can discount the numbers honestly:</p>
+<ol>
+<li><strong>This is a bundling metric, not a marginal price.</strong> You are not buying disk alone; you are buying RAM, vCPU, transfer and disk in one package. <code>$/GB</code> measures how generously a plan is provisioned with disk relative to its price. It is the right number for comparing two plans, and the wrong number for computing what one extra gigabyte would cost you.</li>
+<li><strong>DigitalOcean quotes GiB, Hostinger quotes GB.</strong> 1 GB = 0.931 GiB, so Hostinger&#x27;s true per-GiB figure is about <strong>7.4% worse</strong> than its per-GB figure. I give both below, because at a 4.6x gap the unit difference does not change any conclusion, but it would be sloppy not to show it.</li>
+</ol>
+<h2>The whole DigitalOcean table, priced per gigabyte</h2>
+<p>Read from <code>digitalocean.com/pricing/droplets</code> on 2026-10-11. Disk figures come from the column headed <strong>SSD</strong> (Basic) and <strong>SSD</strong> on the four premium families, which each carry a disk-variant selector defaulted to 1x.</p>
+<div class="table-wrap"><table><thead><tr><th>Family</th><th>Memory</th><th>vCPU</th><th>Disk</th><th>$/mo</th><th><strong>$/GiB</strong></th></tr></thead><tbody><tr><td>Basic</td><td>512 MiB</td><td>1</td><td>10 GiB</td><td>$4.00</td><td><strong>$0.4000</strong></td></tr><tr><td>Basic</td><td>1 GiB</td><td>1</td><td>25 GiB</td><td>$6.00</td><td><strong>$0.2400</strong></td></tr><tr><td>Basic</td><td>2 GiB</td><td>1</td><td>50 GiB</td><td>$12.00</td><td><strong>$0.2400</strong></td></tr><tr><td>Basic</td><td>2 GiB</td><td>2</td><td>60 GiB</td><td>$18.00</td><td><strong>$0.3000</strong></td></tr><tr><td>Basic</td><td>4 GiB</td><td>2</td><td>80 GiB</td><td>$24.00</td><td><strong>$0.3000</strong></td></tr><tr><td>Basic</td><td>8 GiB</td><td>4</td><td>160 GiB</td><td>$48.00</td><td><strong>$0.3000</strong></td></tr><tr><td>Basic</td><td>16 GiB</td><td>8</td><td>320 GiB</td><td>$96.00</td><td><strong>$0.3000</strong></td></tr><tr><td>CPU-Optimized</td><td>4 GiB</td><td>2</td><td>25 GiB</td><td>$42.00</td><td><strong>$1.6800</strong></td></tr><tr><td>CPU-Optimized</td><td>8 GiB</td><td>4</td><td>50 GiB</td><td>$84.00</td><td><strong>$1.6800</strong></td></tr><tr><td>CPU-Optimized</td><td>16 GiB</td><td>8</td><td>100 GiB</td><td>$168.00</td><td><strong>$1.6800</strong></td></tr><tr><td>CPU-Optimized</td><td>32 GiB</td><td>16</td><td>200 GiB</td><td>$336.00</td><td><strong>$1.6800</strong></td></tr><tr><td>CPU-Optimized</td><td>64 GiB</td><td>32</td><td>400 GiB</td><td>$672.00</td><td><strong>$1.6800</strong></td></tr><tr><td>CPU-Optimized</td><td>96 GiB</td><td>48</td><td>600 GiB</td><td>$1,008.00</td><td><strong>$1.6800</strong></td></tr><tr><td>General Purpose</td><td>8 GiB</td><td>2</td><td>25 GiB</td><td>$63.00</td><td><strong>$2.5200</strong></td></tr><tr><td>General Purpose</td><td>16 GiB</td><td>4</td><td>50 GiB</td><td>$126.00</td><td><strong>$2.5200</strong></td></tr><tr><td>General Purpose</td><td>32 GiB</td><td>8</td><td>100 GiB</td><td>$252.00</td><td><strong>$2.5200</strong></td></tr><tr><td>General Purpose</td><td>64 GiB</td><td>16</td><td>200 GiB</td><td>$504.00</td><td><strong>$2.5200</strong></td></tr><tr><td>General Purpose</td><td>128 GiB</td><td>32</td><td>400 GiB</td><td>$1,008.00</td><td><strong>$2.5200</strong></td></tr><tr><td>General Purpose</td><td>160 GiB</td><td>40</td><td>500 GiB</td><td>$1,260.00</td><td><strong>$2.5200</strong></td></tr><tr><td>Memory-Optimized</td><td>16 GiB</td><td>2</td><td>50 GiB</td><td>$84.00</td><td><strong>$1.6800</strong></td></tr><tr><td>Memory-Optimized</td><td>32 GiB</td><td>4</td><td>100 GiB</td><td>$168.00</td><td><strong>$1.6800</strong></td></tr><tr><td>Memory-Optimized</td><td>64 GiB</td><td>8</td><td>200 GiB</td><td>$336.00</td><td><strong>$1.6800</strong></td></tr><tr><td>Memory-Optimized</td><td>128 GiB</td><td>16</td><td>400 GiB</td><td>$672.00</td><td><strong>$1.6800</strong></td></tr><tr><td>Memory-Optimized</td><td>192 GiB</td><td>24</td><td>600 GiB</td><td>$1,008.00</td><td><strong>$1.6800</strong></td></tr><tr><td>Memory-Optimized</td><td>256 GiB</td><td>32</td><td>800 GiB</td><td>$1,344.00</td><td><strong>$1.6800</strong></td></tr><tr><td>Storage-Optimized</td><td>16 GiB</td><td>2</td><td>300 GiB</td><td>$131.00</td><td><strong>$0.4367</strong></td></tr><tr><td>Storage-Optimized</td><td>32 GiB</td><td>4</td><td>600 GiB</td><td>$262.00</td><td><strong>$0.4367</strong></td></tr><tr><td>Storage-Optimized</td><td>64 GiB</td><td>8</td><td>1,170 GiB</td><td>$524.00</td><td><strong>$0.4479</strong></td></tr><tr><td>Storage-Optimized</td><td>128 GiB</td><td>16</td><td>2,340 GiB</td><td>$1,048.00</td><td><strong>$0.4479</strong></td></tr><tr><td>Storage-Optimized</td><td>192 GiB</td><td>24</td><td>3,520 GiB</td><td>$1,572.00</td><td><strong>$0.4466</strong></td></tr><tr><td>Storage-Optimized</td><td>256 GiB</td><td>32</td><td>4,690 GiB</td><td>$2,096.00</td><td><strong>$0.4469</strong></td></tr></tbody></table></div>
+<p>Three things fall out of that table that no deal page says.</p>
+<p><strong>The NVMe badge does not price the disk.</strong> DigitalOcean&#x27;s own copy attaches NVMe to four of the five families — Memory-Optimized (*&quot;Memory-Optimized Droplets use NVMe SSDs&quot;*) and Storage-Optimized (*&quot;Storage-Optimized Droplets use NVMe... can be order of magnitude faster than our regular SSDs&quot;*) unconditionally, and CPU-Optimized and General Purpose only on their *&quot;Premium variant&quot;* (*&quot;The Premium variant... also provides up to 10Gbps outbound network speeds and NVMe SSDs&quot;*). Those four NVMe-tagged families charge <strong>$0.4367, $1.6800, $1.6800 and $2.5200</strong> per GiB. The cheapest NVMe and the most expensive NVMe on the page differ by <strong>5.77x</strong>. If you are choosing on the strength of the word &quot;NVMe,&quot; you are choosing on a label that spans a 5.77x price range.</p>
+<p><strong>The one clean NVMe-vs-SSD comparison is +45.6%.</strong> Storage-Optimized is the family DigitalOcean commits to NVMe without conditions, and it is the only one that is also genuinely disk-heavy, so it is the only fair comparison against the regular-SSD Basic line. Storage-Optimized runs <strong>$0.4367/GiB</strong>; the Basic line settles at <strong>$0.3000/GiB</strong> from 60 GiB upward. That is a <strong>45.6% premium</strong>. Against Basic&#x27;s cheapest rung ($0.2400/GiB) the premium is <strong>81.9%</strong>. So: *roughly 46–82%*, depending on which SSD rung you measure from. That is the answer to &quot;how much more does NVMe cost&quot; — and it is a lot less than the marketing implies, because the disk is not what you are paying for.</p>
+<p><strong>The Basic line has no volume discount at all.</strong> From 60 GiB to 320 GiB — a 5.3x increase in disk — the per-GiB price is flat at exactly <strong>$0.3000</strong>. And the smallest plan is the worst deal on the page: the 512 MiB / 10 GiB plan charges <strong>$0.4000/GiB</strong>, 67% more per gigabyte than the 1 GiB plan directly above it. If disk is what you need, the entry plan is the one plan never to buy it in.</p>
+<h2>Hostinger: the premium is negative across vendors</h2>
+<p>Read from <code>hostinger.com/vps-hosting</code> on 2026-10-11. Every Hostinger KVM plan states its media explicitly as <strong>&quot;NVMe disk space&quot;</strong> in the plan feature list, and the page&#x27;s own FAQ gives the prices: *&quot;KVM 1 – $6.49/month, KVM 2 – $8.99/month, KVM 4 – $12.99/month, KVM 8 – $25.99/month.&quot;* The renewal rates are printed on the same cards as *&quot;Renews at $11.99/mo for 2 years&quot;* and so on.</p>
+<div class="table-wrap"><table><thead><tr><th>Plan</th><th>vCPU</th><th>RAM</th><th>NVMe disk</th><th>Promo $/mo</th><th><strong>$/GB promo</strong></th><th>Renews at</th><th><strong>$/GB renewal</strong></th></tr></thead><tbody><tr><td>KVM 1</td><td>1</td><td>4 GB</td><td>50 GB</td><td>$6.49</td><td><strong>$0.1298</strong></td><td>$11.99</td><td><strong>$0.2398</strong></td></tr><tr><td>KVM 2</td><td>2</td><td>8 GB</td><td>100 GB</td><td>$8.99</td><td><strong>$0.0899</strong></td><td>$14.99</td><td><strong>$0.1499</strong></td></tr><tr><td>KVM 4</td><td>4</td><td>16 GB</td><td>200 GB</td><td>$12.99</td><td><strong>$0.0650</strong></td><td>$28.99</td><td><strong>$0.1449</strong></td></tr><tr><td>KVM 8</td><td>8</td><td>32 GB</td><td>400 GB</td><td>$25.99</td><td><strong>$0.0650</strong></td><td>$49.99</td><td><strong>$0.1250</strong></td></tr></tbody></table></div>
+<p>Adjusted to GiB, the best tier is <strong>$0.0697/GiB</strong> on promo and <strong>$0.1342/GiB</strong> on renewal.</p>
+<p>Now line that up against DigitalOcean:</p>
+<ul>
+<li><strong>Hostinger&#x27;s NVMe on promo ($0.0650/GB) is 4.6x cheaper per gigabyte than DigitalOcean&#x27;s regular SSD ($0.3000/GiB)</strong> — the supposedly premium media, at the lower price.</li>
+<li><strong>Hostinger&#x27;s NVMe on promo is 6.7x cheaper than DigitalOcean&#x27;s NVMe</strong> on Storage-Optimized ($0.4367/GiB).</li>
+<li><strong>Even at Hostinger&#x27;s worst renewal rate — $0.2398/GB, the KVM 1 renewal, the least favourable number in that whole table — it still undercuts DigitalOcean&#x27;s cheapest SSD rung of $0.2400/GiB.</strong> The premium is not small. It is negative.</li>
+</ul>
+<p>Two more structural differences worth knowing. Hostinger&#x27;s per-GB price <strong>falls</strong> as you go up — $0.1298 → $0.0899 → $0.0650, a 2.0x volume discount — while DigitalOcean&#x27;s Basic line is flat and its premium lines are perfectly flat. And Hostinger provisions <strong>12.50 GB of disk per GB of RAM</strong> on every single plan, against 20–30 on Basic, 6.25 on CPU-Optimized, 3.125 on General Purpose and Memory-Optimized, and 18.3–18.75 on Storage-Optimized. If you want to know how much disk you get for the RAM you are buying, that ratio is the faster test, and it is not printed anywhere.</p>
+<h2>The benchmark that makes all of this concrete</h2>
+<p>The same DigitalOcean page carries an &quot;Additional product pricing&quot; table, and it is the only place on the page where a gigabyte is sold on its own:</p>
+<ul>
+<li><strong>Droplet Snapshots — $0.06/GB per month.</strong></li>
+<li>Backups, usage-based — *&quot;start at $0.01/GiB per month.&quot;*</li>
+</ul>
+<p>Put that next to the bundled figures and the bundling markup becomes visible:</p>
+<div class="table-wrap"><table><thead><tr><th>What you are buying</th><th>$/GiB</th><th>Multiple of DO&#x27;s own snapshot rate ($0.06)</th></tr></thead><tbody><tr><td>DigitalOcean snapshot storage</td><td>$0.06</td><td>1.0x</td></tr><tr><td>Hostinger NVMe, promo (KVM 4/8)</td><td>$0.0650</td><td>1.1x</td></tr><tr><td>DigitalOcean Basic SSD, cheapest</td><td>$0.2400</td><td><strong>4.0x</strong></td></tr><tr><td>DigitalOcean Basic SSD, standard</td><td>$0.3000</td><td><strong>5.0x</strong></td></tr><tr><td>DigitalOcean Basic SSD, 512 MiB plan</td><td>$0.4000</td><td><strong>6.7x</strong></td></tr><tr><td>DigitalOcean Storage-Optimized NVMe</td><td>$0.4367</td><td><strong>7.3x</strong></td></tr><tr><td>DigitalOcean CPU-Optimized / Memory-Optimized NVMe</td><td>$1.6800</td><td><strong>28.0x</strong></td></tr><tr><td>DigitalOcean General Purpose NVMe</td><td>$2.5200</td><td><strong>42.0x</strong></td></tr></tbody></table></div>
+<p><strong>The most expensive gigabyte DigitalOcean sells is 42x the cheapest gigabyte DigitalOcean sells.</strong> Both are on the same page. One is inside a General Purpose Droplet; the other is a snapshot. If your workload is read-heavy, archival, or anything that does not need block I/O at sub-millisecond latency, the plan upgrade is the expensive way to buy capacity.</p>
+<p>There is a second, sharper use for that $0.01/GiB figure. DigitalOcean also offers percentage-based backups at <strong>20% of Droplet cost (weekly)</strong> or <strong>30% (daily)</strong>. Those two pricing models break even when:</p>
+<pre><code>disk GiB ÷ monthly price = 20   (weekly)   or   30   (daily)</code></pre>
+<p>No plan on the page gets close. The highest disk-to-price ratio DigitalOcean sells anywhere is <strong>4.167 GiB per $1/month</strong> (the Basic 1 GiB and 2 GiB / 1 vCPU plans); the General Purpose line manages <strong>0.397</strong>. So percentage-based backups are the expensive option on <strong>every single plan published</strong>, by 4.8x at best (Basic 1 GiB) and <strong>50.4x</strong> at worst (General Purpose, where weekly percentage backup of the $63/mo plan costs $12.60/mo against $0.25/mo usage-based). Pick usage-based.</p>
+<h2>What I could not verify</h2>
+<p>Being straight about the holes, because a comparison table that quietly drops the unreadable vendors is worse than no table:</p>
+<ul>
+<li><strong>Namecheap</strong> — <code>namecheap.com/hosting/vps/</code> returned <strong>403</strong> to this site&#x27;s declared crawler on 2026-10-11. Its homepage advertises VPS *&quot;From $3.88 Annual plan, Instead of $4.88/mo&quot;* with no disk size and no media type at all. <strong>Not verifiable.</strong></li>
+<li><strong>Liquid Web</strong> — <code>liquidweb.com/vps-hosting/packages/</code> returned <strong>403</strong>. <strong>Not verifiable.</strong></li>
+<li><strong>Vultr, Linode (Akamai), Contabo</strong> — all <strong>403</strong>. <strong>Not verifiable.</strong></li>
+<li><strong>Hetzner</strong> — <code>hetzner.com/cloud</code> returns 200 but renders prices client-side, so no figures are extractable. <strong>Not verifiable.</strong></li>
+<li><strong>DigitalOcean&#x27;s disk-variant selector</strong> (1x / 2x / 3x on the four premium families) is client-side; only the default 1x values are in the served HTML. I did not read the 2x and 3x prices, so this article makes no claim about the marginal price of adding disk within a premium plan.</li>
+</ul>
+<p>No proxy, cache, or archive was used to fill any of those gaps, and no figure in this article came from anywhere but the two pages that returned 200.</p>
+<h2>What to do with this</h2>
+<ol>
+<li><strong>Stop treating &quot;NVMe&quot; as a price signal.</strong> Across the plans on one vendor&#x27;s page it spans 5.77x. Across vendors it is inverted. The word tells you about the controller, not the invoice.</li>
+<li><strong>If you can measure the real premium, it is about 46%.</strong> Storage-Optimized NVMe at $0.4367/GiB versus Basic SSD at $0.3000/GiB. Pay that if you need the IOPS; do not pay it because a badge is green.</li>
+<li><strong>Run the division before you upgrade.</strong> <code>monthly price ÷ disk GB</code>. If you are comparing two plans and one is above $0.30/GB, you are buying RAM and vCPU and calling it storage.</li>
+<li><strong>If you only need capacity, do not buy a bigger plan.</strong> At $0.06/GB, snapshot storage is 4x to 42x cheaper than the same vendor&#x27;s bundled disk, depending on the family.</li>
+<li><strong>Buy disk where it is actually cheap.</strong> Hostinger&#x27;s NVMe at $0.065/GB undercuts DigitalOcean&#x27;s regular SSD by 4.6x and its NVMe by 6.7x — and still wins at renewal. Check the renewal column before you sign; a promo per-GB number that triples on renewal is not a per-GB number you can plan with.</li>
+</ol>
+<p>---</p>
+<p>*Figures read 2026-10-11 from <code>digitalocean.com/pricing/droplets</code> and <code>hostinger.com/vps-hosting</code>, both returning HTTP 200. All per-gigabyte values are the monthly price divided by the included disk as printed on those pages. Vendors returning 403 or client-rendered pages are marked not verifiable and were not filled in from any other source.*</p><section><h2>Sources</h2><ul><li><a href="https://www.digitalocean.com/pricing/droplets">https://www.digitalocean.com/pricing/droplets</a></li><li><a href="https://www.hostinger.com/vps-hosting">https://www.hostinger.com/vps-hosting</a></li><li><a href="https://www.namecheap.com/hosting/vps/">https://www.namecheap.com/hosting/vps/</a></li><li><a href="https://www.liquidweb.com/vps-hosting/packages/">https://www.liquidweb.com/vps-hosting/packages/</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-11T00:38:18+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>

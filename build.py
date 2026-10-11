@@ -74,25 +74,44 @@ def inline_markdown(value):
  for i,rendered in enumerate(tokens):value=value.replace(f'\x00{i}\x00',rendered)
  return value
 def render_markdown(source):
- out=[];paragraph=[];listing=None;code=[];in_code=False
+ out=[];paragraph=[];listing=None;code=[];in_code=False;table=None
  def flush_paragraph():
   if paragraph:out.append('<p>'+inline_markdown(' '.join(paragraph))+'</p>');paragraph.clear()
  def close_list():
   nonlocal listing
   if listing:out.append(f'</{listing}>');listing=None
+ def close_table():
+  nonlocal table
+  if not table:return
+  rows=table['rows']
+  if rows:
+   head='<thead><tr>'+''.join('<th>'+inline_markdown(c)+'</th>' for c in rows[0])+'</tr></thead>'
+   body=''
+   if len(rows)>1:
+    body='<tbody>'+''.join('<tr>'+''.join('<td>'+inline_markdown(c)+'</td>' for c in row)+'</tr>' for row in rows[1:])+'</tbody>'
+   out.append('<div class="table-wrap"><table>'+head+body+'</table></div>')
+  table=None
  for line in source.splitlines():
   if line.startswith('```'):
-   flush_paragraph();close_list()
+   flush_paragraph();close_list();close_table()
    if in_code:
     out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>');code=[];in_code=False
    else:in_code=True
    continue
   if in_code:
    code.append(line);continue
-  if not line.strip():flush_paragraph();close_list();continue
+  if not line.strip():flush_paragraph();close_list();close_table();continue
   heading=re.match(r'^(#{1,6})\s+(.+?)\s*#*$',line)
   if heading:
-   flush_paragraph();close_list();level=len(heading.group(1));out.append(f'<h{level}>{inline_markdown(heading.group(2))}</h{level}>');continue
+   flush_paragraph();close_list();close_table();level=len(heading.group(1));out.append(f'<h{level}>{inline_markdown(heading.group(2))}</h{level}>');continue
+  if line.strip().startswith('|'):
+   flush_paragraph();close_list()
+   stripped=line.strip().strip('|')
+   if re.match(r'^[\s:\-|]+$',stripped):continue
+   cells=[c.strip() for c in stripped.split('|')]
+   if table is None:table={'rows':[]}
+   table['rows'].append(cells);continue
+  close_table()
   item=re.match(r'^\s*([-*]|\d+\.)\s+(.+)$',line)
   if item:
    flush_paragraph();kind='ol' if item.group(1)[0].isdigit() else 'ul'
@@ -100,7 +119,7 @@ def render_markdown(source):
    out.append('<li>'+inline_markdown(item.group(2))+'</li>');continue
   paragraph.append(line.strip())
  if in_code:out.append('<pre><code>'+html.escape('\n'.join(code))+'</code></pre>')
- flush_paragraph();close_list()
+ flush_paragraph();close_list();close_table()
  return '\n'.join(out)
 def article_records():
  folder=R/'content/articles'
@@ -211,7 +230,13 @@ footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
  header{align-items:flex-start;flex-direction:column}
  header>a:last-child{align-self:flex-start}
  .hero{padding:25px 19px}
-}"""
+}
+.table-wrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+caption{caption-side:bottom;padding-top:8px;font-size:.82rem;opacity:.75;text-align:left}
+th,td{border:1px solid rgba(218,228,241,.95);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#eef3fb;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:rgba(238,243,251,.55)}"""
  def page(title,desc,path,body,ld=None,template_name=None):
   template_name=template_name or ('index' if path=='/' else 'compare' if path=='/compare.html' else 'provider' if path.startswith('/providers/') else 'coupon' if path=='/contabo-coupon-code.html' else 'deal')
   template=(R/'templates'/f'{template_name}.html').read_text(encoding='utf8')
