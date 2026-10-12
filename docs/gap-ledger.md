@@ -170,3 +170,9 @@
   - **未核到（not verifiable，未用代理/缓存补数）**：Liquid Web 与 Namecheap 直连均 **403**（其数字来自读取公开页面并已标注）；Hetzner Cloud 专属条款页 `hetzner.com/legal/cloud-terms-and-conditions/` 只返回区域跳转壳、无条款文本 → 30 天按**通用默认值**处理，因 §2.6 自带 *"Differing periods of notice may apply"* 例外。
   - 独家闸门：**27 条事实条目 / 18 条零命中 / 66.7% PASS**（`--min 3`，退出码 0）。
   - **可用条目还剩 3 条：#6 / #7 / #8**，下一步取 **#6「端口 25 / SMTP 能不能发信」**（`docs.digitalocean.com/support/why-is-smtp-blocked/` 10-10 实测 200；取题前先跑 `probe_sources.py` 复探）。
+- **2026-10-12 21:00 兜底核对**：今天已发 1 篇（#5「取消要不要提前通知 / 自动续费开关」，`vps-deals-auto-renewal-notice`，commit 5d472e6），
+  https://lumafare.com/articles/vps-deals-auto-renewal-notice/ → **200**，title/canonical 正确，`sitemap.xml` 已含（全站 8 篇文章 URL 均在 sitemap 内）。
+  CI run 38195318217（workflow_dispatch，head 5d472e6）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿；当日另有 3 次 schedule run 全绿。
+  台账 #5 行白天已回填完整（slug / URL / 2026-10-12 / 5d472e6 齐全），本次仅核对 + 复跑闸门：
+  **27 条事实条目 / 18 条零命中 / 66.7% PASS**（`--min 3`，退出码 0）。未补发、未重复发。
+  下一步取 **#6「端口 25 / SMTP 能不能发信」**；可用条目还剩 **3 条：#6 / #7 / #8**，与上方表格一致。
