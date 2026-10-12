@@ -404,3 +404,89 @@ Rules (locked):
 已降级/不再写第二篇：退款天数（已发）、每 GB 单价（已发）、renews at 换算（已发）、Hourly ×672/730（已由 10-10 消耗）、CPU steal 诊断（英文位三篇新文占满）、过期 deal（pennyclouds 已占）、**Unmetered Port, Metered Reality（Day2 遗留，B4 实测英文位被 vpshostreview + affordablevpsserver×2 + positioniseverything 占满，今日降级）**、**Stuck in an AI Support Loop（Day3 遗留，B6 实测 SERP 被 AI 客服 SaaS 页和 GitHub 项目占满，今日降级；若要写只能改用 LET 原生词角度）**。
 
 剩余候选（未被消耗）：YABS 怎么读结果（Day4 候选 #3）；"Automatically Reverts to Standard Pricing" 四种折扣结束方式（Day5 候选 #2，今天无新证据，保留未升级）。
+
+---
+
+## 2026-10-13 (Day 7)
+
+### A. 原创内容邪修
+
+| # | 邪修点 | 为什么别人抄不走 |
+|---|---|---|
+| A1 | **一天扫 5 次，六条 offer 一个字节都没变**。10-12 当天我们在 `00:41:33`、`02:19:33`、`06:40:40`、`12:50:49`、`18:34:16`（UTC）各扫了一次。把 5 份快照摆在一起：6 条 offer 的 `title`、`offer_url`、排列顺序**完全相同**——连 Hetzner 那条截断在介词上、以 `...refurbished servers from` 结尾的残缺标题都一字不差。一个把"限时/促销"挂在标题上的 deals 站，如果它的全部库存跨 18 小时、5 次扫描一个字节都没动，那这些"促销"就是常驻文案，不是限时活动 | 必须一天内多次快照**并且保留每一次的原始字符串**，才能证明"没变"——单次抓取只能证明"现在有"。而且把"我的 6 条 deal 一整天没变"写进正文等于自曝库存是死的；商业 deals 站的收入模型建立在"每天都有新东西"，不会这么写 |
+| A2 | **六条 offer 其实只来自两次页面读取**。本次 scan 里 5 条 Hostinger offer 的 `fetched_at` **全部落在 `18:34:07` 同一秒**，Hetzner 是 `18:34:09`。6 条 deal 对应 2 次 HTTP 抓取，其中 5 条是同一页上的第 2–6 个折扣标签。而且"Hostinger 比 Hetzner 早 2 秒"这个节奏当天多次 scan 完全一致（`27→29`、`43→45`、`07→09`） | 需要每条 offer 落盘时带自己的**秒级**时间戳，并且要意识到"同一秒 = 同一次读取"。deals 站按 provider 只存一条"最后更新"，永远看不出 6 条 deal 其实只有 2 个来源页——他们会把这个数字当成"6 个不同来源"来写 |
+| A3 | **8 条 URL 里唯一"读得到、却一条促销都没有"的是 DigitalOcean**。三态很清楚：`readable: true` 的是 Hostinger / Hetzner / DigitalOcean，`false` 的是 Vultr、Linode(Akamai)、Contabo×3。但 6 条 offer 只出自 Hostinger + Hetzner——DigitalOcean 的 droplets 定价页完全读得到，产出是 0 | 需要把"抓取结果"（`source_checks`）和"促销结果"（`offers`）**分开存两处**。只有 offers 数组的站，抓不到就写成"这家今天没促销"，把"页面没取到"和"取到了但真的没促销"混成一件事。分开存才写得出中间这一态 |
+| A4 | **三条 Contabo URL 全部不可读，但其中一条的路径本身就是事实：`/en/server-outlet/`**。`outlet` 这个词说明这家厂商确实有一个二手/清仓机页面——我们一条数据都没抓到，却已经知道这个页面存在、叫什么、挂在哪。抓取失败不等于零产出 | 需要把**失败的那条 URL 原样存下来**（我们把 8 条 `source_checks` 的 url 全留了）。只展示成功结果的站，永远不会让读者看到"这 3 个地址我们试了但进不去"，更不会指出其中一条叫 server-outlet——那恰恰是读者能自己点进去验的东西 |
+| A5 | **我们的"更新于"时间，比我们的数据新**。本次 `source_scan_at` 是 `18:34:16`，最新一条 offer 的 `fetched_at` 是 `18:34:09`——文件上的时间戳比最新数据晚 7 秒；当天几次 scan 里这个差值在 4–7 秒之间浮动 | 需要 scan 级和 offer 级两个时间戳同时存在才能做这个差。只有 offer 级时间戳的人做不出；只有 scan 级时间戳的人（绝大多数站）压根不知道自己的"Updated 5 minutes ago"是**写文件**的时间，不是**数据**的时间 |
+
+### B. 谷歌搜索查词（今天真跑过的）
+
+| query | SERP 上看到了什么 | 判断 |
+|---|---|--|
+| `vps deals` | **核心词**。今天只返回 **2 条**（昨天 5 条）：spacevps.cc/deals、vpshub.org/zh/0_100/。**vpsdeck、uvps、vpsclub 全部掉出前五，英文位归零**。且 vpshub 页面自己写着"数据更新于 **2026-10-10**"——今天 10-13，一个按日更新的 deals 页挂着 3 天前的日期 | 核心词锁 28 天不动。SERP 变薄说明这个词的竞争正在洗牌。**vpshub 自曝 3 天未更新**是 A5 的外部佐证 → 与 A5 合并成明日候选 #2 |
+| `cheap vps black friday 2026 deals` | 5 条：vpspaihang.com（中文，黑五汇总 + 前瞻各一篇）、**vpsledger.com/black-friday-vps-deals/（英文，"Verified Against Official Pages"，"188 plans verified as of 2026-10-10"）**、hostadvice.com/vps/black-friday/（英文）、**vpsledger.com/black-friday-vps-deals-2026/（英文 tracker，"across 13 providers"，明写 "**Sale prices are TBA until verified**"）** | **黑五（11/27）旺季已经开打，英文位出现 3 条**。关键发现：离黑五还有 6 周，deals 站已经开始发 tracker 页，而价格栏是空的 → **全新角度，升为明日候选 #1** |
+| `hetzner server auction dutch auction price drop starting price` | 5 条：docs.hetzner.com（官方 FAQ）、hetzner.com/blog（官方博客）、**akua.dev/servers/hetzner-auction（英文第三方，"ranked by CPU benchmark per euro, with the time of each next price drop"）**、**radar.iodev.org/guide（英文第三方完整指南）**、hetzner.com/sb（官方拍卖页） | **Hetzner 拍卖的英文位今天明显变挤**：Day6 时只有官方两页 + 1 条中文，今天多出两个英文第三方工具站，且都做了"下次降价时间 / 价格历史"。"拍卖怎么运作"已被完整覆盖 → **Day6 候选 #2 今日降级（见下），改角度再写** |
+| `vps student discount eligibility verification proof required` | 5 条：vpscost.com（中文）、world.taobao.com 英文导购页 ×2、help.aliyun.com（阿里云学生认证）、csdn（中文）。**英文母语内容 0 条** | 学生折扣——也就是 VPS 定价页上唯一一个把你带离本页的链接（Day6 A4 同源）——英文侧完全没人写。缝真实存在，但搜索量看起来很薄 → **留池，优先级低于黑五** |
+| `lowendtalk yabs benchmark results how to read` | 5 条：csdn 中文搬运 ×2、**lowendtalk.com/discussion/183625（英文原帖）**、**lowendtalk.com/discussion/177260 "How to read a YABS score"（英文原帖）**、github.com/masonr/yet-another-bench-script | **英文位只有 LET 原帖和 GitHub，0 篇英文教程型文章**讲"怎么读 YABS 结果"。而 LEB 自己说 ServerVerify 库里有 1 万份用户提交跑分——有量、没人教怎么读 → **剩余候选「YABS 怎么读结果」今天拿到硬证据，升为明日候选 #3** |
+| `vps renewal price increase grandfathered locked pricing existing customers` | 5 条：**getcloudworth.com/en/guides（英文，5 signals）**、solopreneur.global（中文，祖父价）、vps-craft.com（中文，续费陷阱）、payproglobal（中文）、likacloud（中文，Netcup 涨价） | 英文位只有 1 条，且它是中文站的英文版（通篇 `old-user tax` / `old customer tax` 这种直译口径）。真·英文母语内容几乎空缺 → **有价值但不升候选**：10-12 刚发 `vps-deals-auto-renewal-notice`，Day5 的"四种折扣结束方式"也还在池里，先不重复开题 |
+
+### C. 老外怎么说（真在用的说法）
+
+| phrase | 谁在用 / 什么意思 |
+|---|---|
+| "**Despite the name, there is no bidding.**" | radar.iodev.org 英文第三方指南原文：拍卖其实没有竞价——这是英文圈解释 Hetzner 拍卖时最爱用的一句开场 |
+| "Each listing **starts at a fixed price for its model** and the price then drops at **randomized intervals** until someone orders the server" | 同上原文：站到了 Hetzner **官方文档**那一侧（固定起价），与官方博客 "start out low" 相反——第三方工具站实测后选了 docs 的说法 |
+| "**Once it's ordered, it's gone** — identical configurations may reappear later, but there is no way to predict when" | 同上原文：卖掉即消失，同配置何时再来不可预测 |
+| "Hetzner does not document a **minimum price** or a **maximum listing duration**, so waiting for a lower price is always **a gamble against other buyers watching the same listing**" | 同上原文：没有底价、没有最长挂单时长，等低价是在跟盯同一台的人赌 |
+| "monthly pricing with **no setup fee and no minimum contract term**, a dedicated 1 Gbit/s uplink with **unlimited traffic**" | 同上原文：拍卖机的标准条款三件套，英文站复述时几乎一字不改 |
+| "provisioning usually **within one business day** — often much faster, since the hardware is **already racked**" | 同上原文：交付快的理由——机器本来就插在机架上 |
+| "The primary IPv4 address is a **removable add-on** (€1.70/month) — ordering **IPv6-only shaves that off** the monthly price" | 同上原文：IPv4 是可拆的加购项，`IPv6-only` 是压月租的标准做法，`shave off` 是那个动词 |
+| "also known as **Server-Bidding** or **Serverbörse**" | 同上原文：德语原名 Serverbörse，英文圈两种叫法并存 |
+| "**Defective hardware is replaced free of charge** during the contract" | 同上原文：二手机的硬件保修口径 |
+| "roughly **3% on auction listings**, applied to **new orders and existing contracts alike**" | 同上原文（引 Hetzner 2026-02 涨价公告）：涨 3%，且新单和老合同一起涨 |
+| "server **DRAM contract prices rose over 40%** in late 2025" | 同上原文：涨价的真实原因是内存合约价 |
+| "individual listings still get cheaper the longer they sit, but **the overall price level has shifted upward**" | 同上原文：单台越挂越便宜，但整体水位上移——两句要一起读才对 |
+| "When a listing **disappears between two snapshots**, we know it was taken" | 同上原文：**用快照差值判定成交**——这正是我们 A1 那套方法的第三方版本 |
+| "a far better signal of what a server is actually worth than **asking prices** alone" | 同上原文：成交价（sold price）比挂牌价（asking price）有意义 |
+| "When a type is sold out, **the order simply fails**: there is **no waitlist, no restock announcement**, and no way to see … whether a type has been gone for an hour or a month" | 同上原文：缺货的三连否定。这是英文位第一次有人把"没有候补名单、没有补货公告"讲出来 |
+| "whether a sold-out type **blips back** several times a day, **returns in bursts**, or has been gone for a month" | 同上原文：`blips back` / `returns in bursts` —— 描述补货节奏的两个原生说法 |
+| "**Stringing those snapshots together is what turns a price tag into a story.**" | 同上原文：把快照串起来才让一个价签变成一段故事 |
+| "A €45 listing can be **expensive** if the same configuration regularly hits €38" | 同上原文：绝对价格没有意义，要看同配置的历史区间 |
+| "**slam the cpu 24/7**" | LowEndTalk "How to read a YABS score" 帖原文：能不能把 CPU 压满跑——低端机的关键判断 |
+| "as long as that score **doesn't go below 500** you got a good deal" | 同上原文：GB5 单核 500 是"没买亏"的下限 |
+| "for an average vps everything in the range of **600-800 seems okay**, especially if the **multicore score scales properly**" | 同上原文：普通 VPS 的合理区间 |
+| "if you get 4 cores, multi core result should be **2.5-3.5x of single core** to make it a good one" | 同上原文：**用多核/单核比值判断核心是不是真的给你**——社区真这么算 |
+| "**E5 won't get there**" / "**don't buy an E5 and complain about the 'bad GB score'**" / "you simply picked the wrong product" | 同上原文：E5 跑不出高分是预期内的，买了再抱怨是你选错了产品 |
+| "As long as you are getting **the expected gb5 for the cpu model** then it's alright" | 同上原文：正确读法是"跟这颗 CPU 应有的分数比"，不是跟绝对数比 |
+| "**moooaaar is always better**" / "**MOARRRRRRRRRRRRRRRRRRRRRRRRRR**" | 同上原文：社区对跑分的通用起哄方式，拉长元音表示"越多越好" |
+| "**GB4** / **GB5**"（Geekbench 代际简称）+ "**Full Test \| https://browser.geekbench.com/v5/cpu/…**" | 同上原文 + YABS 输出格式：社区直接说 GB 分数；贴跑分必须带 Full Test 链接供人验 |
+| "**AES-NI : ✔ Enabled**" / "**VM-x/AMD-V : ✔ Enabled**" | YABS 输出头部字段原文：先看这两个勾，再谈跑分 |
+| "**UptimeRobot Raised Pricing by ~62% Any one got Email?**" | LowEndTalk 首页标题原文：涨价帖的标准写法——给出百分比 + 问有没有收到邮件 |
+| "**Kimsufi/Soyoustart/OVH Rise New Price**" | LET 首页标题原文：涨价帖另一种写法，`Rise New Price`（主谓倒装，社区味） |
+| "**xTom VPS lost my entire virtual disk during maintenance – no backups available**" | LET 标题原文：丢数据投诉的三段式（丢了什么 / 什么场景下 / 没有备份） |
+| "**Metanet.ch - Unreachable/Bankrupt**" | LET Outages 区标题原文：厂商倒掉就用 `Unreachable/Bankrupt` 两个词并列 |
+| "**Regular VPS Restock**" / "**VPS Restock**" / "our popular plans are **back**!" | LET 首页 DeluxHost 两条 + 另一家标题原文：补货的栏目式说法 + `back` 写法 |
+| "**Per Minute Billing**" / "**Hourly Billing**" / "**10.10 Deal**" | LET 首页标题原文：计费粒度与节日促销的写法（10.10 = 双十） |
+| "**UNMETERED BW**" / "**25G Unmetered**" / "**NAT VPS**" / "**NAT LXC VPS**" | LET 首页标题原文：带宽与 NAT 类产品的固定标法 |
+| "**paid up to Sept 2027**" | LET Service Transfers 区标题原文：转让帖必须写明"已付到哪个月" |
+| "**Bring Your Own Server**" / "**WTB:**" / "**crypto, month-to-month**" | LET 首页原文：自带机器、求购缩写、支持加密货币且按月付 |
+| "**DeluxHost review: 6 VPSes, ~5 weeks, a lot of tickets**" | LET Reviews 区标题原文：评测帖的三段式（几台 / 多久 / 多少工单） |
+| "**$1.83/Month First Year**" / "**25% off 3 months**" / "**Exclusive LowEndBox Pricing**" | LowEndBox 首页标题原文：折扣时长必须写出来；`Exclusive … Pricing` 是站方专属价的标法 |
+| "**1GB VPSes … starting at only $9.95/year! Those are IPv6-only, but they have IPv4 as well for only $17.95 a year!**" | LEB 正文原文：**IPv6-only 与含 IPv4 是两种价**，英文站会主动把差价讲出来 |
+| "You'll need our **special coupon code** to get these deals!" | LEB 原文：用码是默认前提，不是附加信息 |
+| "**old-user tax**" / "**old customer tax**" / "**premium rate**" / "**loyalty tax coefficient**" | getcloudworth 英文指南原文：给"老用户被宰"起的四个名字，其中 premium rate 是 FinOps 借来的术语 |
+| "**silent downgrade**" / "**neighbors are stealing CPU**" / "you may have been **scheduled to an oversold node**" | 同上原文：不降配、不涨价，但把你挪到超售节点——隐性降级的三种说法 |
+| "**Don't renew on sentiment; choose your path with data.**" | 同上原文：续费决策的口号句 |
+| "**stop the instance but don't release it**, save a snapshot, and contact them again a few days later" | 同上原文：谈判技巧——停机但不释放，等挽留券 |
+
+### 明日候选
+
+1. **"Sale Prices Are TBA Until Verified": What the 2026 Black Friday VPS Trackers Actually Tell You Six Weeks Out** — B2（英文 tracker 已上线、价格栏写 TBA、"188 plans verified"、13 家 providers）+ C 栏 LET 首页三条黑五帖（`Black Friday 2026 - Wishlist Thread` / RackNerd `TRENDING NOW` / `[Request] … (Black Friday?)`）。缝：黑五还有 6 周，英文站已经开始发 tracker 页但一个价格都填不出来——**没人写"预售期 tracker 页本身"这个现象**
+2. **"Updated 5 Minutes Ago" Is a Lie You Can Check: How to Read a Deals Site's Timestamp** — A1（5 次扫描 18 小时零变化）+ A2（6 条 offer 只来自 2 次读取）+ A5（scan 戳比数据晚 4–7 秒）+ B1（vpshub 页面自曝"数据更新于 2026-10-10"，3 天未更新）。缝：所有 deals 站都把"更新于"当卖点，**没有任何一篇教读者去验它**，而我们有一手对照数据
+3. **How to Read a YABS Score: The Numbers LowEndTalk Actually Argues About** — B5（英文位只有 LET 原帖 + GitHub，0 篇英文教程）+ C 栏 LET 原帖原文（`slam the cpu 24/7` / 500 下限 / 600-800 区间 / 多核应为单核 2.5-3.5x / `E5 won't get there` / `moooaaar`）。缝：LEB 说库里有 1 万份跑分，但英文世界没有一篇"怎么读"
+
+已用：`compare-vps-deals-total-cost`（10-07）、`vps-deals-renews-at-x`（10-08）、`vps-deals-refund-window`（10-09）、`vps-deals-cost-per-gb-ram`（10-09）、`vps-deals-who-collects-vat`（10-09）、`vps-deals-hourly-to-monthly`（10-10）、`vps-deals-cost-per-gb-disk`（10-11）、`vps-deals-auto-renewal-notice`（10-12，**最后一篇已发布**）。
+
+已降级/不再写第二篇：退款天数（已发）、每 GB 单价（已发）、renews at 换算（已发）、Hourly ×672/730（已消耗）、CPU steal 诊断（英文位占满）、过期 deal（pennyclouds 已占）、Unmetered Port Metered Reality（Day2，英文位占满）、Stuck in an AI Support Loop（Day3，SERP 被 SaaS 页占满）、**Hetzner 拍卖"怎么运作"（Day6 候选 #2，今日降级：B3 实测英文位新增 akua.dev 与 radar.iodev.org 两个第三方工具站，"no bidding / 固定起价 / 随机降价 / 每次降价时间"已被完整覆盖。若重写只能走我们独有的"同一天 5 次快照"角度，不能写科普）**。
+
+剩余候选（未被消耗）：学生折扣（B4，英文位 0，优先级低于黑五）；"Automatically Reverts to Standard Pricing" 四种折扣结束方式（Day5 候选 #2，仍无新证据）；低价套餐断货/补货（Day6 候选 #1，**今日缩范围**：radar.iodev.org 已把 Hetzner Cloud 那一半写掉，只剩"跨厂商通用断货现象"可写，且要改用 `no waitlist, no restock announcement` 这个英文原生说法切入）。
