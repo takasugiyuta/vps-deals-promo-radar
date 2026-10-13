@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Can You Send Email From a Cheap VPS Deal? Port 25, 465 and 587, Read off Providers&#x27; Own Docs | Lumafare</title><meta name="description" content="Read on 2026-10-13: DigitalOcean blocks outbound SMTP ports 25, 465 AND 587 on every Droplet by default, including traffic through a Reserved IP. Hetzner blocks only 25 and 465, leaves 587 open, and will unblock on request after one month and your first paid invoice. The popular &#x27;just use port 587&#x27; fix works on one of them and fails on the other."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-port-25-smtp-blocked/">
+<meta property="og:title" content="Can You Send Email From a Cheap VPS Deal? Port 25, 465 and 587, Read off Providers&#x27; Own Docs | Lumafare"><meta property="og:description" content="Read on 2026-10-13: DigitalOcean blocks outbound SMTP ports 25, 465 AND 587 on every Droplet by default, including traffic through a Reserved IP. Hetzner blocks only 25 and 465, leaves 587 open, and will unblock on request after one month and your first paid invoice. The popular &#x27;just use port 587&#x27; fix works on one of them and fails on the other."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-port-25-smtp-blocked/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}
+.table-wrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+caption{caption-side:bottom;padding-top:8px;font-size:.82rem;opacity:.75;text-align:left}
+th,td{border:1px solid rgba(218,228,241,.95);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#eef3fb;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:rgba(238,243,251,.55)}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>Can You Send Email From a Cheap VPS Deal? Port 25, 465 and 587, Read off Providers&#x27; Own Docs</h1><p>Read on 2026-10-13: DigitalOcean blocks outbound SMTP ports 25, 465 AND 587 on every Droplet by default, including traffic through a Reserved IP. Hetzner blocks only 25 and 465, leaves 587 open, and will unblock on request after one month and your first paid invoice. The popular &#x27;just use port 587&#x27; fix works on one of them and fails on the other.</p><p><small>Published: 2026-10-13</small></p><p><strong>Question:</strong> Can I send email from the VPS I&#x27;m about to buy, and which SMTP ports does the provider block by default?</p><p><strong>The short answer, taken from the providers&#x27; own documentation on 2026-10-13: on a DigitalOcean VPS you cannot send a single outbound SMTP message, because all three mail ports are blocked and no unblock path is published. On Hetzner you can send today — on port 587 only — and you can apply to have 25 and 465 opened after one month and your first paid invoice.</strong> The two block lists differ by exactly one port, and it is the one every tutorial tells you to use instead.</p>
+<p>DigitalOcean&#x27;s support article *Why is SMTP blocked?* (last updated 2026-07-13) states it in one sentence:</p>
+<p>&gt; SMTP ports 25, 465, and 587 are blocked on Droplets to prevent spam and other abuses on our platform. This block applies to all Droplets by default and includes traffic passing through a Reserved IP address.</p>
+<p>Hetzner&#x27;s Cloud Servers FAQ, read the same day, says:</p>
+<p>&gt; That&#x27;s why we block ports 25 and 465 by default on all cloud servers... Once you have been with us for a month and paid your first invoice, you can create a limit request to unblock these ports for a valid use case... As an alternative, you can also use port 587 to send emails via external mail delivery services. Port 587 is not blocked and can be used without sending a limit request.</p>
+<div class="table-wrap"><table><thead><tr><th>Outbound port</th><th>DigitalOcean Droplets</th><th>Hetzner Cloud Servers</th></tr></thead><tbody><tr><td>25 (SMTP, server-to-server)</td><td><strong>Blocked by default</strong></td><td><strong>Blocked by default</strong></td></tr><tr><td>465 (SMTPS, implicit TLS)</td><td><strong>Blocked by default</strong></td><td><strong>Blocked by default</strong></td></tr><tr><td>587 (submission)</td><td><strong>Blocked by default</strong></td><td><strong>Open</strong> — usable with no limit request</td></tr><tr><td>Path to get 25/465 opened</td><td>None published; the doc recommends a third-party email provider instead</td><td>Limit request after <strong>1 month + first paid invoice</strong>; decided case-by-case</td></tr><tr><td>Scope of the rule</td><td>All Droplets, <strong>including through a Reserved IP</strong></td><td><strong>Per account</strong>; transferring a server to another account applies the new owner&#x27;s rules</td></tr></tbody></table></div>
+<h2>Why the &quot;just use 587&quot; advice breaks on one of them</h2>
+<p>Almost every &quot;my VPS won&#x27;t send mail&quot; thread ends with *use port 587 instead of 25*. On Hetzner that is literally the vendor&#x27;s own recommendation and it works with no permission. On DigitalOcean it cannot work, because 587 is inside the block list — switching ports moves you from one blocked port to another blocked port on the same host.</p>
+<p>That leaves a DigitalOcean VPS with two ways out, both of which avoid SMTP entirely:</p>
+<ol>
+<li><strong>Call an email API over HTTPS (443).</strong> The block is on SMTP ports; the DigitalOcean doc&#x27;s own recommendation is to use *&quot;a third-party email as a service provider&quot;*, and every provider below offers an HTTPS API alongside SMTP.</li>
+<li><strong>Relay on a non-standard SMTP port.</strong> Several relays accept submission on 2525. 2525 is not in DigitalOcean&#x27;s published block list — but note carefully what that means: it is absent from the list, not guaranteed by it. Test before you depend on it.</li>
+</ol>
+<h2>Test it yourself in 30 seconds, from inside the box</h2>
+<p>Run this on the VPS, not against it — the question is *outbound*, and an inbound port scan tells you nothing:</p>
+<pre><code>for p in 25 465 587 2525; do
+  timeout 5 bash -c &quot;cat &lt; /dev/null &gt; /dev/tcp/smtp.gmail.com/$p&quot; \
+    &amp;&amp; echo &quot;$p reachable&quot; || echo &quot;$p BLOCKED (no response in 5s)&quot;
+done</code></pre>
+<p>Reading the output: a TCP banner or <code>succeeded</code> means the path is open; a five-second hang that ends in failure is the signature of a provider-level filter. Two caveats before you blame the host: check your own <code>ufw</code>/<code>iptables</code> rules and the provider&#x27;s cloud firewall first, because a self-inflicted DROP produces the identical timeout; and deliverability is a separate problem — an open port 25 gets your packets out, not into anyone&#x27;s inbox.</p>
+<h2>What sending actually costs instead</h2>
+<p>Running your own mail server is usually justified as the cheap option. The arithmetic says otherwise for almost everyone — and on DigitalOcean it is not available at any price.</p>
+<p>DigitalOcean&#x27;s cheapest Droplet (512 MB / 1 vCPU / 10 GiB / 500 GiB transfer) is <strong>$4.00/mo at $0.00595/hr</strong> on its pricing page. ($4.00 ÷ $0.00595 = 672.3, which is the same 672-hour monthly cap that shows up across its whole price list.) Amazon SES&#x27;s pay-as-you-go rate is <strong>$0.10 per 1,000 emails</strong>.</p>
+<p>&gt; $4.00 ÷ ($0.10 ÷ 1,000) = <strong>40,000 emails</strong></p>
+<p>So one month of the cheapest possible VPS buys 40,000 delivered emails on SES. Below ~40,000 messages a month, renting the box costs more than not renting it — and the SES number is before you spend a single hour on postfix, SPF, DKIM, DMARC, or a blocklist appeal.</p>
+<div class="table-wrap"><table><thead><tr><th>Route</th><th>Official price read 2026-10-13</th><th>Effective cost per 1,000 emails</th></tr></thead><tbody><tr><td>Amazon SES, à la carte outbound</td><td>$0.10 / 1,000</td><td><strong>$0.10</strong></td></tr><tr><td>Amazon SES, Essentials plan (0–10M/mo)</td><td>$0.16 / 1,000</td><td>$0.16</td></tr><tr><td>Resend Free</td><td>$0 — <strong>3,000 emails/mo, 100/day</strong>, 3 domains</td><td>$0 (capped)</td></tr><tr><td>Resend Pro</td><td>$20/mo — 50,000 emails/mo, then $0.90 / 1,000</td><td>$0.40 at full quota</td></tr><tr><td>Resend Scale</td><td>$90/mo — 100,000 emails/mo, then $0.90 / 1,000</td><td>$0.90 at full quota</td></tr><tr><td>Brevo Free</td><td>$0 — <strong>300 emails/day</strong> after account approval</td><td>$0 (capped)</td></tr><tr><td>Postmark Basic</td><td>$15/mo — 10,000 emails/mo, then $1.80 / 1,000</td><td>$1.50 at plan floor</td></tr><tr><td>Postmark Pro</td><td>$16.50/mo — 10,000 emails/mo, then $1.30 / 1,000</td><td>$1.65 at plan floor</td></tr></tbody></table></div>
+<p>Three of those rows contain arithmetic worth doing before you pick a plan.</p>
+<p><strong>SES&#x27;s entry plan costs 60% more per email than paying à la carte.</strong> $0.16 ÷ $0.10 = 1.60. If all you need is outbound sending, the à la carte rate wins; the plan exists for the bundled features (the Pro and Enterprise tiers also carry fixed monthly charges of $105 and $500 per account per region), not for a per-email discount.</p>
+<p><strong>Resend&#x27;s free tier is bound by a different limit depending on the month.</strong> It allows 3,000 emails/mo *and* 100 emails/day. In a 31-day month the daily cap permits 3,100, so the monthly quota is what stops you at 3,000. In a 28-day February the daily cap permits only 2,800 — so <strong>the daily limit is the binding one in short months and the monthly quota is the binding one in long months.</strong> If your send pattern is spiky (1,000 invoices on the 1st), the daily cap is your real ceiling regardless.</p>
+<p><strong>Brevo&#x27;s free tier is 3x Resend&#x27;s — with a gate.</strong> 300 emails/day × 30 = 9,000/mo against Resend&#x27;s 3,000/mo, a factor of 3.0. The condition is in Brevo&#x27;s own FAQ wording: *&quot;Once we approve your account for sending, you can start sending up to 300 emails per day.&quot;* Free volume you cannot start using the day you sign up is not the same as free volume you can.</p>
+<p><strong>Postmark&#x27;s Basic plan is cheaper per month and more expensive per extra email.</strong> Basic is $15.00/mo with overages at $1.80/1,000; Pro is $16.50/mo with overages at $1.30/1,000. Solving for the crossover:</p>
+<p>&gt; 15.00 + 1.80x = 16.50 + 1.30x → 0.50x = 1.50 → x = 3 extra thousand</p>
+<p><strong>Above 13,000 emails/month, Pro is the cheaper plan</strong> even though its sticker price is 10% higher. Below that, Basic wins. The same logic applies to Resend Pro vs Scale: Scale costs $70/mo more for 50,000 extra emails, i.e. $1.40 per extra thousand, against an overage rate of $0.90 per thousand — so <strong>stay on Pro and pay overages until you pass 50,000 + (70 ÷ 0.90) × 1,000 ≈ 127,800 emails/month</strong>, at which point Scale is finally ahead.</p>
+<h2>What we could not verify today, and why we did not fill it in</h2>
+<p>Under our own rules we do not bypass bot protection and we do not estimate unreadable numbers, so these are stated as unread rather than guessed:</p>
+<ul>
+<li><strong>Namecheap</strong> — <code>namecheap.com</code> returned a Cloudflare interstitial (*&quot;Just a moment...&quot;*) to a direct request on 2026-10-13. No port policy read.</li>
+<li><strong>Liquid Web</strong> — 403 to a direct request. Read via a normal page fetch: its VPS packages page shows 8 GB / 4 vCPU / 240 GB / 5 TB at $150.30/mo, 16 GB at $175.50/mo, 32 GB at $256.50/mo, with &quot;Unlimited inbound&quot; and &quot;Dedicated IP address&quot; in the feature list — and <strong>zero mentions of email, SMTP or port 25 anywhere on the page</strong>. The only place the word &quot;inbound&quot; appears is bandwidth.</li>
+<li><strong>Vultr</strong> — 403 to <code>vultr.com/docs/</code> and to its docs article path.</li>
+<li><strong>Akamai / Linode</strong> — <code>techdocs.akamai.com/linode/docs/send-email</code> returns a navigation shell with no body text, and its markdown endpoint 404s. No official statement extracted.</li>
+<li><strong>Hostinger</strong> — its SMTP-settings help article redirects to a VPS DNS article; no port policy obtained.</li>
+</ul>
+<p>For contrast, <strong>LowEndBox</strong>&#x27;s home page on 2026-10-13 carries provider, region, virtualization, RAM, price, term, author, date and comment count on its offer cards, and its filter taxonomy includes NVMe, DDoS and VPN — but no mail-related field at all. &quot;email&quot;, &quot;SMTP&quot; and &quot;port 25&quot; appear nowhere on the page. A deal listing that never mentions outbound mail cannot tell you whether the box you are about to buy can send one.</p>
+<h2>What to do, in order</h2>
+<ol>
+<li><strong>Decide whether you need port 25 at all.</strong> If you are sending transactional mail (password resets, receipts, form notifications), you do not — use an HTTPS email API and the question disappears.</li>
+<li><strong>If you are buying a DigitalOcean VPS, plan for zero outbound SMTP.</strong> Ports 25, 465 and 587 are all blocked, including through a Reserved IP, and there is no published unblock request. Budget for a relay from day one; an API on 443 is the safe path.</li>
+<li><strong>If you specifically need port 25, Hetzner is the realistic choice of the two</strong> — but count the delay: one month plus your first paid invoice before you can even file the limit request, and then a case-by-case decision with no published SLA. Do not buy it for a mail launch next week.</li>
+<li><strong>Run the four-port test above before you migrate anything</strong>, and re-run it after changing cloud firewall rules.</li>
+<li><strong>Price the relay against the box, not against zero.</strong> At SES&#x27;s $0.10/1,000, the cheapest Droplet&#x27;s $4.00/mo is 40,000 emails — and that is before the maintenance you do not have to do.</li>
+<li><strong>On Hetzner, remember the block follows the account, not the server.</strong> Transfer a server to a project owned by another account and the new owner&#x27;s port-blocking rules apply; check they have 25 and 465 unblocked *before* you move it.</li>
+</ol><section><h2>Sources</h2><ul><li><a href="https://docs.digitalocean.com/support/why-is-smtp-blocked/">https://docs.digitalocean.com/support/why-is-smtp-blocked/</a></li><li><a href="https://docs.hetzner.com/cloud/servers/faq/">https://docs.hetzner.com/cloud/servers/faq/</a></li><li><a href="https://digitalocean.com/pricing/droplets">https://digitalocean.com/pricing/droplets</a></li><li><a href="https://aws.amazon.com/ses/pricing/">https://aws.amazon.com/ses/pricing/</a></li><li><a href="https://resend.com/pricing">https://resend.com/pricing</a></li><li><a href="https://www.brevo.com/pricing/">https://www.brevo.com/pricing/</a></li><li><a href="https://postmarkapp.com/pricing">https://postmarkapp.com/pricing</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-13T00:43:16+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>
