@@ -490,3 +490,88 @@ Rules (locked):
 已降级/不再写第二篇：退款天数（已发）、每 GB 单价（已发）、renews at 换算（已发）、Hourly ×672/730（已消耗）、CPU steal 诊断（英文位占满）、过期 deal（pennyclouds 已占）、Unmetered Port Metered Reality（Day2，英文位占满）、Stuck in an AI Support Loop（Day3，SERP 被 SaaS 页占满）、**Hetzner 拍卖"怎么运作"（Day6 候选 #2，今日降级：B3 实测英文位新增 akua.dev 与 radar.iodev.org 两个第三方工具站，"no bidding / 固定起价 / 随机降价 / 每次降价时间"已被完整覆盖。若重写只能走我们独有的"同一天 5 次快照"角度，不能写科普）**。
 
 剩余候选（未被消耗）：学生折扣（B4，英文位 0，优先级低于黑五）；"Automatically Reverts to Standard Pricing" 四种折扣结束方式（Day5 候选 #2，仍无新证据）；低价套餐断货/补货（Day6 候选 #1，**今日缩范围**：radar.iodev.org 已把 Hetzner Cloud 那一半写掉，只剩"跨厂商通用断货现象"可写，且要改用 `no waitlist, no restock announcement` 这个英文原生说法切入）。
+
+---
+
+## 2026-10-14 (Day 8)
+
+### A. 原创内容邪修
+
+| # | 邪修点 | 为什么别人抄不走 |
+|---|---|---|
+| A1 | **六天 39 次扫描，库存只变过一次，而且那一次是 +1（新增），不是替换**。我们把 git 里从 `2026-10-07T18:33:30Z` 到本次 `2026-10-13T18:37:52Z` 的 39 次独立快照全部取出，对每条 offer 的 `provider + title + offer_url + source_url` 做逐字节签名——**只得到 2 种签名**。分界点精确落在 `2026-10-08T12:37:03Z`：此前 7 次扫描是 5 条（全 Hostinger），此后 32 次扫描是 6 条（多出 Hetzner 拍卖那条）。也就是说：此后连续 **5 天、32 次扫描，一条没增、一条没删、标题一个字没改**。Lumafare 这个促销雷达，六天里库存只发生过一次**单向增加** | 必须保留 39 份原始快照并对同一组字段做逐字节 diff，才说得清"只变过一次"。deals 站只存当前状态，没有历史，既无法证明"没变"，也说不出"变的那一次是什么"。更难的是意愿：公开写明"我五天的库存净变化是 +1 条"等于自曝更新极慢，商业 deals 站的收入模型不会允许 |
+| A2 | **我们的数据结构里根本没有"折扣"这一列**。每条 offer 只有 5 个字段：`provider`、`title`、`offer_url`、`source_url`、`fetched_at`。**没有 price，没有 expiry，没有 coupon/code**。我们存的是"某个官方页面上声称有折扣"这个事实，不存"打几折、到哪天、用什么码"。这是项目规则 `omit unknown prices and expiry dates` 落到 schema 上的直接结果 | 需要愿意让数据结构**缺列**。任何靠展示 "$X off / ends in N days" 拿转化的 deals 站，schema 里一定有价格列和到期列——那是它的商业模式。反过来，把"Lumafare 没有价格列，所以我们永远不会给你一个编出来的数字"公开写出来，是自断卖点，但恰恰是读者最该知道的事：一排字段摊开给他看，他就能自己判断这个站会不会编数 |
+| A3 | **首推位在 39 次扫描里 39 次是同一条，而那条 deal 上没有任何数字**。`offers[0]` 在全部 39 份快照里都是 Hostinger 的 `Student discount`——排在最前面的条目，标题里没有百分比、没有价钱，是全场 6 条里唯一一个"资格类"条目（其余 5 条要么带 70/67/63/65% 的数字，要么来自拍卖页）。一个价格雷达的第一名，是一条不含价格的条目，而且六天没换过 | 需要"顺序"是采集时的原始顺序且被原样保留。绝大多数 deals 站会按折扣力度、价格或佣金重排，首推位每次刷新都在变，压根不存在"六天同一条"这回事。而"我们排名第一的 deal 上没有任何数字"这句自曝，商业站不会写——它宁愿把学生折扣挪到页面角落 |
+| A4 | **我们看不见什么，是可以算出来的：最长盲窗 6 小时 10 分**。把 39 个 `source_scan_at` 两两相减：最短间隔 **4.8 分钟**，中位 **260.8 分钟**（4h21m），最长 **370.3 分钟**（6h10m），另有 5 个间隔落在 367–370 分钟。结论很硬：**任何存活时间短于 6 小时的闪购，这套采集必然错过**。这不是认错，是把观测边界量化给读者看 | 必须把每一次 scan 的起始时间戳当数据存下来（我们把 `source_scan_at` 写进文件并随 git 留档），才可能算出间隔分布。只展示"最后更新时间"的站算不出自己的盲窗，更不会公布"我漏得掉短于 6 小时的活动"——那是把读者推给竞品的话 |
+| A5 | **8 个来源里唯一"路径自带 deal 语义"的，恰好是我们完全读不进去的那个**：`https://contabo.com/en/server-outlet/`。今天从厂商官网自己的页脚导航确认了它的对外名字——**`Server Deals`**。也就是说，这家厂商明确有一个名为 Deals 的清仓入口，我们登记了它、也试了它，`readable: false`，一条数据没拿到。同一厂商的另外两个入口（`/en/`、`/en-us/pricing/`）同样 `false`。8 个来源中 3 个可读、5 个不可读，而唯一叫 Deals 的那个在不可读侧 | 必须把**失败的那条 URL 原样存下来**（8 条 `source_checks` 一条不删），并且要真的去厂商官网核对它在导航里叫什么。只展示成功结果的站永远看不到这一层；更关键的是，指出"有个叫 Server Deals 的页面我们进不去"其实是给读者一个他自己能点进去验的入口——这是把失败转成可用的唯一写法 |
+
+### B. 谷歌搜索查词（今天真跑过的）
+
+| query | SERP 上看到了什么 | 判断 |
+|---|---|--|
+| `vps deals` | **核心词**。今天 5 条，且**英文位从昨天的 0 条反弹到 3 条**，全是全新面孔：**vpsticker.com**（"Independent VPS price radar — real prices from public sources **updated every 6 hours**"，但页面自己写着 `last refresh **2026-10-02**`）、**vpsfilter.com**（"Updated daily"）、**rackbazaar.com**（"The bazaar for VPS deals"，"3 providers, 9 plans. Updated daily. **No dark patterns**"）。昨天的两个中文站 spacevps/vpshub 全掉 | 核心词锁 28 天不动。**今日最大外部发现：vpsticker 声称 6 小时刷新一次，页面上的 last refresh 却是 11 天前**——这正是我们 A4 盲窗话题的第三方活证据，直接进明日候选 #2 |
+| `cheap vps black friday 2026 deals tracker verified` | 5 条：**contabo.com/en-us/black-friday/（厂商官方，标题 `Black Friday Deals Coming Soon!`）**、ovh.com/asia/black-friday/（厂商官方）、vpsticker.com、bloggingjoy 黑五汇总、moonglowsoftware AI 工具券页 | **黑五线今天拿到全新一类证据：厂商官方的"预热落地页"**。Contabo 的黑五页已经上线，但价格栏里放的是**常规价**（`$5.28 for the first 24 months`），一句黑五价都没有 → 与 vpsledger 的 "Sale prices are TBA until verified" 互证，**明日候选 #1 证据链完整了** |
+| `vps hostinger student discount eligibility proof required verification` | 5 条：**抖音 Gemini 学生认证话题**、GitHub 中文 SheerID 验证工具、freevps.edu.pl、PHP中文网 Perplexity Pro 学生折扣、DreamHost 一个 promo 落地页。**真正在讲 VPS 学生折扣资格的英文内容 0 条** | 和昨天结论一致，英文位仍为 0 且今天更脏（被 AI 工具学生认证内容挤占）。缝是真实的，但**这条缝只在我们自己的数据里成立**（A3：它是六天不变的首推位）→ 升为明日候选 #3，写法必须走"我们的一手数据"，不能走科普 |
+| `vps deal page stale outdated last updated price no longer available` | 5 条：DreamHost "Best VPS Hosting: 10-Point Buyer's Checklist"（**英文买家清单，但通篇不讲数据新鲜度**）、serverdeal.net（**"Price re-checks ⚡"** 标签，英文）、Atlassian API changelog（噪声）、vpsdime、GitHub pbgui。**讲"deals 站数据会过期 / 怎么识别过期"的英文文章 0 条** | **今天挖到的最大空白**。全英文长文在讲怎么挑 VPS，没有一篇讲"你正在看的这个价格有多旧"。serverdeal.net 已经把 "Price re-checks" 当卖点挂在页面上，却没人把它展开成文章 → **与 A1/A4 合并成明日候选 #2** |
+| `lowendtalk yabs benchmark results how to read score` | 5 条：Intel "How to Read and Understand CPU Benchmarks"、UCSF Chimera benchmark 文档、Basemark Web、vpsbenchmarks.com/yabs（**"Most Recent Yab Runs"，英文跑分库**）、CSDN 中文 YABS 指南。**昨天还在前五的两条 LET 原帖今天全部掉出** | YABS 英文位**波动极大**：昨天是 LET 原帖，今天是通用 CPU 基准科普。唯一稳定存在的英文资产是 vpsbenchmarks 的跑分**库**（不是教程）。"怎么读 YABS" 的英文教程位仍空着 → **留在池里，今天不升候选**（已有更强的两个新题） |
+| `vps restock out of stock waitlist notification low end` | 5 条：MB Aura 音箱 "Out of Stock · Join the Waitlist"、NetSuite backorder 词条、Shopify "Notify Me!" 插件、WooCommerce 候补插件测评、雨果网 eBay 库存文。**VPS 相关结果 0 条，全是零售电商** | **今日降级**。这个 query 被电商语义 100% 占满，说明 `waitlist` 在英文里是零售词——VPS 世界根本没有候补名单（与 C 栏 radar.iodev.org 的 "no waitlist, no restock announcement" 一致）。缝真实但搜不到人，写了没人来 → **从候选池移除** |
+
+### C. 老外怎么说（真在用的说法）
+
+| phrase | 谁在用 / 什么意思 |
+|---|---|
+| "**real prices from public sources updated every 6 hours**" | vpsticker.com 英文首页原文：第三方价格雷达自报刷新频率的标准句式 |
+| "**last refresh 2026-10-02**" + "**in stock** / **checked 2026-10-02**" | 同上原文：每条 deal 后面挂 `in stock` 和 `checked <日期>`——英文站把"库存 + 核验日期"做成固定后缀 |
+| "**Lowest monthly price we could read off each provider's own public pricing page**" | 同上原文：`read off` 是那个动词，强调"从人家页面上读下来的"，不是问来的 |
+| "**Prices are pulled as-is — nothing is estimated.**" | 同上原文：第三方站撇清"我不估算"的标准声明句式 |
+| "**VPS Deals, read straight from the source**" | 同上 H1 原文：`straight from the source` 是英文站标榜一手数据的固定说法 |
+| "**In stock**" / "**Sold out**" / "**In stock · 12 left**" / "**In stock · 1 left**" | rackbazaar.com 英文列表原文：库存标签三档，且**带剩余台数**（`N left`）——比vpsticker 的裸 `in stock` 更细 |
+| "`/annual`" vs "`/annually`" | 同上原文：同一张表上两种写法并存，说明英文站的计费周期标签**没有统一规范** |
+| "**— TB**" / "**— GB**" | 同上原文：带宽/磁盘未知时的占位写法（破折号 + 单位），不是写 N/A |
+| "**compare VPS and dedicated server deals**" / "**View Deal →**" | 同上原文：全网约 120 个列表共用同一个 CTA 字符串 |
+| "**Black Friday Deals Coming Soon!**" | contabo.com 官方黑五页标题原文：厂商的**预热页**标准标题 |
+| "**High-value hosting that delivers - coming soon.**" / "**skip the slogans and beat the buzzwords**" | 同上原文：预热页的文案套路——先自嘲黑五全是口号，再说自己不玩这套 |
+| "**Even our regular prices offer better value than most deals you'll find elsewhere.**" | 同上原文：**预热页没价格可放时，就放常规价并自称比别家促销更划算**——这是黑五预热期的标准动作 |
+| "**for the first 24 months**" / "**for the first 12 months**" | 同上原文：折扣期限的写法（首 24 个月 / 首 12 个月），比 "first year" 更长 |
+| "**No noisy neighbors.**" | 同上原文（VDS 区块）：`noisy neighbors` 作为卖点被厂商自己写在官网上 |
+| "**Server Deals**"（指向 `/en/server-outlet/`） | 同上页脚导航原文：**厂商把 outlet/清仓页对外命名为 Server Deals** |
+| "**VPSBenchmarks Verified**" | vpsbenchmarks.com/yabs 跑分列表原文：跑分记录上的**核验徽章**字样 |
+| "**Run on: October 13th 2026**" / "**CPU cores:** / **CPU type:** / **RAM:**" | 同上原文：跑分条目的字段标法，日期写法是 `Run on:` |
+| "**yabs.sh … is a simple and powerful script that runs Geekbench, Fio and Iperf3 on your server**" | 同上原文：YABS 的英文一句话定义，三个组件名固定 |
+| "**You can save, organize and visualize your yabs for free**" | 同上原文：跑分库拉新的句式 |
+| "**renews at $49**" | LowEndTalk 首页 D4 Networks 标题原文：`$49/year, renews at $49`——**续费价内联写进标题**，且此处首年=续费 |
+| "**Price Locked on Renewal**" | LowEndTalk 首页 [WLX] 标题原文：续费锁价的标准写法 |
+| "**lifetime discount**" / "**Lifetime Deal**" / "**LIFETIME LICENSES**" / "**PERPETUAL $1/Year VPS**" | LET 首页多个标题原文：`lifetime` 与 `PERPETUAL` 两种叫法并存，后者全大写做强调 |
+| "**No Bait-and-Switch**" | LET 首页 Tier.Net 标题原文：反"低价引流换配置"的自我声明，`bait-and-switch` 是原生词 |
+| "**One Time Fee**" | LET 首页 StackCP 标题原文：一次性费用的写法（对比 recurring） |
+| "**paid up to Sept 2027**" | LET Service Transfers 区标题原文：转让帖必须写明已付到哪个月 |
+| "**VPS Restock**" / "**our popular plans are back!**" / "**More Capacity**" | LET 首页 DeluxHost / 另一家 / LayerOne 标题原文：补货的三种写法，`back` 最口语 |
+| "**Unreachable/Bankrupt**" / "**down?**" / "**outage**" | LET Reviews & Outages 区标题原文：厂商出事的三档措辞，最重的一档是两个词并列 |
+| "**brand is being retired as of March 2027**" | LET Providers 区标题原文：厂商品牌关停的正式说法，`retired` + 具体年月 |
+| "**support has been silent for months - Storage VM keeps getting slower**" | LET 标题原文：投诉帖的两段式（服务静默多久 + 实际劣化现象） |
+| "**FLASH SALES**" / "**Limited Flash Offers**" / "**DOUBLE PROMOTIONS**" | LET 首页标题原文：闪促的三种放大写法，全大写 |
+| "**Black Friday 2026 - Wishlist Thread**" / "**What will you buy on Black Friday 2026?**" / "**TRENDING NOW: RackNerd's BLACK FRIDAY!**" | LET 首页三条原文：黑五的社区三种句式——许愿帖、提问帖、置顶促销帖 |
+| "**[Request] 16TB+ Storage VPS/Dedi \| 1Gbps+ \| $400-500/2yr \| Black Friday**" | LET Requests 区标题原文：求购帖的竖线分隔格式，末尾挂节点名 |
+| "**Rent once, see a 30% markup. Even on your own subnet!**" | LET 首页 IPXO 帖标题原文：`markup` 是加价的标准词 |
+| "**NAT VPS**" / "**NAT KVMs**" / "**25G Unmetered**" / "**10G FULL UNMETERED**" | LET 首页标题原文：NAT 类与不限量带宽的固定标法，`FULL` 大写加强 |
+| "**zero-knowledge**" / "**Encrypted RAM & Disk**" / "**100% Anonymous**" | LET 首页 Servury / Blackbox 标题原文：隐私向 VPS 的三件套话术 |
+| "**AI-Ready VPS**" / "**AI Templates**" | LET 首页标题原文：2026 年英文圈的新品类词 |
+| "**Exclusive LowEndBox Pricing: 2GB KVM VPS for $1.83/Month First Year!**" | LowEndBox 首页标题原文：专属价 + **First Year** 限定词的组合写法 |
+| "**You'll need our special coupon code to get these deals!**" | LEB 正文原文：用码是默认前提，不是附加信息 |
+| "**Those are IPv6-only, but they have IPv4 as well for only $17.95 a year!**" | LEB 正文原文：**IPv6-only 与含 IPv4 是两种价**，英文站会主动把差价讲出来 |
+| "**Yet Another cPanel and WHMCS Price Increase. But You're Getting More Value. Right? (Right?)**" | LEB 标题原文：涨价的讽刺式写法，`Yet Another` + 两个 `(Right?)` |
+| "**Another year, another cPanel / WHMCS price increase.**" | LEB 正文原文：`Another year, another X` 是抱怨年度涨价的标准开场 |
+| "**you may not be aware your service is being downgraded.**" | LEB 讲 Microsoft 365 缩存储的正文原文：隐性降配的提醒句式 |
+| "**Microsoft Slashes the Storage that Comes with Your 365 Plan by 60%**" | LEB 标题原文：`Slashes … by N%` 是砍配的标准动词搭配 |
+
+### 明日候选
+
+1. **"Black Friday Deals Coming Soon": What a Pre-Landing Page Tells You Before There Are Any Prices** — B2（Contabo 官方黑五页标题 `Coming Soon!`、价格栏放的是常规价 `$5.28 for the first 24 months`、`skip the slogans and beat the buzzwords`）+ Day7 B2 的 vpsledger tracker（"Sale prices are TBA until verified"、"188 plans verified"）+ C 栏 LET 三条黑五句式（`Wishlist Thread` / `What will you buy on Black Friday 2026?` / `TRENDING NOW`）。缝：黑五还有 6 周，**厂商已经在发预热页、第三方已经在发 tracker，但两边都填不出一个价格**——没人写"预热期本身"这个现象
+2. **Our VPS Deal Radar Ran 39 Scans in Six Days — Here's Exactly What It Missed** — A1（39 次扫描只有 2 种库存签名，唯一一次变化是 +1）+ A4（最长盲窗 6h10m，可量化）+ A2（schema 里没有 price/expiry 列）+ B1（vpsticker.com 声称 `updated every 6 hours`，页面 `last refresh` 却是 11 天前）+ B4（英文位 0 篇文章讲"deals 页数据有多旧"；serverdeal.net 只把 `Price re-checks ⚡` 当标签挂着，没展开）。缝：所有 deals 站都把"实时/每日更新"当卖点，**没有一篇把自己的观测边界和盲窗算出来给读者看**，而我们有一手快照序列和外部自曝证据
+3. **The Deal With No Number On It: Why "Student Discount" Sat at the Top of a Price Radar for Six Days** — A3（39/39 次扫描 `offers[0]` 都是 `Student discount`，全场唯一无数字条目）+ A1（六天库存只 +1，这条从未动过）+ B3（英文位 0 条真内容，SERP 被 Gemini/SheerID 学生认证噪声占满）+ C 栏 LET 的 `No Bait-and-Switch` / `Price Locked on Renewal` / `lifetime discount`（英文圈对"资格类折扣"的三种自证写法）。缝：价格雷达的第一名是一条没有价格的条目——只有握着 39 份快照的人能写出来
+
+已用：`compare-vps-deals-total-cost`（10-07）、`vps-deals-renews-at-x`（10-08）、`vps-deals-refund-window`（10-09）、`vps-deals-cost-per-gb-ram`（10-09）、`vps-deals-who-collects-vat`（10-09）、`vps-deals-hourly-to-monthly`（10-10）、`vps-deals-cost-per-gb-disk`（10-11）、`vps-deals-auto-renewal-notice`（10-12）、`vps-deals-port-25-smtp-blocked`（10-13，**最后一篇已发布**）。
+
+已降级/不再写第二篇：退款天数（已发）、每 GB 单价（已发）、renews at 换算（已发）、Hourly ×672/730（已消耗）、CPU steal 诊断（英文位占满）、过期 deal（pennyclouds 已占）、Unmetered Port Metered Reality（Day2）、Stuck in an AI Support Loop（Day3）、Hetzner 拍卖"怎么运作"（Day6）、**低价套餐断货/候补（Day6 候选 #1，今日正式降级：B6 实测 SERP 被 Shopify/NetSuite/WooCommerce 电商候补内容 100% 占满，VPS 语境 0 条；`waitlist` 在英文里是零售词，写了搜不到人）**。
+
+剩余候选（未被消耗）：YABS 怎么读结果（Day4 候选 #3，**今日未升级**：B5 显示 LET 原帖已掉出 SERP，英文位波动大，唯一稳定英文资产是 vpsbenchmarks 的跑分库而非教程，等 SERP 稳定再开）；"Automatically Reverts to Standard Pricing" 四种折扣结束方式（Day5 候选 #2，仍无新证据）。
