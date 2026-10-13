@@ -189,3 +189,9 @@
   台账 #5 行白天已回填完整（slug / URL / 2026-10-12 / 5d472e6 齐全），本次仅核对 + 复跑闸门：
   **27 条事实条目 / 18 条零命中 / 66.7% PASS**（`--min 3`，退出码 0）。未补发、未重复发。
   下一步取 **#6「端口 25 / SMTP 能不能发信」**；可用条目还剩 **3 条：#6 / #7 / #8**，与上方表格一致。
+- **2026-10-13 21:00 兜底核对**：今天已发 1 篇（#6「端口 25 / SMTP 能不能发信」，`vps-deals-port-25-smtp-blocked`，commit 85a5c4d），
+  https://lumafare.com/articles/vps-deals-port-25-smtp-blocked/ → **200**，title/canonical 正确，`sitemap.xml` 已含（全站 9 篇文章 URL 均在 sitemap 内，sitemap 共 20 条 `<loc>`）。
+  CI run 38336272041（head 85a5c4d）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿。
+  台账 #6 行白天已回填完整（状态「已写」/ slug / URL / 2026-10-13 / 85a5c4d 齐全），本次仅核对 + 复跑闸门：
+  **16 条事实条目 / 7 条零命中 / 43.8% PASS**（`--min 3`，退出码 0）。未补发、未重复发。
+  下一步取 **#7「SLA 赔付怎么拿」**；可用条目还剩 **2 条：#7 / #8**，与上方表格一致（#7 #8 状态均为「未写」）。**这 2 条写完必须立刻重跑 BENCH 补缺口。**
