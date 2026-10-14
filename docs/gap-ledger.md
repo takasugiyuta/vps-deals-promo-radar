@@ -231,3 +231,10 @@
   - **未核到（not verifiable，未用代理/缓存补数）**：Vultr `vultr.com/legal/sla/` 403、Namecheap `legal/hosting/service-level-agreement/` 403（99.9% 取自公开规格表）、Liquid Web 两个 legal 路径均 403（100% 那句是产品页营销文案，非 SLA 正文）、Hetzner `legal/service-level-agreement/` 只返回 legal notice 壳、Hostinger `legal/service-level-agreement` 404、`docs.digitalocean.com/support/how-do-i-request-an-sla-credit/` 404（**申领流程没有任何支持文档，只有 SLA 页本身**）。
   - 独家闸门：**44 条事实条目 / 23 条零命中 / 52.3% PASS**（`--min 3`，退出码 0）。
   - **可用未写还剩 6 条：#8 / #9 / #10 / #11 / #12 / #13**，下一步取 **#8「付款方式矩阵」**。下一轮 BENCH 补弹药不晚于 **2026-10-19**。
+- **2026-10-14 21:00 兜底核对**：今天已发 1 篇（#7「SLA 赔付怎么拿」，`vps-deals-sla-credit-how-to-claim`，commit ebe5c0c），
+  https://lumafare.com/articles/vps-deals-sla-credit-how-to-claim/ → **200**，title/canonical 正确，`sitemap.xml` 已含（全站 **10 篇**文章 URL 均在 sitemap 内，sitemap 共 20 条 `<loc>`）。
+  CI run 38499963850（head ebe5c0c）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿；当日另有 3 次 run 全绿（38492573544 含 BENCH 第二轮 c1cde56 / 38524739085 / 38566879757）。
+  台账 #7 行白天已回填完整（状态「已写」/ slug / URL / 2026-10-14 / ebe5c0c 齐全），本次仅核对 + 复跑闸门：
+  **44 条事实条目 / 23 条零命中 / 52.3% PASS**（`--min 3`，退出码 0）。未补发、未重复发。
+  **BENCH 第二轮已于今天完成**（commit c1cde56，语料 30 → 37 篇，可用表补到 #13），故「可用条目写完才重跑 BENCH」的约束本轮提前满足，未写条目 2 条 → 7 条。
+  下一步取 **#8「付款方式矩阵」**；可用未写 **6 条：#8 / #9 / #10 / #11 / #12 / #13**，与上方表格一致。下一轮 BENCH 补弹药不晚于 **2026-10-19**。
