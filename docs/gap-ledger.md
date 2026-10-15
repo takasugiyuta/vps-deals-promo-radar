@@ -252,3 +252,10 @@
   - **未核到（not verifiable，未用代理/缓存/换 UA 补数）**：Namecheap 付款方式清单（VPS 页无、legal/KB 直连 403，猜的 KB URL 返回的是 MX 记录文，**已作废不再猜**）；Liquid Web 付款方式（页面可读但无、legal 403）；Vultr 403；Hostinger 完整收单清单（ToS 指向的 "specified here" 链接在抓取文档中不可解析，**故只用退款政策里那条完整且可直接引用的轨道阶梯，未编造品牌列表**）；DO crypto 的开通资格（官方只写 *"limited and may not be available to all customers in all locations"*，无规则可查）。
   - 独家闸门：**15 条事实条目 / 11 条零命中 / 73.3% PASS**（`--min 3`，退出码 0）。
   - **可用未写还剩 5 条：#9 / #10 / #11 / #12 / #13**，下一步取 **#9「开户身份核验 / KYC」**（来源已探通：Hostinger 退款政策 200、Hetzner 条款 200、DO ToS 200）。下一轮 BENCH 补弹药不晚于 **2026-10-19**。
+- **2026-10-15 21:00 兜底核对**：今天已发 1 篇（#8「付款方式矩阵」，`vps-deals-payment-methods-accepted`，commit **6ce507a**），未补发、未重复发。
+  https://lumafare.com/articles/vps-deals-payment-methods-accepted/ → **200**，title 为 "Cheap VPS Deals: What Each Host Will Actually Take as Payment — and What Crypto Costs You | Lumafare"，canonical 正确，
+  `sitemap.xml` 已含（全站 **11 篇**文章 URL 均在 sitemap 内，sitemap 共 22 条 `<loc>`）。
+  CI run **38670433868**（workflow_dispatch，head 6ce507a）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿；当日另有 3 次 schedule run 全绿（38738083885 / 38695011191 / 38662246821）。
+  台账 #8 行白天已回填完整（状态「已写」/ slug / URL / 2026-10-15 / 6ce507a 齐全），本次仅核对 + 复跑闸门：
+  **15 条事实条目 / 11 条零命中 / 73.3% PASS**（`--min 3`，退出码 0）。
+  下一步取 **#9「开户身份核验 / KYC」**；可用未写 **5 条：#9 / #10 / #11 / #12 / #13**，与上方表格一致。下一轮 BENCH 补弹药不晚于 **2026-10-19**。
