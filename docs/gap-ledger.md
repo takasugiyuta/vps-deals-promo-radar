@@ -275,3 +275,11 @@
   - **未核到（not verifiable，未用代理/缓存/换 UA 补数）**：Liquid Web `policies/*` 对本机脚本 **403**（引文取自公开可读页面并已注明）；Hetzner 预存验证**无公布最低金额**、验证请求**无公布答复时限**；Hostinger 验证请求**无公布时限**、信用卡结账锁定**无公布持续时长**；Vultr 本轮 403；Hetzner Server Auction / Cloud 价格客户端渲染抓不到，**故全文未对 Hetzner 作任何价格断言**。
   - 独家闸门：**20 条事实条目 / 16 条零命中 / 80.0% PASS**（`--min 3`，退出码 0）。
   - **可用未写还剩 4 条：#10 / #11 / #12 / #13**，下一步取 **#10「欠费后多久停机、多久删机」**（DO billing 有 "Late Payments" 专章，台账已记 200）。**下一轮 BENCH 补弹药不晚于 2026-10-19**（剩 4 条，按每天 1 篇撑到 10-20 前后）。
+- **2026-10-16 21:00 兜底核对**：今天已发 1 篇（#9「开户身份核验 / KYC」，`vps-deals-identity-verification-kyc`，commit **b2d5d1c**），未补发、未重复发。周期第 **8 天 / 28 天**。
+  https://lumafare.com/articles/vps-deals-identity-verification-kyc/ → **200**（35 KB，11 个 `<h2>` 小节，五家厂商全出现，含 1 处 "not verifiable" 披露，非空壳页），
+  title 为 "Cheap VPS Deals: Which Hosts Will Ask for Your ID — and What Each One Wants First | Lumafare"，canonical 正确，
+  `sitemap.xml` 已含（**HTTP 200**，sitemap 共 **23** 条 `<loc>`，全站 **12 篇**文章 URL 均在 sitemap 内）。
+  CI run **38840235500**（workflow_dispatch，head b2d5d1c）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿；当日另有 3 次 run 全绿（38831712219 / 38863597116 / 38903506377）。
+  台账 #9 行白天已回填完整（状态「已写」/ slug / URL / 2026-10-16 / b2d5d1c 齐全），本次仅核对 + 复跑闸门：
+  **20 条事实条目 / 16 条零命中 / 80.0% PASS**（`--min 3`，退出码 0）。
+  下一步取 **#10「欠费后多久停机、多久删机」**；可用未写 **4 条：#10 / #11 / #12 / #13**，与上方表格一致。下一轮 BENCH 补弹药不晚于 **2026-10-19**。
