@@ -301,3 +301,12 @@
   - 独家闸门：**35 条事实条目 / 27 条零命中 / 77.1% PASS**（`--min 3`，退出码 0）。
   - **可用未写还剩 3 条：#11 / #12 / #13**，下一步取 **#11「取消后数据保留多久」**（⚠️ 台账已标「探源前置，风险最高」：DO ToS 的 retain 讲的是版权归属，此前四家官方页均未查到保留期；取题当天必须先跑 `probe_sources.py`，核不到就写 not verifiable）。**下一轮 BENCH 补弹药不晚于 2026-10-19**（剩 3 条，按每天 1 篇只撑到 10-19，已到期）。
 - **2026-10-17 补充（BENCH 节奏更正）**：可用未写只剩 3 条，原定「不晚于 2026-10-19」重跑 BENCH **已到期**。取 #11 当天（2026-10-18）应并行启动第三轮 BENCH（`C:\Users\y\WorkBuddy AI\Claw\scripts\topic_scan.py` + `bench_top3_new.py`），否则 10-19 之后无题可取。
+- **2026-10-17 21:00 兜底核对**：今天已发 1 篇（#10「欠费后多久停机、多久删机」，`vps-deals-nonpayment-suspension-deletion`，commit **956a5f4**），未补发、未重复发。周期第 **9 天 / 28 天**。
+  https://lumafare.com/articles/vps-deals-nonpayment-suspension-deletion/ → **200**（**39,877 字节**，**10** 个 `<h2>` 小节，含 "not verifiable" 披露，非空壳页），
+  title 为 "Cheap VPS Deals: How Many Days You Get After a Payment Fails — Before the VPS Is Switched Off and Deleted | Lumafare"，canonical 正确，
+  `sitemap.xml` → **HTTP 200**，共 **24** 条 `<loc>`，全站 **13 篇**文章 URL 均在 sitemap 内。
+  CI run **38994351850**（head 956a5f4）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿；当日另有 3 次 run 全绿（38988280143 / 39011180012 / 39033686771）。
+  台账 #10 行白天已回填完整（状态「已写」/ slug / URL / 2026-10-17 / 956a5f4 齐全），本次仅核对 + 复跑闸门：
+  **35 条事实条目 / 27 条零命中 / 77.1% PASS**（`--min 3`，退出码 0）。
+  下一步取 **#11「取消后数据保留多久」**；可用未写 **3 条：#11 / #12 / #13**，与上方表格一致。
+  ⚠️ **BENCH 第三轮已到期（原定不晚于 2026-10-19，现剩 3 条只撑到 10-19）**：2026-10-18 取 #11 时必须并行启动第三轮 BENCH，否则无题可取。
