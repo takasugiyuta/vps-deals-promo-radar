@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cheap VPS Deals: How Long Your Data Survives After You Cancel — and the One Copy Each Host Keeps | Lumafare</title><meta name="description" content="Read off five hosts&#x27; own pages on 2026-10-18: not one of them publishes a retention period for your VPS disk. What they publish is a retention period for backups only — DigitalOcean 4 weeks for weekly and 7 days for daily, Hetzner 7 rolling slots, Namecheap one weekly copy that overwrites itself — and a moment of deletion. Hetzner writes it out plainly: &#x27;we will immediately delete your data... We cannot recover your data after you cancel the product.&#x27; Namecheap will erase &#x27;at once&#x27; on request. Hostinger may &#x27;destroy any data and files (including back-up copies)&#x27; with &#x27;no obligation to provide.&#x27; Plus the arithmetic that actually saves you: on every one of DigitalOcean&#x27;s 29 Standard/Intel/AMD tiers, a permanent snapshot of a full disk costs less than switching on 7-day daily backups — 1.06x to 1.96x less."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-data-kept-after-cancel/">
+<meta property="og:title" content="Cheap VPS Deals: How Long Your Data Survives After You Cancel — and the One Copy Each Host Keeps | Lumafare"><meta property="og:description" content="Read off five hosts&#x27; own pages on 2026-10-18: not one of them publishes a retention period for your VPS disk. What they publish is a retention period for backups only — DigitalOcean 4 weeks for weekly and 7 days for daily, Hetzner 7 rolling slots, Namecheap one weekly copy that overwrites itself — and a moment of deletion. Hetzner writes it out plainly: &#x27;we will immediately delete your data... We cannot recover your data after you cancel the product.&#x27; Namecheap will erase &#x27;at once&#x27; on request. Hostinger may &#x27;destroy any data and files (including back-up copies)&#x27; with &#x27;no obligation to provide.&#x27; Plus the arithmetic that actually saves you: on every one of DigitalOcean&#x27;s 29 Standard/Intel/AMD tiers, a permanent snapshot of a full disk costs less than switching on 7-day daily backups — 1.06x to 1.96x less."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-data-kept-after-cancel/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}
+.table-wrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+caption{caption-side:bottom;padding-top:8px;font-size:.82rem;opacity:.75;text-align:left}
+th,td{border:1px solid rgba(218,228,241,.95);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#eef3fb;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:rgba(238,243,251,.55)}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>Cheap VPS Deals: How Long Your Data Survives After You Cancel — and the One Copy Each Host Keeps</h1><p>Read off five hosts&#x27; own pages on 2026-10-18: not one of them publishes a retention period for your VPS disk. What they publish is a retention period for backups only — DigitalOcean 4 weeks for weekly and 7 days for daily, Hetzner 7 rolling slots, Namecheap one weekly copy that overwrites itself — and a moment of deletion. Hetzner writes it out plainly: &#x27;we will immediately delete your data... We cannot recover your data after you cancel the product.&#x27; Namecheap will erase &#x27;at once&#x27; on request. Hostinger may &#x27;destroy any data and files (including back-up copies)&#x27; with &#x27;no obligation to provide.&#x27; Plus the arithmetic that actually saves you: on every one of DigitalOcean&#x27;s 29 Standard/Intel/AMD tiers, a permanent snapshot of a full disk costs less than switching on 7-day daily backups — 1.06x to 1.96x less.</p><p><small>Published: 2026-10-18</small></p><p><strong>Question:</strong> If I cancel or destroy a cheap VPS, how long does the host keep my data, and can I get it back afterwards?</p><p><strong>Read off five hosts&#x27; own pages on 2026-10-18: zero of them publish a retention period for your VPS disk. Not one.</strong> What they publish is (a) a retention period for *backups* — and only backups — and (b) a *moment* of deletion. Hetzner is the only one that writes the moment down in plain words: *&quot;After you have finished the cancellation, we at Hetzner will immediately delete your data... We cannot recover your data after you cancel the product.&quot;* Namecheap offers you a button that erases *&quot;at once.&quot;* Hostinger reserves the right to *&quot;remove and destroy any data and files (including back-up copies)&quot;* with *&quot;no obligation to provide you with such data and files.&quot;* DigitalOcean&#x27;s answer is a sentence most people only read after it is too late: *&quot;If you have neither snapshots nor backups, then we do not have a backup of your Droplet&#x27;s data available in our system.&quot;*</p>
+<p>So the real question is not &quot;how long do they keep it.&quot; It is <strong>&quot;which one copy is mine, and does it outlive the machine?&quot;</strong> On every host in this comparison the answer is the same shape: automatic backups are *bound to the server and die with it*, while a manually-created snapshot is *yours until you delete it and survives the server&#x27;s death*. That single distinction — not the price, not the RAM — is what decides whether cancelling a $4/month VPS costs you nothing or costs you everything.</p>
+<h2>The survival table — the whole article in one grid</h2>
+<div class="table-wrap"><table><thead><tr><th>Host</th><th>Automatic backups</th><th>Do they survive deleting the server?</th><th>Manual snapshot</th><th>Published retention for the disk itself</th></tr></thead><tbody><tr><td><strong>DigitalOcean</strong></td><td>Weekly or daily (also 4/6/12-hourly on usage-based plans)</td><td><strong>No</strong> — must be converted to a snapshot first</td><td>Yes, kept until you delete it</td><td><strong>None published</strong></td></tr><tr><td><strong>Hetzner</strong></td><td>Daily, <strong>7 slots</strong></td><td><strong>No</strong> — *&quot;automatically be deleted if you delete the server&quot;*</td><td>Yes — *&quot;remain available even if you delete the server&quot;*</td><td><strong>None</strong> — deletion is *&quot;immediately&quot;*</td></tr><tr><td><strong>Namecheap</strong></td><td>Weekly, <strong>during the weekend</strong>, overwritten by the next one</td><td>Effectively <strong>no</strong> — one rolling copy</td><td>Not offered on VPS</td><td><strong>None</strong> — *&quot;canceled at once and all the data erased immediately&quot;*</td></tr><tr><td><strong>Hostinger</strong></td><td>Not documented publicly for VPS</td><td>Not documented</td><td>Not documented</td><td><strong>None</strong> — *&quot;destroy any data and files (including back-up copies)&quot;*</td></tr><tr><td><strong>Liquid Web</strong></td><td>Acronis, <strong>daily</strong>, 100/250/500 GB by tier</td><td>Not published</td><td>Not mentioned on the page</td><td><strong>None published</strong></td></tr></tbody></table></div>
+<p>Two things to notice. First, the &quot;snapshot survives, backup dies&quot; split is identical at DigitalOcean and Hetzner — the two hosts that actually document it. Second, the only host that tells you *when* the disk goes is Hetzner, and its answer is &quot;immediately.&quot;</p>
+<h2>How far back can you actually roll?</h2>
+<p>This is the number people think they are buying when they tick &quot;enable backups.&quot; It is almost always smaller than they think, because <strong>retention windows and restore points are two different things.</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Host / plan</th><th>How often</th><th>How long kept</th><th>How many restore points</th><th>Worst-case data loss</th></tr></thead><tbody><tr><td>DigitalOcean weekly</td><td>Weekly</td><td><strong>4 weeks</strong></td><td><strong>4</strong></td><td>7 days</td></tr><tr><td>DigitalOcean daily</td><td>Daily</td><td><strong>7 days</strong></td><td><strong>7</strong></td><td>24 hours</td></tr><tr><td>DigitalOcean usage-based</td><td>You choose (4h/6h/12h/daily/weekly)</td><td><strong>Custom</strong> — you set it</td><td>Varies</td><td>Down to 4 hours</td></tr><tr><td>Hetzner Backups</td><td>Daily</td><td>7 slots</td><td><strong>7</strong></td><td>24 hours</td></tr><tr><td>Hetzner Snapshots</td><td>Manual</td><td>Until you delete it</td><td>Up to <strong>30</strong> across all projects</td><td>Whatever you last took</td></tr><tr><td>Namecheap VPS</td><td>Weekly, at the weekend</td><td>Overwritten each week</td><td><strong>1</strong></td><td>7 days</td></tr><tr><td>Namecheap VPS + Complete Management</td><td>3× per week, 100 GB included</td><td>Overwritten</td><td>3 per week</td><td>~2–3 days</td></tr><tr><td>Liquid Web (Acronis)</td><td>Daily</td><td><strong>Not published</strong></td><td>Not published</td><td>Unknown</td></tr></tbody></table></div>
+<p>The trap is DigitalOcean weekly: *4 weeks* sounds like the safest option in the table, and it is the longest window — but it only ever holds <strong>4</strong> copies, so your worst case is a full week of missing writes. Daily gives you the same worst case (24 hours) with a *shorter* window. <strong>Length of window and frequency of protection are independent, and the marketing names only tell you one of them.</strong></p>
+<p>Hetzner&#x27;s 7 slots and DigitalOcean&#x27;s 7 days are the same number by two different routes: Hetzner caps by *count*, DigitalOcean caps by *age*. If you ever create extra backups on Hetzner, the count cap bites first — *&quot;If all slots are full and you create an additional one, then the oldest Backup will be deleted.&quot;*</p>
+<h2>The money math: the permanent copy is cheaper than the 7-day copy</h2>
+<p>This is the part nobody publishes, because it makes the upsell look silly. DigitalOcean prices backups as a <strong>percentage of the Droplet</strong> and snapshots as a <strong>flat rate per GB</strong>. Those two curves cross, and they cross in a place that is almost always on the snapshot&#x27;s side.</p>
+<ul>
+<li>Backups, Basic plans: <strong>20.0%</strong> of the Droplet&#x27;s cost per month (weekly), <strong>30.0%</strong> (daily).</li>
+<li>Snapshots: <strong>$0.06 per GB per month</strong>, minimum charge $0.01.</li>
+</ul>
+<p>Break-even, solved for the disk you actually use:</p>
+<pre><code>0.30 × monthly_price  =  0.06 × used_GB
+        used_GB       =  5 × monthly_price</code></pre>
+<p><strong>If the GB you are using is less than 5× your monthly Droplet price, a snapshot that lasts forever costs less than daily backups that expire in 7 days.</strong></p>
+<p>Run it across every Standard / Intel / AMD tier on DigitalOcean&#x27;s pricing page as read on 2026-10-18 (snapshot costed at a *full* disk — the most unfavourable case, since DO bills snapshots on actual disk usage):</p>
+<div class="table-wrap"><table><thead><tr><th>Droplet</th><th>Disk</th><th>$/mo</th><th>Daily backups (30%)</th><th>Full-disk snapshot @ $0.06/GB</th><th>Snapshot is cheaper by</th></tr></thead><tbody><tr><td>512 MiB / 1 vCPU</td><td>10 GiB (10.74 GB)</td><td>$4.00</td><td>$1.20</td><td>$0.64</td><td><strong>1.86x</strong></td></tr><tr><td>1 GiB / 1 vCPU</td><td>25 GiB (26.84 GB)</td><td>$6.00</td><td>$1.80</td><td>$1.61</td><td><strong>1.12x</strong></td></tr><tr><td>2 GiB / 1 vCPU</td><td>50 GiB (53.69 GB)</td><td>$12.00</td><td>$3.60</td><td>$3.22</td><td><strong>1.12x</strong></td></tr><tr><td>2 GiB / 2 vCPU</td><td>60 GiB (64.42 GB)</td><td>$18.00</td><td>$5.40</td><td>$3.87</td><td><strong>1.40x</strong></td></tr><tr><td>4 GiB / 2 vCPU</td><td>80 GiB (85.90 GB)</td><td>$24.00</td><td>$7.20</td><td>$5.15</td><td><strong>1.40x</strong></td></tr><tr><td>8 GiB / 4 vCPU</td><td>160 GiB (171.80 GB)</td><td>$48.00</td><td>$14.40</td><td>$10.31</td><td><strong>1.40x</strong></td></tr><tr><td>16 GiB / 8 vCPU</td><td>320 GiB (343.60 GB)</td><td>$96.00</td><td>$28.80</td><td>$20.62</td><td><strong>1.40x</strong></td></tr></tbody></table></div>
+<p>Across <strong>all 29 Standard, Intel and AMD tiers</strong> listed on the page, the ratio runs from <strong>1.06x to 1.96x</strong> — the snapshot wins on every single one. The margin is thinnest on the 1 GiB and 2 GiB tiers (1.12x) and widest on the AMD 8 GiB / 2 vCPU tier (1.96x).</p>
+<p>Two caveats, stated honestly. Snapshots are a *manual* action — a snapshot you forget to take protects nothing, whereas backups run on a clock. And the table charges the snapshot for a completely full disk; at realistic usage it is cheaper still, because DO says snapshots of Droplets are *&quot;a best estimate based on the disk usage.&quot;*</p>
+<p>The flip side matters too: usage-based backup plans price *per GiB* rather than as a percentage, and they get <strong>cheaper the more often you back up</strong> — $0.04/GiB weekly down to <strong>$0.01/GiB</strong> every 4 hours. That is a <strong>4.0x spread</strong> in the opposite direction from what intuition suggests, because you are paying for restorable file size, not for frequency.</p>
+<h2>DigitalOcean&#x27;s own two pages disagree — assume the shorter one</h2>
+<p>This is worth knowing before you rely on any of it. DigitalOcean&#x27;s *How to Destroy a Droplet* page says:</p>
+<p>&gt; &quot;Destroying a Droplet does not destroy its automated backups. Automated backups remain for <strong>four weeks</strong> after creation and then expire.&quot;</p>
+<p>Its *How do I recover a deleted Droplet?* page says the backups *&quot;remain available until the end of their retention period, which is <strong>four weeks</strong> for weekly backups, <strong>seven days</strong> for daily backups.&quot;*</p>
+<p>Both are official and both are live. Read together, the safe assumption is <strong>7 days if you were on daily</strong>, because that is the number the recovery page — the one you would actually be using — commits to. The 4-week figure on the destroy page is the weekly-plan number stated without its qualifier. <strong>Plan for 7, not 28.</strong> The gap is 4x.</p>
+<p>The escape hatch is explicit and it is free to know:</p>
+<p>&gt; &quot;You can convert backups into snapshots to save the image indefinitely.&quot;</p>
+<h2>Hetzner: the deletion clock depends on which day you click cancel</h2>
+<p>Hetzner&#x27;s 30-days-to-the-end-of-the-month policy (doc ID GE-DB2BC) is the only cancellation rule in this comparison that produces a *date*. The rule: add 30 days to your cancellation date, then roll forward to the end of that month. Because the roll-forward crosses a month boundary, the result is <strong>not a fixed 30 days</strong> — and it is not even monotonic.</p>
+<pre><code>Let D  = day you cancel
+    L  = days in the month you cancel
+    L2 = days in the following month
+
+If D + 30 &lt;= L :  days = L - D
+Else           :  days = (L - D) + L2</code></pre>
+<p>Worked from Hetzner&#x27;s own three examples:</p>
+<div class="table-wrap"><table><thead><tr><th>Cancelling on</th><th>+30 days lands on</th><th>Takes effect</th><th>Total runway</th></tr></thead><tbody><tr><td>1 May</td><td>31 May (still May)</td><td>31 May</td><td><strong>30 days</strong></td></tr><tr><td>17 May</td><td>16 June</td><td>30 June</td><td><strong>44 days</strong></td></tr><tr><td>29 May</td><td>28 June</td><td>30 June</td><td><strong>32 days</strong></td></tr></tbody></table></div>
+<p>Now extend the same rule to its extremes:</p>
+<ul>
+<li><strong>1 May → 30 days.</strong> (1 + 30 = 31, still within May&#x27;s 31 days.)</li>
+<li><strong>2 May → 59 days.</strong> (2 + 30 = 1 June, which rolls to 30 June.)</li>
+<li><strong>1 April → 60 days.</strong> (1 + 30 = 1 May, which rolls to 31 May.)</li>
+</ul>
+<p>So the spread is <strong>30 to 60 days — a 2.0x difference — decided entirely by which day of the month you click.</strong> Cancelling on 1 May gives you 30 days; cancelling on 2 May gives you 59. <strong>A one-day difference in when you click is a 29-day difference in when your data dies.</strong></p>
+<p>And when it does take effect, Hetzner&#x27;s cancellation overview (doc ID GE-4A989, last changed 2026-08-06) is unambiguous:</p>
+<p>&gt; &quot;After you have finished the cancellation, we at Hetzner will immediately delete your data. So please be absolutely sure that you want to cancel your product. <strong>We cannot recover your data after you cancel the product.</strong>&quot;</p>
+<p>There is no grace period after that sentence. Which means on Hetzner the runway above *is* your export window, and you can add up to 29 days to it for the price of waiting one day before you cancel.</p>
+<h2>Namecheap: 7 days, 23 days, or instantly — your choice, and the default is not the safe one</h2>
+<p>Namecheap&#x27;s *Hosting packages life cycle* (KB 10567) gives the cleanest timeline in this comparison:</p>
+<ul>
+<li>Invoiced <strong>7 days</strong> before the billing date.</li>
+<li>An &quot;Alert&quot; flag appears <strong>15 days</strong> before expiry on 1- and 3-month cycles, <strong>30 days</strong> before on annual and 2-year cycles.</li>
+<li>If the invoice is still unpaid after the billing date: *&quot;your hosting account will be suspended and cancelled <strong>7 days</strong> later (for Shared packages, VPS and Dedicated server) and <strong>23 days</strong> later (for Reseller packages)&quot;* — a <strong>3.29x</strong> difference by product line.</li>
+</ul>
+<p>But the cancellation article (KB 170) describes two completely different paths, and only one of them is what most people mean by &quot;cancel&quot;:</p>
+<ol>
+<li><strong>Default:</strong> turn off auto-renew and let it expire — the package is suspended, then cancelled.</li>
+<li><strong>On request:</strong> *&quot;if you wish to have your hosting package canceled at once and <strong>all the data erased immediately</strong>, you may submit a cancellation request.&quot;*</li>
+</ol>
+<p>Both are one click in the same Manage screen. <strong>If you cancel the VPS intending to come back for your data later, you have chosen the path that erases it now.</strong></p>
+<p>What recovery looks like if you do lose it (KB 9197, updated 5/9/2025):</p>
+<ul>
+<li>VPS server backups are *&quot;generated once a week, during the weekend&quot;* and *&quot;are over-written by newly created ones&quot;* → <strong>one copy, up to 7 days stale.</strong></li>
+<li>Restoring gives you *&quot;a new IP address.&quot;* If anything hardcoded the old IP, restoration is not the end of the job.</li>
+<li>Data-only retrieval — getting your files *without* rebuilding the VPS — costs <strong>$15</strong> added to your Namecheap balance.</li>
+<li>Extra backup space on Complete Management: <strong>$10 per 10 GB = $1.00/GB</strong>, on top of 100 GB included.</li>
+<li>Dedicated servers: *&quot;all data is deleted from the server,&quot;* and it is *&quot;impossible to obtain a backup for User-Responsible servers or servers with the Basic Management option.&quot;*</li>
+</ul>
+<p>One genuinely counterintuitive line in that same article: external backup storage is <strong>500 GB for Advanced</strong> servers but <strong>200 GB for Complete Management</strong> servers. The higher management tier ships with <strong>2.5x less</strong> backup space.</p>
+<h2>Hostinger publishes four retention numbers — none of them for your VPS disk</h2>
+<p>Hostinger is the clearest example of the pattern. Its privacy policy has a whole section titled *Retention and Deletion*, and it is full of specific, auditable numbers:</p>
+<div class="table-wrap"><table><thead><tr><th>What</th><th>Retention</th></tr></thead><tbody><tr><td>Call and meeting recordings</td><td><strong>30 days</strong></td></tr><tr><td>Communication data (emails, requests)</td><td><strong>90 days</strong></td></tr><tr><td>Data from accounts suspended for safety</td><td><strong>up to one (1) year</strong></td></tr><tr><td>De-personalised profile after account closure (email rewritten to <code>user@deleted.com</code>)</td><td>as long as legally required (tax, accounting, AML)</td></tr></tbody></table></div>
+<p>Then there is the disk. Hostinger&#x27;s Universal Terms of Service gives it no number at all — only a right:</p>
+<p>&gt; &quot;Hostinger may, in its sole and absolute discretion, remove and destroy any data and files (<strong>including back-up copies</strong>) stored by you on its servers, and has <strong>no obligation to provide you with such data and files</strong>.&quot;</p>
+<p>Read those side by side and the shape of the whole market appears: <strong>the retention periods that get published are the ones the host needs for its own compliance. The retention period you need is the one nobody writes down.</strong> Hostinger will tell you exactly how long it keeps a recording of a support call (30 days) and will not tell you how long it keeps your server.</p>
+<h2>Liquid Web: you can only back up part of the machine</h2>
+<p>Liquid Web&#x27;s VPS page (read 2026-10-18) bundles Acronis backups into every package — *&quot;Daily backups are configured for you and scale automatically with your package&quot;* — and publishes the capacity per tier. Compare that capacity against the disk it is meant to protect:</p>
+<div class="table-wrap"><table><thead><tr><th>Package</th><th>vCPU / RAM / Disk</th><th>Acronis backup included</th><th>Backup ÷ disk</th><th>Disk you cannot back up</th></tr></thead><tbody><tr><td>8 GB</td><td>4 vCPU / 8 GB / <strong>240 GB</strong></td><td><strong>100 GB</strong></td><td><strong>41.7%</strong></td><td><strong>140 GB (58.3%)</strong></td></tr><tr><td>16 GB</td><td>6 vCPU / 16 GB / <strong>440 GB</strong></td><td><strong>250 GB</strong></td><td><strong>56.8%</strong></td><td><strong>190 GB (43.2%)</strong></td></tr><tr><td>32 GB</td><td>8 vCPU / 32 GB / <strong>640 GB</strong></td><td><strong>500 GB</strong></td><td><strong>78.1%</strong></td><td><strong>140 GB (21.9%)</strong></td></tr></tbody></table></div>
+<p><strong>On the entry VPS, the included backup covers 41.7% of the disk.</strong> Fill the machine and you are running unprotected on 58.3% of it. The ratio improves as you climb — 56.8%, then 78.1% — so backup coverage is a *tier feature*, not a baseline.</p>
+<p>The page states no retention period, no snapshot capability, and nothing about data after cancellation. <strong>Not verifiable:</strong> Liquid Web&#x27;s policies pages (<code>/policies/terms-of-service/</code> and <code>/legal/terms-of-service/</code>) returned a Cloudflare human-verification challenge to our direct requests on 2026-10-18, and per our own rules we did not attempt to work around it — so no claim about Liquid Web&#x27;s post-cancellation data handling is made in this article beyond what its public VPS page states above.</p>
+<h2>What the three comparison sites show you first</h2>
+<p>Checked on 2026-10-18, on the exact pages people land on:</p>
+<ul>
+<li><strong>LowEndBox</strong> — homepage cards carry title, author, date, comment count and a teaser; provider, RAM, price and region appear only inside the free-text title, when they appear at all. <strong>Zero</strong> mentions of backups, snapshots, retention, or what happens to data after cancellation.</li>
+<li><strong>Namecheap</strong> — the homepage has <strong>no VPS card at all</strong>; VPS is a navigation link only. Cards that *are* shown (EasyWP, Private Email, .com, Stellar) print promo and renewal prices. <strong>Zero</strong> mentions of backups, snapshots, retention or cancellation data handling.</li>
+<li><strong>Liquid Web</strong> — <code>/vps-hosting/packages/</code> is the most informative of the three: it does name backups (&quot;Automated backups&quot;, Acronis with per-tier GB). But it publishes <strong>no retention period, no snapshot feature, and no cancellation or termination data policy.</strong></li>
+</ul>
+<p>So the answer to &quot;how long do they keep my data&quot; is not available on any of the three first screens, and on only one of the five hosts&#x27; own documentation.</p>
+<h2>Budget the clock before you cancel</h2>
+<p>One last practical number. DigitalOcean states that creating a snapshot or backup takes *&quot;about 1 to 3 minutes per GB of used disk space&quot;*, and gives the worked case: *&quot;a Droplet with 10 GB of used disk space would take 10 to 30 minutes.&quot;*</p>
+<p>That is a real, schedulable cost. On a 10 GB disk you need to decide to leave <strong>20 minutes before</strong> you destroy anything — and on a 320 GiB disk at the 3-minute end you are looking at several hours. Nobody loses data because they forgot to click; they lose it because they clicked destroy first and took the snapshot never.</p>
+<h2>What to actually do</h2>
+<ol>
+<li><strong>Take a manual snapshot before you touch anything.</strong> It is the only artefact at DigitalOcean and Hetzner that outlives the server. Hetzner says snapshots *&quot;remain available even if you delete the server a Snapshot was taken of&quot;*; DigitalOcean says you can *&quot;convert backups into snapshots to save the image indefinitely.&quot;* Automatic backups do not count: on Hetzner they are *&quot;automatically deleted if you delete the server.&quot;*</li>
+<li><strong>On DigitalOcean, prefer the snapshot to daily backups on price alone</strong> if your used GB is under <strong>5× your monthly price</strong> — true on all 29 tiers today (1.06x–1.96x cheaper). You get a longer retention for less money; the only thing you give up is automation.</li>
+<li><strong>On Hetzner, look at a calendar before you cancel.</strong> Cancelling on the 1st of a 31-day month gives you 30 days; cancelling one day later gives you 59. Same click, 29 extra days of runway. Deletion is immediate when the clock runs out, and it is not reversible.</li>
+<li><strong>On Namecheap, do not use &quot;Cancel Service&quot; if you want your data.</strong> That path erases *&quot;at once.&quot;* Let it expire instead, and remember the VPS backup is one weekly copy made at the weekend — up to 7 days stale — and restoration hands you a <strong>new IP</strong>.</li>
+<li><strong>Budget the snapshot time:</strong> 1–3 minutes per GB of used space. Decide before you destroy, not after.</li>
+<li><strong>If you are on Liquid Web&#x27;s entry VPS, assume 58.3% of your disk is unprotected</strong> unless you have reduced usage to fit the 100 GB included.</li>
+</ol>
+<p>The general rule that survives every host in this comparison: <strong>automatic backups are a feature of the server; a snapshot is a thing you own.</strong> The first one is priced as a percentage and expires on a clock. The second one is priced per gigabyte and expires when you say so. On cheap VPS deals, where the whole machine costs less than a month of the data sitting on it, that is the only line item worth reading twice.</p><section><h2>Sources</h2><ul><li><a href="https://docs.digitalocean.com/support/how-do-i-recover-a-deleted-droplet/">https://docs.digitalocean.com/support/how-do-i-recover-a-deleted-droplet/</a></li><li><a href="https://docs.digitalocean.com/support/how-can-i-destroy-my-droplets-while-maintaining-my-backups/">https://docs.digitalocean.com/support/how-can-i-destroy-my-droplets-while-maintaining-my-backups/</a></li><li><a href="https://docs.digitalocean.com/products/droplets/how-to/destroy/">https://docs.digitalocean.com/products/droplets/how-to/destroy/</a></li><li><a href="https://docs.digitalocean.com/products/backups/details/pricing/">https://docs.digitalocean.com/products/backups/details/pricing/</a></li><li><a href="https://docs.digitalocean.com/products/snapshots/details/pricing/">https://docs.digitalocean.com/products/snapshots/details/pricing/</a></li><li><a href="https://docs.digitalocean.com/support/how-long-will-my-backup-or-snapshot-take-to-complete/">https://docs.digitalocean.com/support/how-long-will-my-backup-or-snapshot-take-to-complete/</a></li><li><a href="https://www.digitalocean.com/pricing/droplets">https://www.digitalocean.com/pricing/droplets</a></li><li><a href="https://docs.hetzner.com/general/billing-and-account-management/cancellation/cancellations-overview/">https://docs.hetzner.com/general/billing-and-account-management/cancellation/cancellations-overview/</a></li><li><a href="https://docs.hetzner.com/general/billing-and-account-management/cancellation/30-days-to-the-end-of-the-month/">https://docs.hetzner.com/general/billing-and-account-management/cancellation/30-days-to-the-end-of-the-month/</a></li><li><a href="https://docs.hetzner.com/cloud/servers/backups-snapshots/overview/">https://docs.hetzner.com/cloud/servers/backups-snapshots/overview/</a></li><li><a href="https://docs.hetzner.com/cloud/servers/backups-snapshots/faq/">https://docs.hetzner.com/cloud/servers/backups-snapshots/faq/</a></li><li><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/10567/21/hosting-packages-life-cycle/">https://www.namecheap.com/support/knowledgebase/article.aspx/10567/21/hosting-packages-life-cycle/</a></li><li><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/170/21/how-do-i-cancel-my-hosting-account/">https://www.namecheap.com/support/knowledgebase/article.aspx/170/21/how-do-i-cancel-my-hosting-account/</a></li><li><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9197/21/how-can-i-reactivate-my-canceled-hosting-package/">https://www.namecheap.com/support/knowledgebase/article.aspx/9197/21/how-can-i-reactivate-my-canceled-hosting-package/</a></li><li><a href="https://www.hostinger.com/legal/universal-terms-of-service-agreement">https://www.hostinger.com/legal/universal-terms-of-service-agreement</a></li><li><a href="https://www.hostinger.com/legal/privacy-policy">https://www.hostinger.com/legal/privacy-policy</a></li><li><a href="https://www.liquidweb.com/vps-hosting/packages/">https://www.liquidweb.com/vps-hosting/packages/</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-18T00:52:04+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>
