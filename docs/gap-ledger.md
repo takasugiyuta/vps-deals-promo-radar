@@ -337,3 +337,12 @@
   - **#16（快照能不能跨机房 / 跨区域用）**：0/46。**同一问题，两家官方答案直接对撞**：DO——*"By default, a Droplet snapshot is only available in the region where it was created"*、*"It doesn't cost more to add a snapshot to more regions"*，紧接一句硬约束 *"You cannot transfer volume snapshots to other regions."*；Hetzner——*"Are Backups/Snapshots location bound? No, they are not location bound"* + *"You can use a Backup/Snapshot to create a new server in any location"*，但同页又写 *"The location itself is allocated randomly and cannot be changed"*、*"The location has to be in the same network zone"*。
   - **探源路径备忘（下次同类取题直接复用）**：Hetzner 的 IP / 卷 / 快照页**都不在** `docs.hetzner.com/cloud/` 总目录下，真身是 `cloud/floating-ips/overview/`、`cloud/servers/primary-ips/overview/`、`cloud/volumes/overview/` + `cloud/volumes/faq/`、`cloud/servers/backups-snapshots/faq/`；**全部从 `docs.hetzner.com/llms.txt` 搜标题挖出，猜的路径一律 404**。DO 一律用 `.md` 镜像（路径末尾换 `index.html.md`）。Hetzner docs 页自带 `ID: CL-xxxxx` 与 `Last change on YYYY-MM-DD`，引用时可直接挂，比 DO 的 `last_updated` 更好用。
   - **本轮对照只到 DO + Hetzner 两家**：Liquid Web 全站仍为 Cloudflare 挑战（铁律第 1 条，停手未绕过），Namecheap 主站 403（KB 子路径可读）。取 #14–#16 时按 #11 的既有做法处理：**核不到的厂商写 not verifiable，不许用别处看来的数补位**。
+- **2026-10-18 21:00 兜底核对**：今天已发 1 篇（#11「取消 / 销毁后数据还留多久、删了还能不能找回」，`vps-deals-data-kept-after-cancel`，commit **adf7dee**），未补发、未重复发。周期第 **10 天 / 28 天**。
+  https://lumafare.com/articles/vps-deals-data-kept-after-cancel/ → **200**（**38,549 字节**，**12** 个 `<h2>` 小节，含 "Not verifiable" 披露（Liquid Web Cloudflare 挑战停手说明），非空壳页），
+  title 为 "Cheap VPS Deals: How Long Your Data Survives After You Cancel — and the One Copy Each Host Keeps | Lumafare"，canonical 正确，
+  `sitemap.xml` → **HTTP 200**，共 **25** 条 `<loc>`，全站 **14 篇**文章均已收录。
+  CI run **39090106236**（workflow_dispatch，head adf7dee）：`refresh` ✓ + `Deploy to Cloudflare Pages` ✓，两 job 全绿；当日另有 3 次 run 全绿（39084336608 / 39105206658 / 39128534803）。
+  台账 #11 行白天已回填完整（状态「已写」/ slug / URL / 2026-10-18 / adf7dee 齐全），本次仅核对 + 复跑闸门：
+  **47 条事实条目 / 26 条零命中 / 55.3% PASS**（`--min 3`，退出码 0）。
+  下一步取 **#12「买错机房能不能换（relocate / 换 region）」**；可用未写 **5 条：#12 / #13 / #14 / #15 / #16**，与上方表格一致（BENCH 第四轮已补 #14–#16）。下一轮 BENCH 不晚于 **2026-10-22**。
+  ⚠️ 闸门比例 55.3% 为近期最低（前几轮 66.7%–92.9%），原因是**语料从 37 篇扩到 46 篇**，不是文章质量下滑；`--min 3` 是条数下限不是比例下限，26 条零命中远超门槛，后续取题按 46 篇口径准备更多一手数字。
