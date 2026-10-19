@@ -1038,3 +1038,122 @@ Rules (locked):
 **今日修正（重要）**：Day12 记过 savecd.com 是"第一个和我们同路（source-listed + 定时 + 可验证）的英文站"。**今天 B2 出现的 cloudhostdeals.com 比它更近**：它同样挂 `[View offer]` + `[Source]` 双链接、同样 `every six hours`、**同样公开承认自己读不到某些 URL**，而且更进一步——**它把每个受检 URL 的抓取状态逐条列成表**（A1 的 4 种失败态），还明写 `leaves the field empty instead of estimating one`。**"公开抓取状态"这条路已经挤了 3 家（savecd / cloudhostdeals / bestvpsdeal），不能再当卖点写**。今天我们仍独有的是：**85 次 `source_scan_at` 历史**（可算 listing 在场年龄、可算 8→3→2 漏斗、可算 top-1 83.3%）、**逐条 `fetched_at` 秒级时间戳**、**482 条链接零追踪参数**（A5，方向与全行业相反）、**无 price / 无 expiry 的原始 schema 原样公开**。**另一处修正**：Day12 判断 savecd `Valid until 2027-10-16` —— 今日复抓**该日期未滚动**，但清单从 4 条扩到 9 条（新增 InMotion Hosting 5 张卡），说明它在扩覆盖但没更新有效期，可作为"expiry 字段是否真在维护"的观察点，下轮继续盯。
 
 剩余候选（未被消耗）：Day12 三条候选**全部未被 10-18 文章消耗**（10-18 取的是 gap-ledger #11），逐条复检：①"6 Deals, 3 Pages"库存通胀 2:1（Day12 #1）——仍成立，但今日 A1 的漏斗角度更硬，可让位；②"Same Renewal Price (Fixed Price)"不结束的折扣（Day12 #2）——**今日 B6 显示该措辞无检索需求，但 B4 拿到 Hostinger 官方页 `最高立减 70%` 与 `以¥87.99/月 的价格续订 2 年` 同页并列的新证据，若要开必须走"官方页把首期价与续订价并排写"这个切口**，避开 10-08 `vps-deals-renews-at-x`；③"两个雷达的相反取舍"（Day12 #3）——**今日因 cloudhostdeals 出现而降级**："挂来源 + 定时 + 承认读不到"已有 3 家在做，不再是差异化，若开必须改为"三家的取舍对比"，但点名竞品有风险，暂挂。Day11 #1 "Expired Deals Get Removed"——缝仍在（我们有 85 次快照证明从没下过架），但对照对象从 vpspromocodes 换成 cloudhostdeals（后者明写 `leaves the field empty`，也没说会下架）。YABS 怎么读（Day4 #3，**连续第 5 次不升级**，建议正式移出候选池）。Hostinger 学生折扣（Day8 #3，池底）。时区口径（并入"更新于指什么"做一节）。**gap-ledger 提醒：可用未写只剩 #12/#13 两条，BENCH 第三轮已到期（原定不晚于 10-19，今天就是 10-19），line3 候选是 gap-ledger 写完后的回退池，不是当前取题源——两套不要混。**
+
+## 2026-10-20 (Day 14)
+
+> 本次 scan 时间戳 `2026-10-19T18:49:51+00:00` = 北京 10-20 02:49，属当日 scan。fetch + pull --rebase 干净，fast-forward 到 ecb7b74（远端 offer 刷新 + gap #12 文章已发布）。**90 次独立扫描**（120 个提交按 `source_scan_at` 去重后），跨度 `2026-10-04T23:49:08Z → 2026-10-19T18:49:51Z` = **14 天 19 小时 0 分 43 秒**。**今天是全项目最重要的一天：库存发生了 90 次扫描里的第二次突变，而且是有史以来第一次「title 字符串的值」发生变化——`63%` 变成了 `64%`（scan #89 / `2026-10-19T12:51:50Z`），同时总数 6→7，多出一条叫 `Claim deal` 的新条目。我打开官方页核对：页面上真的写着 `Special offer • 64% off`，而且 `Claim deal` 是页面上那个按钮的锚文本，href 是 `#pricing`——一个指向本页锚点、没有百分比、没有价格、没有套餐名的按钮。见 A1 / A2 / A5 与「今日修正」。**
+
+### A. 原创内容邪修
+
+| # | 邪修点 | 为什么别人抄不走 |
+|---|---|---|
+| A1 | **90 次扫描里唯一一次「数值」变化：`63%` → `64%`，发生在 scan #89 / `2026-10-19T12:51:50Z`，而 `63%` 在此之前整整存活了 14 天 7 小时 5 分 59 秒**（`2026-10-04T23:49:08Z` 首见 → `2026-10-19T06:55:07Z` 末见）。全历史只有 2 次突变事件：#29（`2026-10-08T12:37:03Z`，5→6）与 #89（6→7 + 63→64），**平均 45 次扫描才动一次**。而且这次只动了四档里的**一档**：`(70, 67, 63, 65)` ×88 次 → `(70, 67, 64, 65)` ×2 次，**70 / 67 / 65 三档横跨 14 天 19 小时一个字没变**，唯一变化是 +1 个百分点 | 必须持有 90 次快照才能说出"63 这个值活了 14 天 7 小时"和"只动了一档"。**任何只发布当前状态的站，根本不存在"变化"这个概念**——它今天显示 64%，明天显示 65%，读者永远看不出它变了、更看不出它是 14 天来第一次变。而且 **+1 个百分点这个幅度小到没有任何第三方会报道**：B2 实测 `hostinger vps hosting discount 64% off pricing`，5 条结果里 vps.me 仍写 `up to 70% off`、券站 hostinger.dataprot.net 写 `10% Off All Items`、**没有任何一家英文站出现 64 这个数**。我们抓到了整个券圈生态都还没反映的 1 点变化 |
+| A2 | **我们新增的第 7 条 deal，标题叫 `Claim deal`——它是官方页上一个按钮的锚文本，不是一笔折扣**。打开我们自己存的 `offer_url` 核对：`https://www.hostinger.com/vps-hosting#pricing`，而官方页上确实有一个 `[Claim deal](https://www.hostinger.com/vps-hosting#pricing)` 按钮，**href 是 `#pricing`，指向同一份文档的一个锚点**。这条"deal"**没有百分比、没有价格、没有套餐名**，长度 10 字符，是全库最短的一条 title，也是**唯一一条不含任何数字**的 deal。同时它把 distinct offer_url 从 3 个推到 4 个（`vps-hosting` 与 `vps-hosting#pricing`），但 **distinct 页面数仍然是 3**——两个 URL 是同一个文档。**于是我们现在的 7 条 deal 来自 3 个页面，其中 5 条指向同一个文档** | 要说出"我的第 7 条 deal 其实是个按钮"，必须真的打开自己存的 URL 去看一眼，而且要发现 href 里的 `#` 意味着同页锚点。**没有一家 deals 站会公布"我的清单里混进了 CTA 按钮"**——那是自曝解析器分不清折扣和按钮。而这个错误的根因是可公开的：**schema 里没有 `type` 列**，所以"一笔折扣"和"一个按钮上的文字"在我们的表里长得一模一样。顺带算出 7 条 / 3 页 / 5 条同文档这个比例，需要逐条 `offer_url` 去重 + 识别 fragment，也是快照级的能力 |
+| A3 | **这次"扩容"让我们的集中度更高了，不是更低**。top-1（Hostinger）占比的历史分布是 `100.0% ×28 次 → 83.3% ×60 次 → 85.7% ×2 次`。**新增的第 7 条 deal 同样是 Hostinger 的**，于是占比从 83.3% 升到 85.7%——一次"多元化事件"反而把最大来源的份额抬高了 2.4 个百分点。放到 14 天 19 小时的全窗口看，**我们从来没有真正分散过**：Hostinger 占比只取过 {100%, 83.3%, 85.7%} 三个值，最低点 83.3% 出现在 10-08 那次 5→6 之后，此后一路没有再降 | 要证明"扩容反而更集中"必须有占比的时间序列，而**英文圈的惯例是把"覆盖多少家"当成正面卖点挂在首屏**（B1 实测 vpsticker `15 providers tracked`、savecd `5 providers tracked`、rackbazaar `3 providers, 9 plans`、今日新站 bestvpsproviders `Compare 1961 Plans`），**没有一家公布"最大一家占多少"**。原因很简单：一公布，"15 providers tracked" 和"85% 的货来自 1 家"就同时成立，前者立刻贬值。我们能算，是因为 90 次快照里每一次的 provider 字段都在 |
+| A4 | **两个不变量在突变中活了下来：自指数恒为 4（90/90 次扫描），单次采集仍是 2 个秒点**。库存从 6 变 7、URL 从 3 个变 4 个，但**`offer_url == source_url` 的条数在 90 次扫描里每一次都恰好是 4**（新加的 `Claim deal` 不是自指：`#pricing` ≠ `vps-hosting`）；同时最新一次扫描的 7 条 deal 仍只落在 2 个 `fetched_at` 秒点上——**6 条 Hostinger 全部 `18:49:43`、Hetzner `18:49:45`**，与 6 条时代完全同构。**也就是说：多抓一条 deal 没有多花一次 HTTP 请求，也没有多花一秒**——新条目来自一个我们本来就在读的页面 | 这两个数分别从"逐条比对 offer_url 与 source_url"和"秒级 `fetched_at` 聚类"里来，都需要 90 次全量快照。**自指数 4 是一个跨突变的常数**——它说明自指的 4 条是页面结构决定的，与新不新增 deal 无关；而"采集耗时不变"说明我们的成本与库存条数无关，只与被读页面数有关。**没有任何 deals 站公布"抓一次要几秒 / 发几个请求"**，因为那是基础设施开销，说了不涨销量；但它恰恰是读者判断"这个站到底有多频繁去真看页面"的唯一硬指标 |
+| A5 | **外部交叉验证：官方页确认 `64%`，但顺序与我们存的不一样，而且同页上的续订价我们一条都没存**。打开 `https://www.hostinger.com/vps-hosting`，页面按套餐顺序给出 `67% off`（KVM 1）、**`Special offer • 64% off`**（KVM 2，标 `MOST POPULAR`）、`70% off`（KVM 4）、`65% off`（KVM 8）——四个数字与我们库里的 `(70, 67, 64, 65)` **数值完全吻合，但排列不同**（页面是 67/64/70/65，我们存 70/67/64/65）。**同一页还逐档写着 `Renews at $11.99/mo` / `$14.99/mo` / `$28.99/mo` / `$49.99/mo for 2 years`，我们一条都没存**（schema 无 price 列）。也就是说：我们这次**抓对了数字、抓错了顺序、漏掉了同一页上最重要的四个价格** | 要做出这个判断，必须同时持有"90 次快照的 title 序列"和"此刻官方页的真实 DOM 顺序"并逐项对照——单看任何一边都得不出的结论。**B3 实测"listing 是否过期 / 多久变一次"英文 SERP 0 条 VPS 专用命中**（只有 savecd 一家在描述自己的刷新机制，DreamHost 两篇是买前清单不是库存话题），**B4 实测"同一家多条 listing 重复计数"英文 SERP 同样 0 条命中**。这两件事没人写，因为做了的站觉得理所当然、没做的站不会自曝。**而我们敢同时承认"数字对了、顺序错了、续订价漏了"这三件事**——这三句话合起来比任何"我们最准"的声明都可信，也更难抄：抄的人得先有一个 90 次的历史库，再肯把"我漏了同页上的续订价"写出来 |
+
+### B. 谷歌搜索查词（今天真跑过的）
+
+| query | SERP 上看到了什么 | 判断 |
+|---|---|--|
+| `vps deals` | **核心词**。5 条：vpsticker.com（`15 providers tracked` / `29 live offers` / `15/15 providers returning data` / **`2026-10-02 last refresh`**）、vpsfilter.com（`Updated daily`）、rackbazaar.com（`3 providers, 9 plans` / `No dark patterns`）、**savecd.com（Day13 掉出前五，今天又回来了）**、vncoupon.com（中文，RackNerd 法国机房） | **核心词 SERP 继续每日洗牌，第 7 天复现**：savecd 一天掉出、一天回来；vpsticker `refreshed every 6 hours` 与 `2026-10-02 last refresh`（距今 17 天）自相矛盾**连续第 7 天**。任何"竞品在不在前五"的判断都不能沿用昨天 |
+| `hostinger vps hosting discount 64% off pricing` | **今天最关键的一条验证**。5 条：hostinger.dataprot.net（`10% Off All Items` / `Save 10% on All Hosting Plans`，**Updated last week**）、**vps.me（`AI-managed KVM VPS hosting with up to 70% off`）**、fasthosts.co.uk 条款页（`Up to 40% off … for the first six months`）、rpayu.com、neaplagia.com（`plans start from $2.99`） | **没有任何一家英文站出现 64 这个数**——券站还在发 `10% Off`，vps.me 仍是 `up to 70% off`，厂商条款页只有自己的 `Up to 40%`。**A1 的缝因此成立：我们抓到的 `63%→64%` 是 1 个百分点的变化，小到整个券圈生态都还没反映**。同时复证 `up to` 是英文站写折扣上限的强制限定词（中文站对应"最高立减"） |
+| `vps deals site how often listings change stale outdated offers` | 5 条：savecd.com（`Prices are shown only when verifiable`）、dreamhost.com/blog/best-vps-hosting/（**买前清单，非库存话题**）、foxvalleywebdesign.com（**建站公司页，完全跑题**）、domainhostcoupon.com（SterkHost 券页）、dreamhost.com/blog/vps-upgrade/（升级信号） | **"listing 多久变一次 / 会不会过期"英文 SERP 0 条 VPS 专用命中**，5 条里 1 条彻底跑题、2 条是 DreamHost 买前指南。**没人写"我的清单会不会变"** → A1/A5 的"第一次变化"是无人区，可放心开题 |
+| `vps deals same provider multiple listings one page duplicate plans` | 5 条：serverwala.com（日本 VPS 产品页）、findmeavps.com（`Top VPS Providers will compete for your business`）、**bestvpsproviders.com（新英文站，`Compare 1961 Plans from $0.11/mo`，列 `Price/mo` / `$/GB` / `$/Core` / `Payment Info`）**、dreamhost.com/blog/best-vps-hosting/、dreamhost.com/hosting/vps/ | **"同一家被重复计为多条 listing"英文 SERP 0 条命中**——所有人都在**增加**条数（bestvpsproviders 直接把 1961 当卖点），没有一个人讨论"这 1961 条里有多少是同一页的重复计数"。**A2 的 7 条 / 3 页正是反着来的角度**：别人以条数多为荣，我们以"条数除以页数"自曝 |
+| `vps deals black friday 2026 early sale` | 5 条：contabo.com/en-us/black-friday/（`Even our regular prices offer better value than most deals you'll find elsewhere` / `$5.28 for the first 24 months`）、blackfriday.bloggingjoy.com、theblackfriday.com.ng、**vps.blackfriday（标题竟是 `VPS BLACK FRIDAY 2024`，见 C 栏）**、blackfridayvault.com | **旺季线今天拿到最硬的一条外部证据**：`vps.blackfriday` 这个专门的 VPS 黑五站，页面标题**至今写着 2024**，而现在是 2026 年 10 月——**整整晚了两年**，正文 `Flash Deals` 后面跟了一串 `0 0 0 0 0`。**Contabo 黑五页连续第 8 天仍是常规价**。`vps.blackfriday` 是"deals 站有多不更新"的免费外部佐证，直接喂给候选 #3 |
+| `cheap vps hosting deal price changed increase 2026` | 5 条：cheapvps.store（`Compare 1,257+ VPS plans from 12 providers`）、vncoupon.com/namecheap-coupons、whatsthehost.com、pdqserver.com（`Starter Plan $4.95 /Month`）、vncoupon.com/reseller-hosting | **"价格变动"在英文 SERP 里被"价格比较"完全吃掉**：5 条里 4 条是对比表/券页，0 条讨论"价格什么时候变、变了多少"。**印证 A1：大家只发布当前值，不发布变化** |
+
+### C. 老外怎么说（真在用的说法）
+
+| phrase | 谁在用 / 什么意思 |
+|---|---|
+| "**Special offer • 64% off**" | **hostinger.com/vps-hosting 官方页原文**（今日 A5 核到）：厂商在套餐卡上标注"特价"的标准写法，`•` 分隔标签与折扣，仅 KVM 2 一档有此标签 |
+| "**MOST POPULAR**" | 同上官方页原文：套餐卡上的常驻标签。**我们的 title 里完全没有承载这个标签的字段** |
+| "**Renews at $11.99/mo for 2 years. Cancel anytime.**" | 同上原文，四档各一句（`$14.99` / `$28.99` / `$49.99`）：**`renews at` 的头号出处就是厂商自己的定价卡**，且带期限（`for 2 years`）与解约条件（`Cancel anytime`）。**我们同页抓取却一条都没存**（无 price 列） |
+| "**Claim deal**" | 同上原文：页面 CTA 按钮锚文本，`href = /vps-hosting#pricing`。**我们把它当成了一条 deal**（A2） |
+| "**Choose plan**" | 同上原文：套餐卡上的另一个按钮文本，与 `Claim deal` 是同一层的 UI 元素 |
+| "**From $19.49 $6.49/mo**" | 同上原文：划原价 + 现价的写法，`From` 是起价前缀 |
+| "**Up to 70% off**" / "**this Black Friday**" | 同上首屏原文：`up to` 是折扣上限的强制限定词；`this Black Friday` 说明页面已进入黑五话术 |
+| "**All plans are paid upfront. The monthly rate reflects the total plan price divided by the number of months in your plan.**" | 同上页脚原文：**厂商自己解释"月单价 = 总价 ÷ 月数"**，是理解 VPS 报价最关键的一句免责 |
+| "**Secure your deal before it's gone**" | 同上原文： urgency 文案，`before it's gone` 是标准催单句 |
+| "**30-day money-back guarantee**" | 同上原文：退款窗口的标准写法 |
+| "**Find a VPS plan. _See the source._**" | savecd.com 首屏原文（今日复抓）：把"看来源"做成标题的一部分 |
+| "**Official-source VPS offers, checked on a schedule. We show only prices we can verify and link every listing to its source.**" | 同上首屏原文：`checked on a schedule` / `only prices we can verify` / `link every listing to its source` |
+| "**5 providers tracked**" / "**6h check cadence**" | 同上指标区：`check cadence` 是"检查节奏"的说法，比 `refreshed every` 更准确 |
+| "**Source-listed price. Billing period, upfront payment and renewal terms must be checked with the provider.**" | 同上每条卡片原文（与 Day12/13 一致）：标准免责句 |
+| "**Valid until 2027-10-19**" | 同上（**今日重大变化：Day12/Day13 连续两天都是 `2027-10-16`，今天滚动到了 `2027-10-19`**）→ **该 expiry 字段确实在维护，Day12/13"没滚动"的判断今日作废**。见「今日修正」 |
+| "**[View offer ↗]**" / "**[Source]**" | 同上按钮原文：去向 + 来源双链接，与我们 `offer_url` + `source_url` 同构 |
+| "**Cloud hosting and VPS deals, refreshed every 6 hours**" | cloudhostdeals.com 标题原文（今日复抓）：`refreshed every 6 hours` |
+| "**7 live listings**" / "**3 providers tracked**" / "**Updated 2026-10-19 21:51**" | 同上首屏指标区（今日复抓，**更新时间是今天**）：三数并排 |
+| "**2 listingsfrom 3.0**" / "**3 listingsfrom 11.0**" | 同上 "Providers we track" 原文：每家挂"几条 listing + 起价" |
+| "**blocked by the provider (HTTP Error 403: Forbidden)**" | 同上状态表原文：**失败态之一**，连 HTTP 状态码都写出来 |
+| "**blocked by the provider's robots.txt - not fetched**" | 同上：**失败态之二**，明确写"没有抓取"（守规则，不是抓不到） |
+| "**page read, no price published in the HTML - not listed**" | 同上：**失败态之三**（今日该状态扩到 4 行：DO `/pricing/agent-droplets`、`/pricing/backups`、A2 Hosting） |
+| "**page read, nothing usable found**" | 同上：**失败态之四**（今日新增 A2 Hosting 与 Vultr `/pricing/`） |
+| "**read**" | 同上状态表：最简单的成功态（今日出现于 `digitalocean.com/pricing/`、`sitemaps/pricing-0.xml.gz`、Cloudways sitemap 等） |
+| "**We show only prices we can verify**" / "**When a page cannot be read, we say so instead of filling in a guess.**" | 同上首屏原文（与 Day13 一致）：不猜数的承诺 |
+| "**When this site cannot read a number it leaves the field empty instead of estimating one.**" | 同上 FAQ 原文：`leaves the field empty instead of estimating one` |
+| "**Every six hours, and the timestamp at the bottom of the page shows the last successful read.**" | 同上 FAQ 原文：`last successful read` = 最后一次**成功**读取 |
+| "**Some links may be affiliate links, which means a commission may be earned at no extra cost to you.**" | 同上 FAQ 原文：佣金披露三段式的末句 |
+| "**VPS BLACK FRIDAY 2024**" | **vps.blackfriday 页面标题原文（今日 B5 发现）**：2026 年 10 月，一个专门的 VPS 黑五站标题仍写着 **2024** |
+| "**Flash Deals**" + "**0 0 0 0 0 0 0 0 0 0 …**" | 同上原文：闪购区挂着 30 个 `0` 的计数器，一个 deal 都没有 |
+| "**VirMach's rotating VPS offers are back for Black Friday. Don't blink or you might miss it.**" | 同上原文（B5 摘要）：`rotating VPS offers` = 轮换上下的 offers；`Don't blink or you might miss it` = 转瞬即逝 |
+| "**Best VPS Hosting: Compare 1961 Plans from $0.11/mo**" | bestvpsproviders.com 标题原文（今日 B4 发现）：把条数当卖点的极致 |
+| "**Price/mo**" / "**$/GB**" / "**$/Core**" / "**Payment Info**" | 同上表头原文：三档单位价列。**`$/GB` 与 `$/Core` 是英文圈比价的标准化指标**（我们 10-09 / 10-11 已发过同题文章，此处仅作对照） |
+| "**No plans found**" | 同上表格空态原文 |
+| "**1 mo.**" | 同上账单周期写法：极简期限标注 |
+| "**~$0.46**" | 同上价格写法：**波浪号前缀 = 约数/起价**，英文站用 `~` 表示不承诺精确值 |
+| "**Compare 1,257+ VPS plans from 12 providers.**" | cheapvps.store 原文（今日 B6）：`data-driven comparison tool` 也是同类说法 |
+| "**Up to 40% off (depending on the product) will be discounted from the full product standard price for the first six months.**" | fasthosts.co.uk 官方条款页原文（今日 B2）：**厂商条款里限定折扣期限的标准句法**（`for the first six months`） |
+| "**Up to 70% off**" | vps.me 原文（B2 复抓）：第三方仍沿用厂商首屏的上限值，**不反映 64% 这个变动** |
+| "**$12/y Recurring**" / "**25% Recurring OFF**" / "**30% lifetime discount**" | LowEndTalk 帖标题原文：`Recurring`（每周期都续）与 `lifetime discount`（永久）是两种严格对立的"长期"标签 |
+| "**Upto 50% off**" / "**Up to 55% Off**" / "**Upto 60% discount**" | LET 标题原文：`Upto` 连写是非标准拼写，社区里高频出现 |
+| "**$5 for 5 Years?!**" | LET 帖标题原文：多年付的惊叹式写法 |
+| "**From £3.37/yr**" / "**Under $150/Year**" / "**for 212 USD/year**" | LET 标题原文：年付价的三种写法（起价 / 上限 / 总额） |
+| "**[VPS Restock]**" / "**Improved Storage Servers!**" | LET 帖标题原文（DeluxHost）：`Restock` = 补货，是 `out of stock` 的对应动作 |
+| "**DeluxHost.net \| VPS Restock \| Improved Storage Servers!**" | 同上完整标题 |
+| "**Countdown to Black Friday - Dedicated Server Deals and Giveaway! Live now!**" | LET 原文（DartNode）：`Countdown to` + `Live now!` |
+| "**$500 Halloween Giveaway Has Begun!**" | LET 原文（ServerHost）：`Has Begun!` 是活动开启的固定句式 |
+| "**heartbeat-it SE down?**" / "**Servarica down?**" / "**VirMach LA outage**" | LET 原文：三种"出事了"的标题写法（厂商名 + `down?` / 地区 + 故障类型） |
+| "**Metanet.ch - Unreachable/Bankrupt**" | LET 原文（今日复现）：`Unreachable/Bankrupt` 是社区对厂商关门的浓缩写法 |
+| "**Does anyone know what is the situation with rarecloud?**" | LET 原文：询问厂商状况的标准问句 |
+| "**IP unreachable after about 10 days**" | LET 原文：故障持续时间的写法 |
+| "**DartNode Unauthorized SSH Access**" | LET 原文：安全事件的标题写法 |
+| "**RackNerd halved my VPS cores with no warning. Got them back, but my one question went unanswered**" | LET 原文（今日复现）：`halved my VPS cores` = 核数砍半；`with no warning` = 无预告 |
+| "**Suspended again for high CPU usage**" | LET 原文：因 CPU 使用被停机的写法（`Suspended again` 强调反复） |
+| "**$3 replacement fee, no refund**" | LET 原文：`replacement fee` = 换机费 |
+| "**MXRoute bulk closing support tickets**" | LET 原文：`bulk closing` = 批量关闭工单 |
+| "**vps[dot]gripe: A simple archive for your YABS & bench runs**" | LET 原文（DejavuMoe）：`bench runs` = 跑分；社区为规避过滤把域名写成 `vps[dot]gripe` |
+| "**LET YABS Thread**" | LET 原文（134.9K views）：跑分汇总固定帖名。`YABS` = Yet Another Benchmark Script |
+| "**[WTB] … IPv6 /64**" / "**REQ: Cheapest 8+ core and 16gb+ ram VPS\|VDS**" / "**LF Storage server deals**" | LET 求购帖三种前缀：`WTB` = want to buy、`REQ` = request、`LF` = looking for |
+| "**I want a 512mb ram VM/box**" | LET 原文：`box` 是小机口语说法 |
+| "**nano VPS in Miami (~$1/month)**" | LET 原文：`nano VPS` = 极小配置档 |
+| "**ServerHost Ryzen/i9 VPS from $22.99/year - October Haunt**" | LET offer 标题原文（今日复现）：季节促销名挂标题尾 |
+| "**transferring 4tb storage server for costco hotdog**" | LET 原文：社区黑话式标题（用物价打比方） |
+| "**This is the largest collection of YABS (Yet Another Benchmark Script) benchmarks on the planet, with over 10,000 user-submitted reports in its database.**" | LowEndBox 原文（ServerVerify 访谈）：`YABS` 全称首次出现 |
+| "**Exclusive LowEndBox Pricing: 2GB KVM VPS for $1.83/Month First Year! Godlike.Host is Back!**" | LEB 原文（今日复现）：`First Year!` 限定首年；`is Back!` 厂商回归宣告 |
+| "**You'll need our special coupon code to get these deals!**" | LEB 原文：`special coupon code` = 专属优惠码 |
+| "**Early Bird Discounts on Cheap Colocation!**" / "**with Early Bird discounts available for 12 months**" | LEB 原文（Cloudnium，今日复现）：`Early Bird` + 明确期限 |
+| "**Velohost Returns With Even Cheaper Prices!**" / "**I guess Velohost has never heard of inflation.**" | LEB 原文（今日复现）：降价报道的反讽开场 |
+| "**Eight months ago, they were selling a 4GB VPS … for 3.00€/month. Now they're selling that same package for only 2.60€/month!**" | LEB 原文（今日复现）：跨期同套餐降价的对照写法 |
+| "**Well, all 100 VPS instances have now been given away. But apparently, 100 wasn't enough!**" | LEB 原文（今日复现）：赠品发完再加码 |
+| "**More of RackNerd & AdminBolt! Here's 50 More FREE VPS + 10 Lifetime Licenses!**" | LEB 原文：`Lifetime Licenses` = 永久授权 |
+| "**A VPS for UNDER $10/YEAR!**" / "**1GB VPSes in Los Angeles starting at only $9.95/year!**" | LEB 原文：年付低价的两种标题写法 |
+| "**Those are IPv6-only, but they have IPv4 as well for only $17.95 a year!**" | LEB 原文：`IPv6-only` + 加购 IPv4 |
+| "**Yet Another cPanel and WHMCS Price Increase. But You're Getting More Value. Right? (Right?)**" | LEB 原文（今日复现）：`Yet Another` 是涨价反讽固定前缀 |
+| "**38:05:57left**" / "**06:21:09left**" | **hetzner.com/sb 官方拍卖页原文（今日复抓，全新技术）**：倒计时写法，`left` 紧挨时间无空格。**AuctionID 3095118 / 3095150，与 Day12 的 3095297、Day11 的 3091544 全不相同** —— 页面每次都在变，而我们对它的 title 90 次扫描一字未变 |
+
+### 明日候选
+
+1. **"63% Became 64% Today": The First Time Our Index Ever Changed a Number** — A1（`63%` 存活 **14 天 7 小时 5 分 59 秒**后于 scan #89 / `2026-10-19T12:51:50Z` 变为 `64%`；90 次扫描仅 2 次突变，平均 45 次才动一次；**四档里只动了一档**，70/67/65 横跨 14 天 19 小时未变）+ A5（打开官方页核对，页面确实写着 **`Special offer • 64% off`**，四档数值 `67/64/70/65` 与我们库完全吻合）+ B2（**`hostinger vps hosting discount 64% off pricing` 5 条结果里没有任何一家英文站出现 64**：vps.me 仍 `up to 70% off`、券站还在发 `10% Off All Items`）+ B3（"listing 多久变一次 / 会不会过期"英文 SERP **0 条 VPS 专用命中**）+ C 栏（`Special offer • 64% off` / `MOST POPULAR` / `Renews at $11.99/mo for 2 years`）。缝：**只发布当前状态的站，根本不存在"变化"这个概念**——它今天 64、明天 65，读者永远看不出它变了，更看不出这是 14 天来第一次变。**+1 个百分点小到整个券圈生态都还没反映**，而我们有精确到秒的首次出现/最后一次出现时间。这条 hardest 的部分是我们同时要承认 A5 的"顺序错了、续订价漏了"
+2. **"Claim Deal" Is a Button, Not a Discount: 7 Deals, 3 Pages, and One of Them Is an Anchor** — A2（新增第 7 条 title `Claim deal`，`offer_url = https://www.hostinger.com/vps-hosting#pricing`；打开官方页确认它是 **CTA 按钮锚文本**，href 是同页锚点；**10 字符、全库最短、唯一不含任何数字**；distinct offer_url 3→4 但 **distinct 页面数仍是 3**，**7 条 deal 来自 3 个页面，其中 5 条指向同一个文档**）+ A5（同页逐档写着 `Renews at $11.99/$14.99/$28.99/$49.99/mo for 2 years`，我们一条没存）+ B4（"同一家多条 listing 重复计数"英文 SERP **0 条命中**，所有人都在增加条数——bestvpsproviders 直接把 `Compare 1961 Plans` 当卖点）+ C 栏（`Claim deal` / `Choose plan` / `Renews at … for 2 years` / `All plans are paid upfront…`）。缝：**别人以条数多为荣，我们以"条数 ÷ 页数"自曝**。承认"我的第 7 条 deal 其实是个按钮"是自曝解析器缺陷，没人肯——但根因可公开：**schema 没有 `type` 列**，所以一笔折扣和一个按钮上的文字在我们的表里长得一模一样
+3. **A VPS Black Friday Site Still Says "2024": What "Updated" Means When Nothing Ever Moves** — A1（我们 14 天 19 小时才动一次、且只动 1 个百分点）+ B5（**`vps.blackfriday` 这个专门的 VPS 黑五站，2026 年 10 月页面标题仍写着 `VPS BLACK FRIDAY 2024`，晚两年；`Flash Deals` 后面挂 30 个 `0`**；Contabo 黑五页连续第 8 天只有常规价）+ A5/今日修正（**savecd `Valid until` 今日从 `2027-10-16` 滚动到 `2027-10-19`，确属在维护**——所以"不更新"不是全行业通病，是有站做得到）+ B1（vpsticker `refreshed every 6 hours` 与 `2026-10-02 last refresh` 自相矛盾**连续第 7 天**）+ C 栏（`VPS BLACK FRIDAY 2024` / `Flash Deals` / `rotating VPS offers` / `Don't blink or you might miss it` / `6h check cadence` / `last successful read`）。缝：**"更新于"这个词被四种完全不同的口径共用**——页面刷新时间（cloudhostdeals `Updated 2026-10-19 21:51`，是真的今天）、声明的节奏（vpsticker `every 6 hours`，实际停在 17 天前）、listing 的有效期（savecd `Valid until`，真在滚）、以及标题年份（vps.blackfriday 停在 2024）。**把这四种摆在一起对照，需要一个 90 次快照的库 + 每天真跑 6 条 SERP**
+
+已用：`compare-vps-deals-total-cost`（10-07）、`vps-deals-renews-at-x`（10-08）、`vps-deals-refund-window`（10-09）、`vps-deals-cost-per-gb-ram`（10-09）、`vps-deals-who-collects-vat`（10-09）、`vps-deals-hourly-to-monthly`（10-10）、`vps-deals-cost-per-gb-disk`（10-11）、`vps-deals-auto-renewal-notice`（10-12）、`vps-deals-port-25-smtp-blocked`（10-13）、`vps-deals-sla-credit-how-to-claim`（10-14）、`vps-deals-payment-methods-accepted`（10-15）、`vps-deals-identity-verification-kyc`（10-16）、`vps-deals-nonpayment-suspension-deletion`（10-17）、`vps-deals-data-kept-after-cancel`（10-18）、**`vps-deals-wrong-datacenter-move`（10-19，最后一篇已发布，取自 gap-ledger #12 而非 line3 候选）**。
+
+已降级/不再写第二篇：退款天数（已发）、每 GB 单价（已发）、renews at 换算（已发）、Hourly ×672/730（已消耗）、CPU steal 诊断（英文位占满）、过期 deal（pennyclouds 已占）、Unmetered Port Metered Reality（Day2）、Stuck in an AI Support Loop（Day3）、低价套餐断货/候补（Day6）、Hetzner 拍卖"怎么运作"（Day6）、黑五"预热期填不出价格"（Day8，已改写）、"deals 站都会撑满库存"（Day10 证伪）、"Flash Deals vs Evergreen Listings"（Day10 候选 #3，Day11 降级）、"折扣不结束"措辞（Day13 降级）、**"挂来源 + 定时 + 承认读不到"作为差异化卖点（Day13 已降级，今日再确认：savecd / cloudhostdeals / bestvpsdeal 三家都在做，cloudhostdeals 今日状态表已扩到 14 行）**。
+
+**今日修正（重要，两条）**：① **savecd.com 的 `Valid until` 今日从 `2027-10-16` 滚动到 `2027-10-19`**——Day12 与 Day13 连续两天记录的"未滚动/没在维护"结论**今日作废**，该字段确实在维护（且恰好是"今天 +1 年"）。**教训：expiry 字段是否维护，不能靠两次观察下结论，要盯到它动为止。** ② **"只有 1 个布尔值 `readable`"这个自我批评需要微调**：我们确实只有 `readable`，但 cloudhostdeals 今日的状态表**新增了 `read` 这个成功态**，其 4 种失败态（403 / robots.txt / 价格不在 HTML / 读不到可用内容）与我们今日确认的"8 个受检 URL 里 6 个 90 次零产出"仍是两套不同口径——**它记的是"为什么读不到"，我们记的是"读没读到"，而我们还额外记了"读到了但没产出"**。这个区分（可读 ≠ 有 deal）仍然是我们的独家口径。**另一处修正**：Day13 A4 说"Hetzner title 全历史只有 1 个字符串、恒断在 `from`"——今日复抓 hetzner.com/sb，拿到**全新倒计时 `38:05:57left` / `06:21:09left` 与全新 AuctionID 3095118 / 3095150**（Day12 是 3095297、Day11 是 3091544），**页面每次都在变而我们 title 90 次一字未变**，该判断继续成立且证据更硬。
+
+剩余候选（未被消耗）：Day13 三条候选**全部未被 10-19 文章消耗**（10-19 取的是 gap-ledger #12），逐条复检：①"Page Read, Nothing Usable Found" 四种失败态（Day13 #1）——缝仍在，但今日新增证据显示 cloudhostdeals 已把状态表扩到 **14 行**（新增 A2 Hosting、Vultr 三行、DO sitemap 等），**它记失败原因的粒度比我们细，若开必须改为"它记为什么失败、我们记读到了但没产出"这个不同口径**；②"No utm, No ref, No '?'" 零追踪参数（Day13 #2）——**仍是最稳的一条**，今日未复验但 482→ 应重算为 547 行（90 次扫描含 7 条期）；③"The Youngest Deal in Our Index Is 10 Days Old"（Day13 #3）——**今日作废**：新增的 `Claim deal` 使最年轻的一条变为 **2 次扫描 / 约 6 小时**，该候选的事实基础已经改变，若要写必须改成"最老的一条 14 天 19 小时"。Day12 #1 "6 Deals, 3 Pages"——**今日被 A2 吸收并升级**（7 条 / 3 页 / 5 条同文档 + 新增锚点 URL）。Day12 #2 "Same Renewal Price"—**今日拿到最强证据**：官方页四档 `Renews at $11.99/$14.99/$28.99/$49.99/mo for 2 years`，但要避开 10-08 `vps-deals-renews-at-x`，须走"厂商把首期价与续订价并排印在同一张卡上"这个切口。YABS 怎么读（Day4 #3，**连续第 6 次不升级，正式移出候选池**——B3/B4/B6 三条 query 均显示英文教程位为 0）。**gap-ledger 提醒：可用未写只剩 #13 一条；BENCH 第三轮已过期（原定不晚于 10-19），line3 候选是 gap-ledger 写完后的回退池，不是当前取题源——两套不要混。**
