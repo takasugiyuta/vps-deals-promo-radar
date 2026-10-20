@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cheap VPS Deals: You Blew Through Your Bandwidth — Now What? (Throttle, Suspend, or a Bill) | Lumafare</title><meta name="description" content="Read off five hosts&#x27; own pages on 2026-10-20. Not one of them throttles you. DigitalOcean meters at $0.01 per GiB, Hetzner meters at €1 ($1.20) per TB in 100 MB blocks, and Namecheap sells extra bandwidth at $10/mo per 100 GB — so the same 100 GB of overage costs $1.00 at DigitalOcean, $0.12 at Hetzner, and $10.00 at Namecheap, an 83x spread. Hostinger and Liquid Web print the allowance (4-32 TB and 5/7/10 TB) and print nothing about what happens when you exceed it. Plus the arithmetic nobody publishes: DigitalOcean&#x27;s free pool accrues per second of a Droplet&#x27;s life up to a hard cap of 2,419,200 seconds — exactly 28 days — so deleting and rebuilding a Droplet does not reset your allowance, it shrinks it; and Hetzner&#x27;s own 75% and 100% usage emails &#x27;do not cap or stop it."><link rel="canonical" href="https://lumafare.com/articles/vps-deals-bandwidth-overage-throttled-or-billed/">
+<meta property="og:title" content="Cheap VPS Deals: You Blew Through Your Bandwidth — Now What? (Throttle, Suspend, or a Bill) | Lumafare"><meta property="og:description" content="Read off five hosts&#x27; own pages on 2026-10-20. Not one of them throttles you. DigitalOcean meters at $0.01 per GiB, Hetzner meters at €1 ($1.20) per TB in 100 MB blocks, and Namecheap sells extra bandwidth at $10/mo per 100 GB — so the same 100 GB of overage costs $1.00 at DigitalOcean, $0.12 at Hetzner, and $10.00 at Namecheap, an 83x spread. Hostinger and Liquid Web print the allowance (4-32 TB and 5/7/10 TB) and print nothing about what happens when you exceed it. Plus the arithmetic nobody publishes: DigitalOcean&#x27;s free pool accrues per second of a Droplet&#x27;s life up to a hard cap of 2,419,200 seconds — exactly 28 days — so deleting and rebuilding a Droplet does not reset your allowance, it shrinks it; and Hetzner&#x27;s own 75% and 100% usage emails &#x27;do not cap or stop it."><meta property="og:url" content="https://lumafare.com/articles/vps-deals-bandwidth-overage-throttled-or-billed/"><meta property="og:type" content="article"><meta name="twitter:card" content="summary">
+<style>*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -18rem,rgba(211,229,255,.62),transparent 42rem),#f6f8fc;color:#132238;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2457d6;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#143b9e}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px max(24px,calc((100vw - 1120px)/2));background:rgba(255,255,255,.88);border-bottom:1px solid rgba(218,228,241,.9);backdrop-filter:blur(16px)}
+header>a:first-child{color:#132238;text-decoration:none;font-size:1.12rem;letter-spacing:-.03em}
+header>a:first-child b{font-weight:800}
+header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+header nav a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650;white-space:nowrap}
+header nav a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+header>a:last-child:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main{max-width:1120px;margin:0 auto;padding:42px 24px 72px}
+h1,h2,h3{color:#132238;letter-spacing:-.035em;line-height:1.2}
+h1{font-size:clamp(2.35rem,5.2vw,4.4rem);margin:.3em 0 .42em}
+h2{font-size:clamp(1.45rem,3vw,2rem);margin:48px 0 20px}
+h3{font-size:1.12rem;margin:0}
+p{margin:0 0 1em}
+.hero{position:relative;isolation:isolate;overflow:hidden;margin:4px 0 52px;padding:clamp(34px,6.5vw,76px);border:1px solid rgba(159,219,241,.22);border-radius:30px;background:radial-gradient(ellipse at 88% 18%,rgba(76,201,240,.28),transparent 34%),linear-gradient(130deg,#10233f 0%,#173b68 62%,#19556d 100%);box-shadow:0 26px 60px rgba(20,48,82,.18);color:#fff}
+.hero:after{position:absolute;z-index:-1;right:-82px;bottom:-190px;width:390px;height:390px;border:1px solid rgba(205,239,255,.18);border-radius:50%;box-shadow:0 0 0 32px rgba(205,239,255,.035),0 0 0 70px rgba(205,239,255,.025);content:"";pointer-events:none}
+.hero h1{max-width:820px;color:#fff}
+.hero p{max-width:700px;color:#d8e7f7;font-size:1.08rem}
+.hero p:first-child{margin:0 0 14px;color:#9fdbf1;font-size:.78rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));align-items:stretch;gap:16px}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0;min-height:148px;margin:0;padding:23px;border:1px solid #e1e8f2;border-radius:19px;background:linear-gradient(155deg,#fff 35%,#fafdff);box-shadow:0 5px 18px rgba(21,43,73,.045);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-3px);border-color:#c5d7ef;box-shadow:0 14px 28px rgba(21,43,73,.085)}
+.plan{scroll-margin-top:100px}
+.plan-details,.page-details{width:100%;padding:18px 20px;border:1px solid #e1e8f2;border-radius:14px;background:#f7faff}
+.plan-details h4{margin:0 0 12px;color:#132238}
+.plan-details p,.page-details p{margin:7px 0;color:#435671;font-size:.93rem;font-weight:400;overflow-wrap:anywhere}
+.page-details{margin-top:36px}
+.table-wrap{width:100%;overflow-x:auto;border:1px solid #e1e8f2;border-radius:14px;background:#fff}
+.verification-table{width:100%;min-width:660px;border-collapse:collapse;text-align:left}
+.verification-table th,.verification-table td{padding:14px 16px;border-bottom:1px solid #e8edf4;vertical-align:top}
+.verification-table th{background:#f7faff;color:#435671;font-size:.84rem}
+.verification-table td{overflow-wrap:anywhere}
+.verification-table tr:last-child td{border-bottom:0}
+.card small{color:#61738d;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.card h2,.card h3{margin:0}
+.card p{margin:0;color:#435671;font-weight:650}
+.card>a{display:inline-flex;align-items:center;gap:5px;margin-top:auto;color:#2457d6;font-weight:700;text-decoration:none}
+.card>a:hover{text-decoration:underline}
+main>h2{display:flex;align-items:center;gap:12px}
+main>h2:after{width:34px;height:3px;border-radius:99px;background:linear-gradient(90deg,#2d6ce4,#56c3d8);content:""}
+main>h1{max-width:850px;font-size:clamp(2.1rem,4.6vw,3.65rem)}
+main:has(>p:first-child a){max-width:880px;padding-top:36px}
+main>p:first-child a{transition:background .15s ease,border-color .15s ease}
+main>p:first-child a:hover{border-color:#c7d7f3;background:#eef4ff;color:#1d4ed8}
+a:focus-visible{outline:3px solid #75a7ff;outline-offset:4px;border-radius:4px}
+.crumbs{margin:0 0 16px;color:#61738d;font-size:.9rem}
+.crumbs a{color:#2457d6}
+.crumbs span{color:#132238;font-weight:650}
+.siblings{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.siblings a{padding:8px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#334a68;text-decoration:none;font-size:.9rem;font-weight:650}
+.siblings a:hover{background:#eef4ff;border-color:#c7d7f3;color:#1d4ed8}
+main>p:first-child a{display:inline-flex;align-items:center;padding:7px 12px;border:1px solid #dce5f2;border-radius:999px;background:#fff;color:#435671;text-decoration:none;font-size:.9rem}
+footer{padding:24px max(24px,calc((100vw - 1120px)/2)) 34px;border-top:1px solid #e2e9f1;color:#687991;font-size:.9rem}
+footer p{margin:0}
+footer nav{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){
+ body{font-size:15px}
+ header{gap:10px;padding:12px 18px}
+ header>a:first-child{font-size:1.02rem}
+ header nav{justify-content:flex-start;gap:6px}
+ header nav a{padding:7px 10px;font-size:.82rem}
+ main{padding:22px 18px 48px}
+ .hero{margin:0 0 32px;padding:28px 23px;border-radius:23px}
+ .hero:after{right:-185px;bottom:-245px;width:330px;height:330px}
+ .hero h1{font-size:clamp(2.05rem,9vw,3.1rem)}
+ .hero p{font-size:1rem}
+ h2{margin:36px 0 16px}
+ .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+ .card{min-height:132px;padding:19px;border-radius:17px}
+ main:has(>p:first-child a){padding-top:25px}
+ footer{padding:21px 18px 28px}
+}
+@media(max-width:360px){
+ header{align-items:flex-start;flex-direction:column}
+ header>a:last-child{align-self:flex-start}
+ .hero{padding:25px 19px}
+}
+.table-wrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+caption{caption-side:bottom;padding-top:8px;font-size:.82rem;opacity:.75;text-align:left}
+th,td{border:1px solid rgba(218,228,241,.95);padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#eef3fb;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:rgba(238,243,251,.55)}</style></head><body><header><a href="/"><b>Lumafare</b></a><nav><a href="/compare">Compare</a><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></header><main><nav class="crumbs"><a href="/">Home</a> › <span>Articles</span></nav><article><h1>Cheap VPS Deals: You Blew Through Your Bandwidth — Now What? (Throttle, Suspend, or a Bill)</h1><p>Read off five hosts&#x27; own pages on 2026-10-20. Not one of them throttles you. DigitalOcean meters at $0.01 per GiB, Hetzner meters at €1 ($1.20) per TB in 100 MB blocks, and Namecheap sells extra bandwidth at $10/mo per 100 GB — so the same 100 GB of overage costs $1.00 at DigitalOcean, $0.12 at Hetzner, and $10.00 at Namecheap, an 83x spread. Hostinger and Liquid Web print the allowance (4-32 TB and 5/7/10 TB) and print nothing about what happens when you exceed it. Plus the arithmetic nobody publishes: DigitalOcean&#x27;s free pool accrues per second of a Droplet&#x27;s life up to a hard cap of 2,419,200 seconds — exactly 28 days — so deleting and rebuilding a Droplet does not reset your allowance, it shrinks it; and Hetzner&#x27;s own 75% and 100% usage emails &#x27;do not cap or stop it.</p><p><small>Published: 2026-10-20</small></p><p><strong>Question:</strong> I went over my VPS bandwidth allowance — will my host throttle me, suspend the server, or just bill me per gigabyte?</p><p><strong>Read off five hosts&#x27; own pages on 2026-10-20: none of them throttle you. Not one.</strong> Every host in this comparison that publishes a policy at all settles a bandwidth overage with money, not with a speed cap. The interesting part is not *whether* you pay — it is how much, and how two of the five refuse to say.</p>
+<p>Here is the whole answer in one screen:</p>
+<div class="table-wrap"><table><thead><tr><th>Host</th><th>What happens when you go over</th><th>Unit price of the overage</th><th>Published?</th></tr></thead><tbody><tr><td><strong>Hetzner</strong> (Cloud)</td><td>Metered, billed in <strong>100 MB blocks</strong></td><td><strong>€1/TB</strong>, printed on the page as *&quot;€ 1 ($1.20)/TB&quot;*</td><td>Yes</td></tr><tr><td><strong>DigitalOcean</strong></td><td>Metered, billed <strong>per GiB</strong></td><td><strong>$0.01 per GiB</strong></td><td>Yes</td></tr><tr><td><strong>Namecheap</strong></td><td>Prepaid add-on you must buy in advance</td><td><strong>$10.00/mo per 100 GB</strong> (capped at 1 TB total)</td><td>Yes, as an add-on price</td></tr><tr><td><strong>Hostinger</strong></td><td>Nothing written anywhere</td><td>—</td><td><strong>No — not verifiable</strong></td></tr><tr><td><strong>Liquid Web</strong></td><td>Nothing written anywhere</td><td>—</td><td><strong>No — not verifiable</strong></td></tr></tbody></table></div>
+<p>So the question &quot;what happens next&quot; resolves into three modes, and only one of them is a speed problem:</p>
+<ol>
+<li><strong>Metered</strong> — Hetzner, DigitalOcean, Namecheap. You keep your speed and get a bill.</li>
+<li><strong>Silent</strong> — Hostinger, Liquid Web. They print the allowance and never print the consequence.</li>
+<li><strong>Suspended</strong> — the budget end of the market. In a LowEndBox comment thread, a RackNerd representative described it plainly: *&quot;the VPS would automatically be suspended until the bandwidth resets. The bandwidth resets monthly, every first of the month.&quot;* That is a suspension, not a bill and not a throttle.</li>
+</ol>
+<p>---</p>
+<h2>The 83x spread nobody prints side by side</h2>
+<p>Take one concrete event: <strong>you push 100 GB more outbound traffic than your plan includes.</strong> Same event, five hosts, three published prices:</p>
+<div class="table-wrap"><table><thead><tr><th>Host</th><th>Cost of 100 GB of overage</th><th>How it is measured</th></tr></thead><tbody><tr><td>Hetzner</td><td><strong>$0.12</strong></td><td>100 GB = 0.1 TB, at the page&#x27;s own *&quot;$1.20/TB&quot;*</td></tr><tr><td>DigitalOcean</td><td><strong>$1.00</strong></td><td>100 GiB × $0.01/GiB</td></tr><tr><td>Namecheap</td><td><strong>$10.00/mo</strong></td><td>one 100 GB add-on block, billed <strong>every month</strong></td></tr></tbody></table></div>
+<p>Namecheap is <strong>83x</strong> Hetzner and <strong>10x</strong> DigitalOcean for the identical 100 GB. Scale it to a full terabyte and the gap is the same: $1.20 at Hetzner, $10.24 per TiB at DigitalOcean (1,024 GiB × $0.01), $100.00/mo at Namecheap (ten 100 GB blocks).</p>
+<p>And Namecheap&#x27;s add-on has a ceiling the other two do not: the KB&#x27;s table caps *Maximum Additional Bandwidth* at <strong>1 TB</strong>. On the Hypernova plan — which already includes <strong>10,000 GB/mo</strong> — the largest extra bandwidth you can buy is 1,000 GB, a 10% top-up for <strong>$100/mo</strong>, on top of a $56.88 month-to-month plan price.</p>
+<p>The sharpest way to see it: <strong>doubling your bandwidth is cheap at the metered hosts and absurd at the add-on host.</strong></p>
+<ul>
+<li>DigitalOcean $4/mo Basic (500 GiB): doubling your transfer costs 500 GiB × $0.01 = <strong>$5.00</strong>, i.e. 125% of your plan price.</li>
+<li>Namecheap Spark (1,000 GB): doubling your bandwidth needs 10 blocks = <strong>$100/mo</strong>, i.e. <strong>17x</strong> the $5.88 month-to-month plan price.</li>
+<li>Hetzner CX (20 TB): doubling costs 20 TB × $1.20 = <strong>$24.00</strong>.</li>
+</ul>
+<p>---</p>
+<h2>DigitalOcean: your free allowance is time-weighted, and rebuilding does not reset it</h2>
+<p>This is the part every &quot;how much bandwidth do I get&quot; post gets wrong. DigitalOcean&#x27;s pool is not per-Droplet and it is not granted on the 1st of the month. From the Bandwidth Billing page (last updated 2026-09-14):</p>
+<p>&gt; *&quot;Transfer allowance and usage is pooled cumulatively across all Droplets at the team level, not individually per Droplet. Accrued transfer does not roll over between months and cannot be transferred between teams.&quot;*</p>
+<p>&gt; *&quot;We bill Droplets for each second they exist, rounded to the nearest minute, up to a maximum of 2,419,200 seconds (28 days) per monthly billing cycle. For every second a Droplet exists, it accrues 1/2,419,200 of its total transfer allowance towards the team&#x27;s transfer pool.&quot;*</p>
+<p>Check the arithmetic: 28 × 86,400 = <strong>2,419,200 seconds</strong>. DigitalOcean&#x27;s transfer month is 28 days long no matter how many days the calendar month has.</p>
+<p>Two consequences you can act on:</p>
+<ul>
+<li><strong>Destroying and recreating a Droplet does not reset anything.</strong> A Droplet that exists for 14 days contributes 14/2,419,200 × 86,400 × ... i.e. exactly half of its allowance. If you burn 300 GiB on day 1, destroy it on day 2, and rebuild on day 10, the pool you earned in those two days is 2/28 of 500 GiB ≈ 36 GiB — and the new Droplet starts accruing from zero.</li>
+<li><strong>One noisy Droplet can spend another Droplet&#x27;s allowance.</strong> DigitalOcean&#x27;s own example: two 1,000 GiB Droplets running a full cycle create a 2,000 GiB pool, and if one uses 1,500 GiB while the other uses 100 GiB, *&quot;no overage fees apply.&quot;* The reverse is also true — the quiet Droplet&#x27;s accrual can be eaten by the loud one.</li>
+</ul>
+<p>What does <strong>not</strong> count against you, per the same page: inbound transfer (free), VPC private-network traffic, and — a genuinely unusual clause — *&quot;We do not bill for outbound data transfer that we determine is dropped by a DigitalOcean firewall rule.&quot;* What <strong>does</strong> count, and surprises people: *&quot;All IPv6 traffic uses the public interface,&quot;* so IPv6 egress is billed exactly like IPv4.</p>
+<h3>The overage is not always a penalty</h3>
+<p>Because the allowance scales with the plan, DigitalOcean&#x27;s flat $0.01/GiB is sometimes *cheaper* than the rate you already pay. Divide each Basic tier&#x27;s monthly price by its included transfer:</p>
+<div class="table-wrap"><table><thead><tr><th>Plan</th><th>Included transfer</th><th>Blended rate</th><th>Overage ÷ blended</th></tr></thead><tbody><tr><td>$4/mo</td><td>500 GiB</td><td>$0.00800/GiB</td><td><strong>1.25x</strong></td></tr><tr><td>$6/mo</td><td>1,000 GiB</td><td>$0.00600/GiB</td><td><strong>1.67x</strong></td></tr><tr><td>$12/mo</td><td>2,000 GiB</td><td>$0.00600/GiB</td><td><strong>1.67x</strong></td></tr><tr><td>$18/mo</td><td>3,000 GiB</td><td>$0.00600/GiB</td><td><strong>1.67x</strong></td></tr><tr><td>$24/mo</td><td>4,000 GiB</td><td>$0.00600/GiB</td><td><strong>1.67x</strong></td></tr><tr><td>$48/mo</td><td>5,000 GiB</td><td>$0.00960/GiB</td><td><strong>1.04x</strong></td></tr><tr><td>$96/mo</td><td>6,000 GiB</td><td>$0.01600/GiB</td><td><strong>0.63x</strong></td></tr></tbody></table></div>
+<p>On the top two tiers, extra traffic costs <strong>less per GiB than the plan itself</strong>. Doubling the transfer on the $96/mo plan adds $60.00 — 62.5% of the plan price, not 167%.</p>
+<p>---</p>
+<h2>Hetzner: 100 MB blocks, and a warning email that explicitly does not stop anything</h2>
+<p>Hetzner&#x27;s traffic page (ID <code>RO-CBB6A</code>) is the most concrete in the group: *&quot;There is no bandwidth limitation. We will charge € 1 ($1.20)/TB for overusage.&quot;* Note the phrase — <strong>no bandwidth limitation</strong> is stated on the same page as the price. That is the opposite of throttling.</p>
+<p>The Cloud billing FAQ adds the mechanics:</p>
+<p>&gt; *&quot;If you exceed the traffic included in your package, we will bill you for the over-usage in blocks of 100MB. If you only consume a fraction of 100MB, we will round up to the next full 100MB.&quot;*</p>
+<p>Its worked example: a server with 20 TB included that uses 20.00008 TB is billed for <strong>0.0001 TB (= 100 MB)</strong>. So the smallest possible overage charge is 100 MB — about $0.00012 — and Hetzner&#x27;s rounding is the finest-grained of the three.</p>
+<p>Then the sentence that matters most for anyone who thinks the email will save them:</p>
+<p>&gt; *&quot;We will notify you, the project owner, if the traffic usage exceeds 75% of the included free traffic, and again if you reach 100%. These notifications are a convenience to help you keep track of your usage; they do not cap or stop it... Any traffic used beyond the included amount is billed as usual, even if a notification reaches you late or does not arrive at all.&quot;*</p>
+<p>Hetzner also defines the measurement in a way that catches people out. Incoming and internal traffic is free, and <strong>internal</strong> includes *&quot;Other Hetzner Cloud servers with the same network zone via their public IPs&quot;* and *&quot;Hetzner Online dedicated root servers.&quot;* But <strong>outgoing</strong> includes *&quot;Other Hetzner Cloud servers with different network zones (eu-central, us-east, us-west, ap-southeast) via their public IPs.&quot;* Server-to-server traffic inside Hetzner is free within a network zone and billable across zones — even though it never touches the public internet.</p>
+<p>Included allowances differ sharply by region, too. The same page&#x27;s table gives CX/CPX/CAX <strong>20 TB</strong> in EU locations, but CPX only <strong>0.5–5 TB in SIN</strong> and <strong>1–5 TB in US</strong> locations depending on plan. A US cloud server can start with <strong>one twentieth</strong> of its EU twin&#x27;s allowance.</p>
+<p>---</p>
+<h2>What your allowance actually means in Mbps</h2>
+<p>Every plan in this comparison hides the same trap: the allowance is a monthly volume, and the port is a rate. Convert the volume to a rate and the numbers get small fast. Formula: <code>GB × 8 ÷ 2,592,000</code> (a 30-day month in seconds) = the Mbps you can sustain 24/7 without overage.</p>
+<div class="table-wrap"><table><thead><tr><th>Plan</th><th>Included transfer</th><th>Equal to a constant</th></tr></thead><tbody><tr><td>DigitalOcean $4/mo</td><td>500 GiB (536.9 GB)</td><td><strong>1.66 Mbps</strong></td></tr><tr><td>Namecheap Spark</td><td>1,000 GB</td><td><strong>3.09 Mbps</strong></td></tr><tr><td>Hostinger KVM 1</td><td>4 TB</td><td><strong>12.35 Mbps</strong></td></tr><tr><td>Liquid Web 8 GB package</td><td>5 TB</td><td><strong>15.43 Mbps</strong></td></tr><tr><td>Hetzner CX/CPX (EU)</td><td>20 TB</td><td><strong>61.73 Mbps</strong></td></tr><tr><td>Hostinger KVM 8</td><td>32 TB</td><td><strong>98.77 Mbps</strong></td></tr></tbody></table></div>
+<p>Hostinger&#x27;s product page pairs those allowances with a stated <strong>1 Gbps network speed</strong>. At line rate, 1 Gbps is 0.125 GB/s, so the 4 TB on KVM 1 is gone in 4,000 ÷ 0.125 = <strong>32,000 seconds — 8.9 hours</strong>. The port is roughly 81x what the allowance can sustain. Namecheap&#x27;s own comparison table makes the same point from the other direction: it lists competing plans as *&quot;Unmetered&quot;* — and *unmetered* still means a physical port with a ceiling, not infinite throughput.</p>
+<p>---</p>
+<h2>What I could not verify (2026-10-20, direct requests, no proxy, no UA spoofing)</h2>
+<ul>
+<li><strong>Hostinger</strong>: the VPS product page lists 4 / 8 / 16 / 32 TB of bandwidth across KVM 1–8 and a 1 Gbps port. I read the full Universal Terms of Service Agreement and the product page; neither contains any clause on exceeding bandwidth, overage fees, throttling, or suspension for traffic. <strong>Not verifiable</strong> — if you need Hostinger&#x27;s answer, ask before you buy, not after.</li>
+<li><strong>Liquid Web</strong>: the packages page lists <strong>5 TB</strong> (8 GB), <strong>7 TB</strong> (16 GB), <strong>10 TB</strong> (32 GB) and *&quot;Unlimited inbound&quot;*, and contains no overage, throttling, or exceedance clause. Its FAQ&#x27;s only traffic-related line is a sizing hint: *&quot;The right VPS package depends on your website or application&#x27;s resource needs, such as traffic levels and performance requirements.&quot;* <strong>Not verifiable.</strong> (A direct script request to this page returns 403; the text above was read through the standard fetch tool.)</li>
+<li><strong>Namecheap&#x27;s main site</strong> returns 403 to direct script requests; the plan figures and add-on prices above come from its Knowledgebase and the VPS product page.</li>
+</ul>
+<p>---</p>
+<h2>The decision rule</h2>
+<ol>
+<li><strong>Treat &quot;unlimited&quot; and &quot;unmetered&quot; as marketing, and the TB figure as the real product.</strong> Compute your own baseline first: <code>monthly GB × 8 ÷ 2,592,000</code> is the sustained Mbps you can actually afford. If that number looks smaller than your average outbound, the plan is mispriced for you no matter what the headline says.</li>
+<li><strong>Buy the overage unit price, not the allowance size.</strong> One terabyte of headroom costs $1.20 at Hetzner, $10.24 per TiB at DigitalOcean, and $100/mo at Namecheap. On a cheap VPS the overage can exceed the plan price by an order of magnitude.</li>
+<li><strong>If the host publishes nothing, assume the worst and self-meter.</strong> Hostinger and Liquid Web give you a number and no consequence. Put your own alert at 75% of the allowance — the same threshold Hetzner uses — and do not wait for an email.</li>
+<li><strong>At DigitalOcean, watch the team pool, not the Droplet.</strong> Allowance accrues at 1/2,419,200 per second of a Droplet&#x27;s existence and never rolls over. Rebuilds shrink it; a neighbour can spend it; IPv6 counts; firewall-dropped traffic does not.</li>
+<li><strong>At Hetzner, remember the emails are informational.</strong> *&quot;They do not cap or stop it.&quot;* Overage is billed in 100 MB blocks whether or not the notification arrives.</li>
+<li><strong>Never assume a throttle.</strong> In this entire comparison, zero of five hosts throttle. If your server suddenly slows to a crawl after a heavy month, look at your own stack first — the hosts that publish a policy all bill instead.</li>
+</ol><section><h2>Sources</h2><ul><li><a href="https://docs.digitalocean.com/platform/billing/bandwidth/">https://docs.digitalocean.com/platform/billing/bandwidth/</a></li><li><a href="https://www.digitalocean.com/pricing/droplets">https://www.digitalocean.com/pricing/droplets</a></li><li><a href="https://docs.hetzner.com/robot/general/traffic/">https://docs.hetzner.com/robot/general/traffic/</a></li><li><a href="https://docs.hetzner.com/cloud/billing/faq/">https://docs.hetzner.com/cloud/billing/faq/</a></li><li><a href="https://www.namecheap.com/hosting/vps/">https://www.namecheap.com/hosting/vps/</a></li><li><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9215/48/how-to-upgrade-rambandwidthdisk-space-on-a-vpsdedicated-server/">https://www.namecheap.com/support/knowledgebase/article.aspx/9215/48/how-to-upgrade-rambandwidthdisk-space-on-a-vpsdedicated-server/</a></li><li><a href="https://www.hostinger.com/vps-hosting">https://www.hostinger.com/vps-hosting</a></li><li><a href="https://www.hostinger.com/legal/universal-terms-of-service-agreement">https://www.hostinger.com/legal/universal-terms-of-service-agreement</a></li><li><a href="https://www.liquidweb.com/vps-hosting/packages/">https://www.liquidweb.com/vps-hosting/packages/</a></li></ul></section><section class="page-details"><h2>Verification details</h2><p><strong>Source scan run:</strong> 2026-10-20T00:53:43+00:00</p></section></article></main><footer><p>Offers are sourced from official provider pages. Confirm current terms with the provider. Affiliate links are disclosed when used.</p><nav aria-label="Footer"><a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy">Privacy</a> · <a href="/contact">Contact</a></nav></footer><script>(()=>{const c=document.modelContext;if(!c?.registerTool)return;const api="/api/agent/articles";c.registerTool({name:"search_vps_articles",description:"Search Lumafare's public VPS deal and evaluation articles. Return source links and dates; unknown details remain unknown.",inputSchema:{type:"object",properties:{query:{type:"string",description:"Search words from a VPS hosting question"},limit:{type:"integer",minimum:1,maximum:10}},required:["query"]},execute:async({query,limit})=>{const u=new URL(api,location.origin);u.searchParams.set("q",query);if(limit)u.searchParams.set("limit",String(limit));const r=await fetch(u);if(!r.ok)throw new Error("Article search unavailable");return await r.json()}});c.registerTool({name:"read_vps_article",description:"Read one public Lumafare article by its exact slug. Do not infer unpublished facts.",inputSchema:{type:"object",properties:{slug:{type:"string",pattern:"^[a-z0-9]+(?:-[a-z0-9]+)*$"}},required:["slug"]},execute:async({slug})=>{const u=new URL(api,location.origin);u.searchParams.set("slug",slug);const r=await fetch(u);if(!r.ok)throw new Error(r.status===404?"Article not found":"Article read unavailable");return await r.json()}})})()</script></body></html>
