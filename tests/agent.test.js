@@ -27,9 +27,20 @@ test("article API supports bounded search, exact read and 404", async () => {
   // requested limit, instead of pinning a count that changes every time an article is added.
   assert.ok(found.count >= 1, "a bounded search should return at least one article");
   assert.ok(found.results.length <= 2, "the limit parameter must bound the result list");
-  assert.ok(found.results.some((r) => r.slug === "compare-vps-deals-total-cost"),
-    "compare-vps-deals-total-cost should be returned for a VPS billing query");
+  for (const result of found.results) {
+    assert.match(result.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, "every result must carry a well-formed slug");
+    assert.ok(result.url.startsWith("https://lumafare.com/articles/"), "every result must link to its article");
+    assert.ok(result.published, "every result must carry a publication date");
+  }
   assert.ok(found.results[0].source_url.startsWith("https://"));
+  // Ranking pinning broke at 16 articles: "VPS billing" now matches many articles, and a fixed
+  // slug no longer survives the top-N cut. Ranking is corpus-dependent, so the search is asserted
+  // to surface a known article when it is queried with that article's own distinctive term, and
+  // the generic query above only asserts shape and bounding.
+  const targeted = await onRequestGet({ request: new Request("https://lumafare.com/api/agent/articles?q=renewal&limit=10"), env });
+  const targetedBody = await targeted.json();
+  assert.ok(targetedBody.results.some((r) => r.slug === "compare-vps-deals-total-cost"),
+    "search should surface a known article when queried with that article's own term");
   const read = await onRequestGet({ request: new Request("https://lumafare.com/api/agent/articles?slug=compare-vps-deals-total-cost"), env });
   assert.match((await read.json()).body, /renewal/i);
   const missing = await onRequestGet({ request: new Request("https://lumafare.com/api/agent/articles?slug=missing-entry"), env });
@@ -45,7 +56,10 @@ test("MCP JSON-RPC initializes, lists tools, searches and reads", async () => {
   assert.equal(initialized.headers.get("mcp-protocol-version"), "2025-11-25");
   const listed = await mcpRequest({ request: mcp("tools/list"), env });
   assert.deepEqual((await listed.json()).result.tools.map((tool) => tool.name).sort(), ["read_article", "search_articles"]);
-  const found = await mcpRequest({ request: mcp("tools/call", { name: "search_articles", arguments: { query: "VPS billing" } }), env });
+  // Queried with words from the article's own title: ranking over a growing corpus is not a
+  // stable contract, and the default limit of 5 no longer keeps this slug inside the cut for a
+  // generic query like "VPS billing".
+  const found = await mcpRequest({ request: mcp("tools/call", { name: "search_articles", arguments: { query: "headline price compare" } }), env });
   assert.match((await found.json()).result.content[0].text, /compare-vps-deals-total-cost/);
   const read = await mcpRequest({ request: mcp("tools/call", { name: "read_article", arguments: { slug: "compare-vps-deals-total-cost" } }), env });
   assert.match((await read.json()).result.content[0].text, /https:\/\//);
@@ -60,7 +74,9 @@ test("A2A JSON-RPC returns completed search and exact-article tasks", async () =
     method: "POST", headers: { "content-type": "application/json", "A2A-Version": "1.0" },
     body: JSON.stringify({ jsonrpc: "2.0", id, method: "SendMessage", params: { message: { messageId: `message-${id}`, role: "ROLE_USER", parts: [{ text }] } } }),
   }), env });
-  const response = await send("a2a-search", "VPS billing");
+  // Same reason as the MCP search above: A2A answers with a fixed limit of 5, so the query uses
+  // words from the article's own title rather than a generic term whose ranking shifts.
+  const response = await send("a2a-search", "headline price compare");
   const body = await response.json();
   assert.equal(response.status, 200);
   assert.equal(body.id, "a2a-search");
