@@ -60,7 +60,7 @@ The sharpest way to see it: **doubling your bandwidth is cheap at the metered ho
 
 ## DigitalOcean: your free allowance is time-weighted, and rebuilding does not reset it
 
-This is the part every "how much bandwidth do I get" post gets wrong. DigitalOcean's pool is not per-Droplet and it is not granted on the 1st of the month. From the Bandwidth Billing page (last updated 2026-09-14):
+This is the part every "how much bandwidth do I get" post gets wrong. DigitalOcean's pool is not per-Droplet and it is not granted on the 1st of the month. From the Bandwidth Billing page (its own metadata stamps `last_updated: "2026-09-14"`):
 
 > *"Transfer allowance and usage is pooled cumulatively across all Droplets at the team level, not individually per Droplet. Accrued transfer does not roll over between months and cannot be transferred between teams."*
 
@@ -127,6 +127,22 @@ Every plan in this comparison hides the same trap: the allowance is a monthly vo
 | Hostinger KVM 8 | 32 TB | **98.77 Mbps** |
 
 Hostinger's product page pairs those allowances with a stated **1 Gbps network speed**. At line rate, 1 Gbps is 0.125 GB/s, so the 4 TB on KVM 1 is gone in 4,000 ÷ 0.125 = **32,000 seconds — 8.9 hours**. The port is roughly 81x what the allowance can sustain. Namecheap's own comparison table makes the same point from the other direction: it lists competing plans as *"Unmetered"* — and *unmetered* still means a physical port with a ceiling, not infinite throughput.
+
+---
+
+## When the meter resets — and why the two metered hosts disagree
+
+The third question in this gap is the reset day, and three of the five hosts publish it in plain words:
+
+| Host | When the allowance resets | The host's own wording |
+|---|---|---|
+| **Hetzner** | **First of the calendar month** | *"We use calendar months to calculate traffic usage. The intervals start on the first of the month and end on the last day of month."* |
+| **DigitalOcean** | Your billing cycle; the pool never carries over | *"Accrued transfer does not roll over between months and cannot be transferred between teams."* |
+| **Namecheap** | Monthly — the add-on is priced **per month**, not per event | *"Additional Bandwidth … Price (per month) … 100 GB $10"* |
+| **RackNerd** (its own rep, on LowEndBox) | **Every first of the month** | *"The bandwidth resets monthly, every first of the month."* |
+| **Hostinger / Liquid Web** | **Not verifiable** | Neither page states a measurement window at all |
+
+The Hetzner and DigitalOcean definitions look similar and are not. Hetzner measures a **calendar month** — 28, 30 or 31 days depending on the month. DigitalOcean's accrual is capped at **2,419,200 seconds = 28 days** no matter how long the calendar month is. So a Droplet that lives through all 31 days of a long month still only earns 28 days' worth of allowance: **3 days of a 31-day month earn you nothing at DigitalOcean, and the same 3 days are inside Hetzner's window.** Neither host rolls anything over, so the practical rule is the same at both: whatever you do not spend is gone at the boundary, and rebuilding in the middle of a window shrinks what you get rather than restarting it.
 
 ---
 
