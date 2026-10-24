@@ -1,5 +1,5 @@
 {
-  "source_scan_at": "2026-10-24T00:57:32+00:00",
+  "source_scan_at": "2026-10-24T02:17:29+00:00",
   "source_checks": [
     {
       "provider": "Hostinger",
@@ -45,49 +45,49 @@
       "title": "Claim deal",
       "offer_url": "https://www.hostinger.com/vps-hosting#pricing",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-24T00:57:25+00:00"
+      "fetched_at": "2026-10-24T02:17:20+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "Student discount",
       "offer_url": "https://www.hostinger.com/student-discount",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-24T00:57:25+00:00"
+      "fetched_at": "2026-10-24T02:17:20+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "70% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-24T00:57:25+00:00"
+      "fetched_at": "2026-10-24T02:17:20+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "67% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-24T00:57:25+00:00"
+      "fetched_at": "2026-10-24T02:17:20+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "64% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-24T00:57:25+00:00"
+      "fetched_at": "2026-10-24T02:17:20+00:00"
     },
     {
       "provider": "Hostinger",
       "title": "65% off — Hostinger VPS page",
       "offer_url": "https://www.hostinger.com/vps-hosting",
       "source_url": "https://www.hostinger.com/vps-hosting",
-      "fetched_at": "2026-10-24T00:57:25+00:00"
+      "fetched_at": "2026-10-24T02:17:20+00:00"
     },
     {
       "provider": "Hetzner",
       "title": "Server Auction Save money and do good for the planet with refurbished servers from € 65.70 per month, excl. VAT",
       "offer_url": "https://www.hetzner.com/sb",
       "source_url": "https://www.hetzner.com/hosting/",
-      "fetched_at": "2026-10-24T00:57:27+00:00"
+      "fetched_at": "2026-10-24T02:17:22+00:00"
     }
   ]
 }
