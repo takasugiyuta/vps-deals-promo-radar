@@ -75,6 +75,21 @@
 | #29 被打后处置 | `DDoS` / `attack` / `null route` | `cloud-firewall-rule-limits`（malware 引用处顺带一次） | **不重复**：#17 讲的是**你自己能写几条防火墙规则**（含 deny 规则与 1,000 条 Sources/Destinations 天花板），本文讲**厂商侧在你被打时的处置动作**。已核对 |
 | #30 审计日志 | `audit log` / `login history` / `IP whitelist` | **0 篇命中** | **完全空白**。与未写 #22（子账号 / 角色权限）划界：#22 问**能不能开子账号、有几种角色**（授权），本文问**事后能不能查到谁干了什么**（可追溯）。同一块面的两个不同问题，取题时必须互相点名划界，别写成一篇 |
 
+### #26–#30 探源预判（2026-11-03 补货当天顺手探的，不是取题日的正式探源）
+
+> 自报身份 UA 直连，未换 UA、未走代理、未绕反爬；挡住就记 not verifiable。
+> **探源结论会改变取题难度，取题当天仍须重跑 `probe_sources.py`**（页面会变）。
+
+| # | 探到的官方页（2026-11-03 实测） | 读到的原话 | 风险重判 |
+|---|---|---|---|
+| 26 | Hetzner `cloud/servers/getting-started/migrate-data/`（ID **CL-2BCA0**，last change 2024-05-13）**200**；`getting-started/migrate-partition/`（ID **CL-F7002**）**200**；`general/billing-and-account-management/product-migration/`（ID **GE-22B1F**）**200**。DO 侧 llms.txt **零迁移文档** | *"the method below only shows how to save personal data and how to copy it to the new server"* + *"To migrate from a server with another provider to a Hetzner, follow these steps: Connect to your old server and create a back…"* | **中 → 中低**。角度比预想的更锋利：**Hetzner 官方确实写了「从别家搬到 Hetzner」的文档，但通篇是教你 rsync 自己搬，全程没出现「我们帮你搬 / 免费搬」**；DO 连文档都没有。→ 独家点落在「官方有搬家文档 ≠ 有人帮你搬」 |
+| 27 | Hetzner `cloud/billing/faq/` **200**（正文 9,855 字符）；`general/billing-and-account-management/billing-at-hetzner/billing-system-hetzner/` **200**（7,916 字符）。DO `platform/billing/index.html.md` **200** 但 **0 处 currency 字样** | *"Can I change the currency in the invoice? **It is not possible to change the currency after an account has been created.**"*；*"A project is billed in the currency that the owner of the project has configured for their account."*；*"A price adjustment occurs for: **Transferring a server to another project with a different currency** / Rescaling (regardless of whether the server is scaled up or down) / Restoring a deleted server"*；*"No price adjustment occurs for: Transferring a server to another project with the same currency / Rebuilding a server"*；另 *"we will issue an invoice to all customers in October, even if the minimum amount of **10 euros / 10 dollars** has not yet been reached"*、*"The system does not generate invoices until the invoice amount exceeds **10 euros** or the total amount remains below the threshold for **three months**"* | **中 → 低（本批最扎实的一条）**。Hetzner 把币种问题**官方写死了**：账号一旦建好币种就不能改，且**跨币种换项目会触发重定价**（升降配、恢复删机同样触发；同币种换项目与重装不触发）。这条与已写 `renews-at-x` 引过的那句 *"moving it to a project in a different currency"* 正好对上，那篇只引了一句，本篇可以做成完整的「什么动作会重定价」清单 |
+| 28 | DO `support/can-i-have-a-refund/index.html.md` **200**（last_updated **2024-03-12**）；Hetzner `cloud/billing/faq/` **200** 但 refund/credit/balance **0 命中** | DO 全文只有两句：***"We do not offer refunds. If there are extenuating circumstances, contact support."*** | **中高 → 高（本批最危险的一条，比 #29 更该警惕）**。DO 官方明文**根本不退款**，「退款退到哪」这题在 DO 侧**不成立**；Hetzner 侧 billing FAQ 零退款字样。**本题可能整体塌成「DO 不退款 / 其余家未公布」**，独家闸门大概率过不了 → **取题当天先跑闸门，PASS 不了就撤到「缺数据」，别硬写** |
+| 29 | Hetzner `robot/dedicated-server/troubleshooting/guideline-in-case-of-server-locking/`（ID **RO-5FE9C**，**last change 2026-10-20 = 探源时 14 天前**）**200**；`general/security-and-identify/abuse-form/`（ID **GE-62628**）**200**。DO 侧 llms.txt **零命中** | *"There are some situations in which we are forced to lock a product. Often this will be a single IP, but it can also apply to multiple IPs or even entire servers or storage boxes."*；*"If we lock a product, we always send an email explaining the situation."* | **最高 → 中**。原先以为官方来源完全未知，实际 Hetzner 有**专页**讲锁定（且 14 天前刚改过，是新鲜文档），锁定粒度从单个 IP 到整台服务器都有，且承诺发邮件说明。DO 侧仍空白 → 不对称本身就是独家点。**仍须先跑闸门** |
+| 30 | Hetzner `cloud/general/faq/` **200**，但命中内容是**项目成员与角色权限表**（Owner 等）；DO `platform/accounts/settings/index.html.md` **200**，有 sign-in method / 2FA / **session duration**，但**审计日志与登录历史 0 命中** | Hetzner 那页讲的是 *"invite users … choose their role, which determines their access level"*；DO 那页讲的是 *"your name, password, sign-in method, two-factor authentication, session duration, team membership"* | **中高 → 高**。两家的命中**都不在本题**：Hetzner 的成员/角色是 **#22 的地盘**（取 #30 那天会和 #22 撞车），DO 只有会话时长。**审计日志 / 登录历史两家均未核到** → 若取题当天仍核不到，按方法铁律第 2 条写 not verifiable，或考虑撤到「缺数据」 |
+
+**探源后的取题建议**：#27 最稳、#26 角度最锋利、#29 有新鲜官方页；**#28 与 #30 是两条高风险项**，取到那天若闸门 PASS 不了就直接跳过取下一号，不要为了不断更而硬写。
+
 > **排序理由（2026-10-09 调整）**：4、5 提到 3、4 前面，是因为它们的官方来源**今天实测直连 200**；6、7、8 的条款页今天全是 404 / 403，取题前必须先探源。见下面「来源可读性实测」。
 
 ### 来源可读性实测（2026-10-09 16:30 GMT+8，本机直连，未换 UA、未走代理）
@@ -158,7 +173,7 @@
     7. **内存是不是 ECC** —— 3 篇全是 LEB offer 帖的特性勾选，厂商侧几乎不公布。否。
     8. **cloud-init / user data / 开机脚本** —— 3 篇，太小众；且 `locked-out-rescue-console-root-password` 已引用过 DO Recovery ISO 菜单里的 `7. Clear out Cloud-Init cached data`。否。
   - 另：**学生 / 非营利优惠**虽是 0 覆盖，但需求无法判断（VPS 厂商基本不设学生优惠），沿用第一轮否「首单押金」的同一理由，不立条目。
-  - **新增 5 条的来源风险分级**（取题当天一律先跑 `probe_sources.py`）：#26 中、#27 中（**已有线索：Hetzner「项目币种」一层**）、#28 中高、#29 **最高（官方来源未知，核不到就写 not verifiable）**、#30 中高。
+  - **新增 5 条的来源风险分级（补货当日已顺手探源，见上方「探源预判」表，风险已重判）**：#27 **低**（Hetzner 官方写死「账号建好后币种不可改」+ 跨币种换项目触发重定价，本批最扎实）、#26 **中低**（Hetzner 有搬家文档但只教 rsync 自搬）、#29 **中**（Hetzner 有锁定专页 RO-5FE9C，14 天前刚改）、**#28 高**（DO 官方明文「We do not offer refunds」，本题在 DO 侧不成立）、**#30 高**（两家命中都不在本题，Hetzner 那是 #22 的角色表）。原判「#29 最高」已被探源推翻，**#28 与 #30 才是真正的高风险项**。
   - 下一步取 **#22「能不能开子账号 / 给团队成员权限」**；可用未写 **9 条：#22–#30**。按每天 1 篇可撑到 **2026-11-11**，**28 天周期（第 28 天 = 2026-11-05）收官不受影响，4 条余量早已够，本轮补货属于为 11-06 之后的日更提前备弹**。下一轮 BENCH 补缺口不晚于 **2026-11-08**。
 - **2026-11-03 第 22 篇：台账 #21「买到的 vCPU 是独享核还是共享线程」已写**（`vps-deals-shared-vs-dedicated-vcpu`，commit **570e4a9**，Actions run **41523874328** 两 job 全绿（refresh + Deploy to Cloudflare Pages），线上 200 / 43,133 字节 / 11 h2 / canonical 正确，线上 sitemap 35 条已含）。
   - 闸门：**55 条事实 / 25 条零命中 / 45.5% PASS**（`exclusive_check.py --min 3`）。
